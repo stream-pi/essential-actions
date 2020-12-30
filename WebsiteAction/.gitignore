@@ -1,3 +1,7 @@
 .idea/
 target/
 WebsiteAction.iml
+.classpath
+.factorypath
+.project
+.settings/
