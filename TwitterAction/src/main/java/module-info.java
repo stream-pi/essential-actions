@@ -10,6 +10,5 @@ module com.StreamPi.TwitterAction {
 
     requires java.desktop;
 
-    provides com.StreamPi.ActionAPI.NormalAction.NormalAction with  com.StreamPi.TwitterAction.TwitterAction;
-
+    provides com.StreamPi.ActionAPI.NormalAction.NormalAction with com.StreamPi.TwitterAction.TwitterAction;
 }

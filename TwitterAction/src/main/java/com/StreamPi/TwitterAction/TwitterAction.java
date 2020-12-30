@@ -37,7 +37,7 @@ public class TwitterAction extends NormalAction {
         setCategory("Twitter");
         setAuthor("dubbadhar");
         setServerButtonGraphic("fab-twitter");
-        setRepo("https://github.com/Stream-Pi/TwitterAction");
+        setRepo("https://github.com/Stream-Pi/EssentialAction");
         setVersion(new Version(1,0,0));
 
 
