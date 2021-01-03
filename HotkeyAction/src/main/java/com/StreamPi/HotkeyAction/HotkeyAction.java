@@ -17,9 +17,10 @@ public class HotkeyAction extends NormalAction {
     {
         setName("Hotkey");
         setCategory("Essentials");
-        setAuthor("dubbadhar");
+        setAuthor("rnayabed");
+        setVisibilityInServerSettingsPane(false);
         setServerButtonGraphic("far-keyboard");
-        setRepo("https://github.com/Stream-Pi/HotkeyAction");
+        setRepo("https://github.com/Stream-Pi/EssentialActions");
         setVersion(new Version(1,0,0));
     }
 
@@ -149,6 +150,9 @@ public class HotkeyAction extends NormalAction {
             case "SUPER":
             case "COMMAND":
                 return VK_WINDOWS;
+
+            case "META":
+                return VK_META;    
 
             case "SHIFT":
                 return VK_SHIFT;
