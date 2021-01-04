@@ -4,19 +4,21 @@ import com.StreamPi.OBSSuite.Mother.MotherInterface.MotherInterface;
 import com.StreamPi.Util.Alert.StreamPiAlert;
 import com.StreamPi.Util.Alert.StreamPiAlertType;
 
+import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.scene.control.Button;
 import net.twasi.obsremotejava.OBSRemoteController;
 
 public class OBSActionConnectionTask extends Task<Void> {
 
     String url, pass;
-    boolean connectOnStartupProperty;
+    Button connectDisconnectButton;
 
-    public OBSActionConnectionTask(String url, String pass, boolean connectOnStartupProperty)
+    public OBSActionConnectionTask(String url, String pass, Button connectDisconnectButton)
     {
         this.url = url;
         this.pass = pass;
-        this.connectOnStartupProperty = connectOnStartupProperty;    
+        this.connectDisconnectButton = connectDisconnectButton;    
     }
 
     @Override
@@ -24,13 +26,21 @@ public class OBSActionConnectionTask extends Task<Void> {
 
         try
         {
+            setConnectDisconnectButtonDisable(true);
+
             if(pass.isEmpty() || pass.isBlank())
                 pass = null;
 
             OBSRemoteController obsRemoteController = new OBSRemoteController(url, false, pass);
 
             obsRemoteController.registerConnectionFailedCallback(message->{
+                setConnectDisconnectButtonText("Disconnect");
                 new StreamPiAlert("Unable to Connect", "Unable to establish connection to WebSocket with provided crendentials", StreamPiAlertType.ERROR).show();
+            });
+
+            obsRemoteController.registerDisconnectCallback(onDisconnect->{
+                setConnectDisconnectButtonText("Connect");
+                MotherInterface.startNewInstance(null);
             });
 
 
@@ -44,8 +54,23 @@ public class OBSActionConnectionTask extends Task<Void> {
         {
             e.printStackTrace();
         }
+        finally
+        {
+            setConnectDisconnectButtonDisable(false);
+        }
 
         return null;
+    }
+
+
+    private void setConnectDisconnectButtonText(String text)
+    {
+        Platform.runLater(()-> connectDisconnectButton.setText(text));
+    }
+
+    private void setConnectDisconnectButtonDisable(boolean disable)
+    {
+        Platform.runLater(()-> connectDisconnectButton.setDisable(disable));
     }
     
 }

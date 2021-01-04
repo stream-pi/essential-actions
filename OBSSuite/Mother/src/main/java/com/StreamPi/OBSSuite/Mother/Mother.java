@@ -5,6 +5,7 @@ import com.StreamPi.ActionAPI.ActionProperty.Property.Property;
 import com.StreamPi.ActionAPI.ActionProperty.Property.Type;
 import com.StreamPi.ActionAPI.NormalAction.NormalAction;
 import com.StreamPi.OBSSuite.Mother.API;
+import com.StreamPi.OBSSuite.Mother.MotherInterface.MotherInterface;
 import com.StreamPi.Util.Version.Version;
 
 import javafx.application.Platform;
@@ -23,24 +24,15 @@ public class Mother extends NormalAction
         setVersion(new Version(1,0,0));
 
 
-        connectDisconnectButton = new Button();
+        connectDisconnectButton = new Button("Connect");
         
         setButtonBar(connectDisconnectButton);
     }
 
     private Button connectDisconnectButton;
 
-    private void setConnectDisconnectButtonText(String text)
-    {
-        Platform.runLater(()->{
-            connectDisconnectButton.setText(text);
-        });
-    }
-
     @Override
     public void initProperties() throws Exception {
-        // TODO Auto-generated method stub
-
         Property urlProperty = new Property("url", Type.STRING);
         urlProperty.setDisplayName("Localhost URL");
         urlProperty.setCanBeBlank(false);
@@ -62,15 +54,50 @@ public class Mother extends NormalAction
 
     @Override
     public void initAction() throws Exception {
+   
+
+        connectDisconnectButton.setOnAction(action->{
+            try
+            {
+                ServerProperties sp = getServerProperties();
+
+                String url = sp.getSingleProperty("url").getStringValue();
+                String pass = sp.getSingleProperty("pass").getStringValue();
+        
+                
+                if(MotherInterface.getInstance() == null)
+                {
+                    connect(url, pass);
+                } 
+                else
+                {
+                    MotherInterface.getInstance().getRemoteController().disconnect();
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        });
+
         ServerProperties sp = getServerProperties();
 
         String url = sp.getSingleProperty("url").getStringValue();
         String pass = sp.getSingleProperty("pass").getStringValue();
     
+            
         boolean connectOnStartupProperty = sp.getSingleProperty("connect_on_startup").getBoolValue();
 
+        if(connectOnStartupProperty)
+        {
+            connect(url, pass);
+        }
+    }
+
+    private void connect(String url, String pass)
+    {
         new Thread(
-            new OBSActionConnectionTask(url, pass, connectOnStartupProperty)
+            new OBSActionConnectionTask(url, pass, connectDisconnectButton)
         ).start();
     }
 
