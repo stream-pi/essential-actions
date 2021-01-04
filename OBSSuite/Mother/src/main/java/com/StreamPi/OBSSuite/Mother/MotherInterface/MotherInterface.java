@@ -8,7 +8,7 @@ public class MotherInterface implements API {
 
     public static MotherInterface instance = null;
 
-    public MotherInterface startNewInstance(OBSRemoteController obsRemoteController) {
+    public static MotherInterface startNewInstance(OBSRemoteController obsRemoteController) {
         instance = new MotherInterface(obsRemoteController);
 
         return instance;
