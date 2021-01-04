@@ -39,6 +39,7 @@
     <properties>
         <ActionAPIVersion>1.0.0</ActionAPIVersion>
         <UtilVersion>1.0.0</UtilVersion>
+        <OBSWebsocketJavaVersion>1.0.5</OBSWebsocketJavaVersion>
      
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
@@ -57,6 +58,12 @@
             <groupId>com.StreamPi</groupId>
             <artifactId>ActionAPI</artifactId>
             <version>${ActionAPIVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.twasi</groupId>
+            <artifactId>obs-websocket-java</artifactId>
+            <version>${OBSWebsocketJavaVersion}</version>
         </dependency>
     </dependencies>
 </project>

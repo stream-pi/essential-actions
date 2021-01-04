@@ -14,10 +14,11 @@ public class WebsiteAction extends NormalAction {
     public WebsiteAction()
     {
         setName("Website");
+        setVisibilityInServerSettingsPane(false);
         setCategory("Essentials");
-        setAuthor("dubbadhar");
+        setAuthor("rnayabed");
         setServerButtonGraphic("fas-globe");
-        setRepo("https://github.com/Stream-Pi/WebsiteAction");
+        setRepo("https://github.com/Stream-Pi/EssentialActions");
         setVersion(new Version(1,0,0));
     }
 
