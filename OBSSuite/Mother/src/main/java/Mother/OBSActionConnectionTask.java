@@ -1,6 +1,6 @@
-package com.StreamPi.OBSSuite.Mother;
+package Mother;
 
-import com.StreamPi.OBSSuite.Mother.MotherConnection.MotherConnection;
+import Mother.MotherConnection.MotherConnection;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -49,6 +49,7 @@ public class OBSActionConnectionTask extends Task<Void> {
                 setConnectDisconnectButtonText("Connect");
                 MotherConnection.setRemoteController(null);
             });
+
 
             obsRemoteController.registerConnectCallback(onConnect->{
                 setConnectDisconnectButtonText("Disconnect");

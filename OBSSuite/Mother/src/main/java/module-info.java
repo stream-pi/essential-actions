@@ -8,7 +8,7 @@ module com.StreamPi.OBSSuite.Mother
 
     requires transitive com.google.gson;
 
-    exports com.StreamPi.OBSSuite.Mother.MotherConnection;    
+    exports Mother.MotherConnection;    
     
-    provides com.StreamPi.ActionAPI.NormalAction.NormalAction with com.StreamPi.OBSSuite.Mother.Mother;
+    provides com.StreamPi.ActionAPI.NormalAction.NormalAction with Mother.Mother;
 }

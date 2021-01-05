@@ -1,4 +1,6 @@
-package SetCurrentScene;
+package SetReplayBuffer;
+
+import java.util.ArrayList;
 
 import com.StreamPi.ActionAPI.ActionProperty.Property.Property;
 import com.StreamPi.ActionAPI.ActionProperty.Property.Type;
@@ -13,25 +15,32 @@ import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.requests.ResponseBase;
 import net.twasi.obsremotejava.requests.SetCurrentScene.SetCurrentSceneResponse;
 
-public class SetCurrentScene extends NormalAction {
+public class SetReplayBuffer extends NormalAction {
 
-    public SetCurrentScene() {
-        setName("Set Current Scene");
+    public SetReplayBuffer() {
+        setName("Set Replay Buffer");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
         setVersion(new Version(1, 0, 0));
+
+        states = new ArrayList<>();
+        states.add("Start");
+        states.add("Stop");
+        states.add("Save");
     }
+
+    private ArrayList<String> states;
 
     @Override
     public void initProperties() throws Exception {
-        // TODO Auto-generated method stub
 
-        Property currentSceneProperty = new Property("current_scene", Type.STRING);
-        currentSceneProperty.setDisplayName("Scene Name");
-        currentSceneProperty.setCanBeBlank(false);
+        Property replayStatusActionProperty = new Property("replay_status", Type.LIST);
+        replayStatusActionProperty.setListValue(states);
+        replayStatusActionProperty.setDisplayName("Replay Buffer State");
+
         
-        addClientProperties(currentSceneProperty);
+        addClientProperties(replayStatusActionProperty);
     }
 
     @Override
@@ -50,9 +59,21 @@ public class SetCurrentScene extends NormalAction {
                     "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
                             .show();
         } else {
-            controller.setCurrentScene(getClientProperties().getSingleProperty("current_scene").getStringValue(), MotherConnection.getDefaultCallBack(
-                "Unable to Set Current Scene","Failed to set current Scene"
-            ));
+            
+            String state = states.get(getClientProperties().getSingleProperty("replay_status").getSelectedIndex());
+
+            if(state.equals("Start"))
+            {
+                controller.startReplayBuffer(MotherConnection.getDefaultCallBack("Failed to Start Replay Buffer","Failed to do that"));
+            }
+            else if(state.equals("Stop"))
+            {
+                controller.stopReplayBuffer(MotherConnection.getDefaultCallBack("Failed to Stop Replay Buffer","Failed to do that"));
+            }
+            else if(state.equals("Save"))
+            {
+                controller.saveReplayBuffer(MotherConnection.getDefaultCallBack("Failed to Save Replay Buffer","Failed to do that"));
+            }
         }
     }
 

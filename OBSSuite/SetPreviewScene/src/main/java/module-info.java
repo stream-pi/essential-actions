@@ -1,10 +1,9 @@
-module com.StreamPi.OBSSuite.SetCurrentScene 
-{
+module com.StreamPi.OBSSuite.SetPreviewScene  {
     requires com.StreamPi.ActionAPI;
     requires com.StreamPi.Util;
 
     requires obs.websocket.java;
     requires com.StreamPi.OBSSuite.Mother;
     
-    provides com.StreamPi.ActionAPI.NormalAction.NormalAction with SetCurrentScene.SetCurrentScene;
+    provides com.StreamPi.ActionAPI.NormalAction.NormalAction with SetPreviewScene.SetPreviewScene;
 }

@@ -1,4 +1,6 @@
-package SetCurrentScene;
+package SetStreaming;
+
+import java.util.ArrayList;
 
 import com.StreamPi.ActionAPI.ActionProperty.Property.Property;
 import com.StreamPi.ActionAPI.ActionProperty.Property.Type;
@@ -13,25 +15,30 @@ import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.requests.ResponseBase;
 import net.twasi.obsremotejava.requests.SetCurrentScene.SetCurrentSceneResponse;
 
-public class SetCurrentScene extends NormalAction {
+public class SetStreaming extends NormalAction {
 
-    public SetCurrentScene() {
-        setName("Set Current Scene");
+    public SetStreaming() {
+        setName("Set Streaming");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
         setVersion(new Version(1, 0, 0));
+
+        states = new ArrayList<>();
+        states.add("Start");
+        states.add("Stop");
     }
+
+    private ArrayList<String> states;
 
     @Override
     public void initProperties() throws Exception {
-        // TODO Auto-generated method stub
 
-        Property currentSceneProperty = new Property("current_scene", Type.STRING);
-        currentSceneProperty.setDisplayName("Scene Name");
-        currentSceneProperty.setCanBeBlank(false);
+        Property streamingStatusProperty = new Property("streaming_status", Type.LIST);
+        streamingStatusProperty.setListValue(states);
+        streamingStatusProperty.setDisplayName("Streaming State");
         
-        addClientProperties(currentSceneProperty);
+        addClientProperties(streamingStatusProperty);
     }
 
     @Override
@@ -50,9 +57,17 @@ public class SetCurrentScene extends NormalAction {
                     "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
                             .show();
         } else {
-            controller.setCurrentScene(getClientProperties().getSingleProperty("current_scene").getStringValue(), MotherConnection.getDefaultCallBack(
-                "Unable to Set Current Scene","Failed to set current Scene"
-            ));
+            
+            String state = states.get(getClientProperties().getSingleProperty("streaming_status").getSelectedIndex());
+
+            if(state.equals("Start"))
+            {
+                controller.startStreaming(MotherConnection.getDefaultCallBack("Failed to Start Streaming","Failed to do that"));
+            }
+            else if(state.equals("Stop"))
+            {
+                controller.stopStreaming(MotherConnection.getDefaultCallBack("Failed to Stop Streaming","Failed to do that"));
+            }
         }
     }
 

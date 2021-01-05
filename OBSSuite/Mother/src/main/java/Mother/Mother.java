@@ -1,10 +1,10 @@
-package com.StreamPi.OBSSuite.Mother;
+package Mother;
 
 import com.StreamPi.ActionAPI.ActionProperty.ServerProperties;
 import com.StreamPi.ActionAPI.ActionProperty.Property.Property;
 import com.StreamPi.ActionAPI.ActionProperty.Property.Type;
 import com.StreamPi.ActionAPI.NormalAction.NormalAction;
-import com.StreamPi.OBSSuite.Mother.MotherConnection.MotherConnection;
+import Mother.MotherConnection.MotherConnection;
 import com.StreamPi.Util.Exception.MinorException;
 import com.StreamPi.Util.Version.Version;
 
@@ -76,9 +76,10 @@ public class Mother extends NormalAction
 
         if(isConnectOnStartup() && firstRun)
         {
-            firstRun = false;
             connect(getURL(), getPassword());
         }
+
+        firstRun = false;
     }
 
     private boolean firstRun = true;

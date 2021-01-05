@@ -1,4 +1,6 @@
-package SetCurrentScene;
+package SetVolume;
+
+import java.util.ArrayList;
 
 import com.StreamPi.ActionAPI.ActionProperty.Property.Property;
 import com.StreamPi.ActionAPI.ActionProperty.Property.Type;
@@ -13,10 +15,10 @@ import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.requests.ResponseBase;
 import net.twasi.obsremotejava.requests.SetCurrentScene.SetCurrentSceneResponse;
 
-public class SetCurrentScene extends NormalAction {
+public class SetVolume extends NormalAction {
 
-    public SetCurrentScene() {
-        setName("Set Current Scene");
+    public SetVolume() {
+        setName("Set Volume");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
@@ -25,13 +27,15 @@ public class SetCurrentScene extends NormalAction {
 
     @Override
     public void initProperties() throws Exception {
-        // TODO Auto-generated method stub
 
-        Property currentSceneProperty = new Property("current_scene", Type.STRING);
-        currentSceneProperty.setDisplayName("Scene Name");
-        currentSceneProperty.setCanBeBlank(false);
+        Property sourceProperty = new Property("source", Type.STRING);
+        sourceProperty.setCanBeBlank(false);
+        sourceProperty.setDisplayName("Source");
+
+        Property setVolumeProperty = new Property("volume", Type.DOUBLE);
+        setVolumeProperty.setDisplayName("Volume");
         
-        addClientProperties(currentSceneProperty);
+        addClientProperties(sourceProperty, setVolumeProperty);
     }
 
     @Override
@@ -49,10 +53,12 @@ public class SetCurrentScene extends NormalAction {
             new StreamPiAlert("Is OBS Connected?",
                     "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
                             .show();
-        } else {
-            controller.setCurrentScene(getClientProperties().getSingleProperty("current_scene").getStringValue(), MotherConnection.getDefaultCallBack(
-                "Unable to Set Current Scene","Failed to set current Scene"
-            ));
+        } 
+        else 
+        {
+            String source = getClientProperties().getSingleProperty("source").getStringValue();
+            double volume = getClientProperties().getSingleProperty("volume").getDoubleValue();
+            controller.setVolume(source, volume, MotherConnection.getDefaultCallBack("Failed to Set Volume","Failed to do that"));
         }
     }
 

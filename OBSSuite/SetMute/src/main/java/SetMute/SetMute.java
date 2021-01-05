@@ -1,4 +1,4 @@
-package SetCurrentScene;
+package SetMute;
 
 import com.StreamPi.ActionAPI.ActionProperty.Property.Property;
 import com.StreamPi.ActionAPI.ActionProperty.Property.Type;
@@ -11,12 +11,11 @@ import com.StreamPi.Util.Version.Version;
 import net.twasi.obsremotejava.OBSRemoteController;
 import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.requests.ResponseBase;
-import net.twasi.obsremotejava.requests.SetCurrentScene.SetCurrentSceneResponse;
 
-public class SetCurrentScene extends NormalAction {
+public class SetMute extends NormalAction {
 
-    public SetCurrentScene() {
-        setName("Set Current Scene");
+    public SetMute() {
+        setName("Set Mute");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
@@ -25,13 +24,14 @@ public class SetCurrentScene extends NormalAction {
 
     @Override
     public void initProperties() throws Exception {
-        // TODO Auto-generated method stub
+        Property sourceProperty = new Property("source", Type.STRING);
+        sourceProperty.setDisplayName("Transition Name");
+        sourceProperty.setCanBeBlank(false);
 
-        Property currentSceneProperty = new Property("current_scene", Type.STRING);
-        currentSceneProperty.setDisplayName("Scene Name");
-        currentSceneProperty.setCanBeBlank(false);
+        Property isMuteProperty = new Property("mute", Type.BOOLEAN);
+        isMuteProperty.setDisplayName("Mute");
         
-        addClientProperties(currentSceneProperty);
+        addClientProperties(sourceProperty,isMuteProperty);
     }
 
     @Override
@@ -50,8 +50,8 @@ public class SetCurrentScene extends NormalAction {
                     "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
                             .show();
         } else {
-            controller.setCurrentScene(getClientProperties().getSingleProperty("current_scene").getStringValue(), MotherConnection.getDefaultCallBack(
-                "Unable to Set Current Scene","Failed to set current Scene"
+            controller.setMute(getClientProperties().getSingleProperty("source").getStringValue(), getClientProperties().getSingleProperty("mute").getBoolValue(), MotherConnection.getDefaultCallBack(
+                "Failed to mute source","Failed to do that"
             ));
         }
     }
