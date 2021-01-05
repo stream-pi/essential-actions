@@ -4,8 +4,11 @@ module com.StreamPi.OBSSuite.Mother
     requires com.StreamPi.Util;
 
     requires transitive obs.websocket.java;
+    requires transitive org.eclipse.jetty.client;
 
-    exports com.StreamPi.OBSSuite.Mother.MotherInterface;
+    requires transitive com.google.gson;
+
+    exports com.StreamPi.OBSSuite.Mother.MotherConnection;    
     
     provides com.StreamPi.ActionAPI.NormalAction.NormalAction with com.StreamPi.OBSSuite.Mother.Mother;
 }

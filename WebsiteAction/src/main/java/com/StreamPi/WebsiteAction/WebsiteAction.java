@@ -58,4 +58,10 @@ public class WebsiteAction extends NormalAction {
             throw new MinorException("Unable to open URL '"+urlToOpen+"'. Check if its correct.");
         }
     }
+
+    @Override
+    public void onShutDown() throws Exception {
+        // TODO Auto-generated method stub
+
+    }
 }

@@ -58,5 +58,11 @@
             <artifactId>ActionAPI</artifactId>
             <version>${ActionAPIVersion}</version>
         </dependency>
+
+          <dependency>
+            <groupId>com.StreamPi</groupId>
+            <artifactId>OBSSuite-Mother</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 </project>

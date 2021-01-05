@@ -1,13 +1,13 @@
 package com.StreamPi.OBSSuite.Mother;
 
-import com.StreamPi.OBSSuite.Mother.MotherInterface.MotherInterface;
-import com.StreamPi.Util.Alert.StreamPiAlert;
-import com.StreamPi.Util.Alert.StreamPiAlertType;
+import com.StreamPi.OBSSuite.Mother.MotherConnection.MotherConnection;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.Button;
 import net.twasi.obsremotejava.OBSRemoteController;
+import com.StreamPi.Util.Alert.StreamPiAlert;
+import com.StreamPi.Util.Alert.StreamPiAlertType;
 
 public class OBSActionConnectionTask extends Task<Void> {
 
@@ -22,11 +22,17 @@ public class OBSActionConnectionTask extends Task<Void> {
     }
 
     @Override
-    protected Void call() throws Exception {
-
+    protected Void call() throws Exception
+    {
         try
         {
             setConnectDisconnectButtonDisable(true);
+           
+            if(!url.startsWith("ws://"))
+            {
+                new StreamPiAlert("Invalid URL","Please fix URL and try again", StreamPiAlertType.ERROR).show();
+                return null;
+            }
 
             if(pass.isEmpty() || pass.isBlank())
                 pass = null;
@@ -34,31 +40,31 @@ public class OBSActionConnectionTask extends Task<Void> {
             OBSRemoteController obsRemoteController = new OBSRemoteController(url, false, pass);
 
             obsRemoteController.registerConnectionFailedCallback(message->{
-                setConnectDisconnectButtonText("Disconnect");
+                setConnectDisconnectButtonText("Connect");
                 new StreamPiAlert("Unable to Connect", "Unable to establish connection to WebSocket with provided crendentials", StreamPiAlertType.ERROR).show();
+                MotherConnection.setRemoteController(null);
             });
 
             obsRemoteController.registerDisconnectCallback(onDisconnect->{
                 setConnectDisconnectButtonText("Connect");
-                MotherInterface.startNewInstance(null);
+                MotherConnection.setRemoteController(null);
             });
 
-
-            obsRemoteController.connect();
-
             obsRemoteController.registerConnectCallback(onConnect->{
-                MotherInterface.startNewInstance(obsRemoteController);
+                setConnectDisconnectButtonText("Disconnect");
+                MotherConnection.setRemoteController(obsRemoteController);
             });
         }
         catch (Exception e)
         {
+            new StreamPiAlert("Unable to Connect", "Unable to establish connection to WebSocket with provided crendentials", StreamPiAlertType.ERROR).show();
+            MotherConnection.setRemoteController(null);
             e.printStackTrace();
         }
         finally
         {
             setConnectDisconnectButtonDisable(false);
         }
-
         return null;
     }
 

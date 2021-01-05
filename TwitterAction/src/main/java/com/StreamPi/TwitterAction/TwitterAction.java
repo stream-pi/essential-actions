@@ -234,4 +234,11 @@ public class TwitterAction extends NormalAction {
     {
         return value+("⠀".repeat(new Random().nextInt(100)));
     }*/
+
+    @Override
+    public void onShutDown() throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+    
 }
