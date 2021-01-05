@@ -235,5 +235,11 @@ public class HotkeyAction extends NormalAction {
     {
         robot.keyRelease(keyCode);
     }
+
+    @Override
+    public void onShutDown() throws Exception {
+        // TODO Auto-generated method stub
+
+    }
 }
 

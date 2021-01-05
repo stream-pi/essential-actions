@@ -38,6 +38,11 @@ public class OBSActionConnectionTask extends Task<Void> {
                 pass = null;
 
             OBSRemoteController obsRemoteController = new OBSRemoteController(url, false, pass);
+            
+            if(obsRemoteController.isFailed())
+            {
+                new StreamPiAlert("Unable to Connect to OBS", "Is it even running? Make sure the websocket plugin is installed. Check Credentials too", StreamPiAlertType.ERROR).show();
+            }
 
             obsRemoteController.registerConnectionFailedCallback(message->{
                 setConnectDisconnectButtonText("Connect");
