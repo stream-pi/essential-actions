@@ -171,6 +171,20 @@ public class HotkeyAction extends NormalAction {
             case "F10": return VK_F10;
             case "F11": return VK_F11;
             case "F12": return VK_F12;
+            case "F13": return VK_F13;
+            case "F14": return VK_F14;
+            case "F15": return VK_F15;
+            case "F16": return VK_F16;
+            case "F17": return VK_F17;
+            case "F18": return VK_F18;
+            case "F19": return VK_F19;
+            case "F20": return VK_F20;
+            case "F21": return VK_F21;
+            case "F22": return VK_F22;
+            case "F23": return VK_F23;
+            case "F24": return VK_F24;
+
+            
 
             case "HOME": return VK_HOME;
 
@@ -197,6 +211,8 @@ public class HotkeyAction extends NormalAction {
 
             case "NUM LEFT": return VK_KP_LEFT;
             case "LEFT": return VK_LEFT;
+
+            case "ALT GRAPH": return VK_ALT_GRAPH;
 
             case "NUM RIGHT": return VK_KP_RIGHT;
             case "RIGHT": return VK_RIGHT;
