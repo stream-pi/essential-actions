@@ -92,4 +92,10 @@ public class DemoCustomNormalAction extends NormalAction
 
         System.out.println("Action Called!");
     }
+
+    @Override
+    public void onShutDown() throws Exception {
+        // TODO Auto-generated method stub
+
+    }
 }
