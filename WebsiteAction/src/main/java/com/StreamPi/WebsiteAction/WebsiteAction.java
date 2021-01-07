@@ -14,7 +14,6 @@ public class WebsiteAction extends NormalAction {
     public WebsiteAction()
     {
         setName("Website");
-        setVisibilityInServerSettingsPane(false);
         setCategory("Essentials");
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-globe");

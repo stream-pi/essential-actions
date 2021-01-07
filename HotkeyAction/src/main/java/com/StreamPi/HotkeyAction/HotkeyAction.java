@@ -18,7 +18,6 @@ public class HotkeyAction extends NormalAction {
         setName("Hotkey");
         setCategory("Essentials");
         setAuthor("rnayabed");
-        setVisibilityInServerSettingsPane(false);
         setServerButtonGraphic("far-keyboard");
         setRepo("https://github.com/Stream-Pi/EssentialActions");
         setVersion(new Version(1,0,0));
