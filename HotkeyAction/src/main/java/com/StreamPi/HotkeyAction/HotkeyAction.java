@@ -193,6 +193,8 @@ public class HotkeyAction extends NormalAction {
             case "NUMPAD 7": return VK_NUMPAD7;
             case "NUMPAD 8": return VK_NUMPAD8;
             case "NUMPAD 9": return VK_NUMPAD9;
+
+            case "NUMBER SIGN": return VK_NUMBER_SIGN;
             
 
             case "HOME": return VK_HOME;
