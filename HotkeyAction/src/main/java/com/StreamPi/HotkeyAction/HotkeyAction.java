@@ -53,7 +53,7 @@ public class HotkeyAction extends NormalAction {
 
         try{
             for (String s : characters) {
-                int vkValue = getVKValue(s);
+                int vkValue = getVKValue(s.trim());
                 press(vkValue);
                 pressedChars.add(vkValue);
             }
@@ -183,6 +183,16 @@ public class HotkeyAction extends NormalAction {
             case "F23": return VK_F23;
             case "F24": return VK_F24;
 
+            case "NUMPAD 0": return VK_NUMPAD0;
+            case "NUMPAD 1": return VK_NUMPAD1;
+            case "NUMPAD 2": return VK_NUMPAD2;
+            case "NUMPAD 3": return VK_NUMPAD3;
+            case "NUMPAD 4": return VK_NUMPAD4;
+            case "NUMPAD 5": return VK_NUMPAD5;
+            case "NUMPAD 6": return VK_NUMPAD6;
+            case "NUMPAD 7": return VK_NUMPAD7;
+            case "NUMPAD 8": return VK_NUMPAD8;
+            case "NUMPAD 9": return VK_NUMPAD9;
             
 
             case "HOME": return VK_HOME;
