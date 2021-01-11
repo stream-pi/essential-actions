@@ -41,10 +41,15 @@ public class HotkeyAction extends NormalAction {
     }
 
     @Override
-    public void onActionClicked() throws Exception {
+    public void onActionClicked() throws Exception
+    {
         Property keyCombination = getClientProperties().getSingleProperty("key_comb");
 
-        press(keyCombination.getStringValue().toUpperCase().split(","));
+        press(keyCombination.getStringValue()
+            .toUpperCase()
+            .replace("?","SHIFT,/")
+            .split(",")
+        );
     }
 
     public void press(String[] characters) {
@@ -135,13 +140,12 @@ public class HotkeyAction extends NormalAction {
             case "|": return VK_BACK_SLASH; 
             case ";": return VK_SEMICOLON; 
             case ":": return VK_COLON; 
-            case "\"": return VK_QUOTE;
+            case "\"": return VK_BACK_SLASH;
             case ",": return VK_COMMA; 
-            case "<": return VK_COMMA;
+            case "<": return VK_LESS;
             case ".": return VK_PERIOD; 
-            case ">": return VK_PERIOD;
+            case ">": return VK_GREATER;
             case "/": return VK_SLASH; 
-            case "?": return VK_SLASH; 
             case " ": return VK_SPACE;
 
             case "WIN":
