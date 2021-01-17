@@ -66,7 +66,7 @@ public class SetRecording extends NormalAction {
             }
             else if(state.equals("Stop"))
             {
-                controller.startRecording(MotherConnection.getDefaultCallBack("Failed to Stop Recording","Failed to do that"));
+                controller.stopRecording(MotherConnection.getDefaultCallBack("Failed to Stop Recording","Failed to do that"));
             }
         }
     }

@@ -7,6 +7,7 @@ import javafx.concurrent.Task;
 import javafx.scene.control.Button;
 import net.twasi.obsremotejava.OBSRemoteController;
 import com.StreamPi.Util.Alert.StreamPiAlert;
+import com.StreamPi.Util.Alert.StreamPiAlertListener;
 import com.StreamPi.Util.Alert.StreamPiAlertType;
 
 public class OBSActionConnectionTask extends Task<Void> {
@@ -27,22 +28,28 @@ public class OBSActionConnectionTask extends Task<Void> {
         try
         {
             setConnectDisconnectButtonDisable(true);
-           
+         
             if(!url.startsWith("ws://"))
             {
                 new StreamPiAlert("Invalid URL","Please fix URL and try again", StreamPiAlertType.ERROR).show();
                 return null;
             }
 
+
             if(pass.isEmpty() || pass.isBlank())
                 pass = null;
 
+
+
             OBSRemoteController obsRemoteController = new OBSRemoteController(url, false, pass);
-            
+
+
             if(obsRemoteController.isFailed())
             {
                 new StreamPiAlert("Unable to Connect to OBS", "Is it even running? Make sure the websocket plugin is installed. Check Credentials too", StreamPiAlertType.ERROR).show();
             }
+
+
 
             obsRemoteController.registerConnectionFailedCallback(message->{
                 setConnectDisconnectButtonText("Connect");
@@ -72,6 +79,7 @@ public class OBSActionConnectionTask extends Task<Void> {
         {
             setConnectDisconnectButtonDisable(false);
         }
+
         return null;
     }
 
