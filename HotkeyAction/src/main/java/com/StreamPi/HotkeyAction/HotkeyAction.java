@@ -3,6 +3,8 @@ package com.StreamPi.HotkeyAction;
 import com.StreamPi.ActionAPI.ActionProperty.Property.Property;
 import com.StreamPi.ActionAPI.ActionProperty.Property.Type;
 import com.StreamPi.ActionAPI.NormalAction.NormalAction;
+import com.StreamPi.Util.Alert.StreamPiAlert;
+import com.StreamPi.Util.Alert.StreamPiAlertType;
 import com.StreamPi.Util.Exception.MinorException;
 import com.StreamPi.Util.Version.Version;
 import static java.awt.event.KeyEvent.*;
@@ -27,7 +29,6 @@ public class HotkeyAction extends NormalAction {
     public void initProperties() throws Exception {
         Property keyCombination = new Property("key_comb", Type.STRING);
         keyCombination.setDisplayName("Key combination (Separate using comma)");
-        keyCombination.setCanBeBlank(false);
 
         addClientProperties(keyCombination);
     }
@@ -45,11 +46,19 @@ public class HotkeyAction extends NormalAction {
     {
         Property keyCombination = getClientProperties().getSingleProperty("key_comb");
 
-        press(keyCombination.getStringValue()
-            .toUpperCase()
-            .replace("?","SHIFT,/")
-            .split(",")
-        );
+        if(keyCombination.getStringValue().isBlank())
+        {
+            new StreamPiAlert("Hotkey Action", "No key specified", StreamPiAlertType.ERROR).show();
+
+        }
+        else
+        {
+            press(keyCombination.getStringValue()
+                .toUpperCase()
+                .replace("?","SHIFT,/")
+                .split(",")
+            );
+        }
     }
 
     public void press(String[] characters) {
