@@ -1,4 +1,4 @@
-module com.StreamPi.OBSSuite.Mother
+module com.StreamPi.OBSSuite.MotherAction
 {
     requires com.StreamPi.ActionAPI;
     requires com.StreamPi.Util;

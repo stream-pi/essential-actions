@@ -29,7 +29,6 @@ public class SetVolume extends NormalAction {
     public void initProperties() throws Exception {
 
         Property sourceProperty = new Property("source", Type.STRING);
-        sourceProperty.setCanBeBlank(false);
         sourceProperty.setDisplayName("Source");
 
         Property setVolumeProperty = new Property("volume", Type.DOUBLE);

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.StreamPi</groupId>
-    <artifactId>OBSSuite-Mother</artifactId>
+    <artifactId>OBSSuite-MotherAction</artifactId>
     <version>1.0.0</version>
 
     <build>

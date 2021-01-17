@@ -61,7 +61,7 @@
 
         <dependency>
             <groupId>com.StreamPi</groupId>
-            <artifactId>OBSSuite-Mother</artifactId>
+            <artifactId>OBSSuite-MotherAction</artifactId>
             <version>${OBSSuiteMotherVersion}</version>
         </dependency>
     </dependencies>
