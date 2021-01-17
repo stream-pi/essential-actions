@@ -46,11 +46,12 @@ public class OBSActionConnectionTask extends Task<Void> {
 
             obsRemoteController.registerConnectionFailedCallback(message->{
                 setConnectDisconnectButtonText("Connect");
-                new StreamPiAlert("Unable to Connect", "Unable to establish connection to WebSocket with provided crendentials", StreamPiAlertType.ERROR).show();
+                new StreamPiAlert("Unable to Connect", "Unable to establish connection to WebSocket with provided crendentials\n\n"+
+                    "Detailed Error : "+message, StreamPiAlertType.ERROR).show();
                 MotherConnection.setRemoteController(null);
             });
 
-            obsRemoteController.registerDisconnectCallback(onDisconnect->{
+            obsRemoteController.registerDisconnectCallback(()->{
                 setConnectDisconnectButtonText("Connect");
                 MotherConnection.setRemoteController(null);
             });

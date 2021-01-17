@@ -49,16 +49,14 @@ public class HotkeyAction extends NormalAction {
         if(keyCombination.getStringValue().isBlank())
         {
             new StreamPiAlert("Hotkey Action", "No key specified", StreamPiAlertType.ERROR).show();
+            return;
+        }
 
-        }
-        else
-        {
-            press(keyCombination.getStringValue()
-                .toUpperCase()
-                .replace("?","SHIFT,/")
-                .split(",")
-            );
-        }
+        press(keyCombination.getStringValue()
+            .toUpperCase()
+            .replace("?","SHIFT,/")
+            .split(",")
+        );
     }
 
     public void press(String[] characters) {

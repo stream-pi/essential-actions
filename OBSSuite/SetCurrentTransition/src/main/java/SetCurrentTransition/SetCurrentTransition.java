@@ -27,7 +27,6 @@ public class SetCurrentTransition extends NormalAction {
     public void initProperties() throws Exception {
         Property currentTransitionProperty = new Property("current_transition", Type.STRING);
         currentTransitionProperty.setDisplayName("Transition Name");
-        currentTransitionProperty.setCanBeBlank(false);
         
         addClientProperties(currentTransitionProperty);
     }

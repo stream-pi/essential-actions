@@ -27,6 +27,7 @@ public class TextBlockAction extends NormalAction {
     public void initProperties() throws Exception {
         Property textBlockProperty = new Property("text_block", Type.STRING);
         textBlockProperty.setDisplayName("Text");
+        textBlockProperty.setDefaultValueStr("Stream-Pi FTW");
         textBlockProperty.setCanBeBlank(false);
 
         addClientProperties(textBlockProperty);

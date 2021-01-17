@@ -1,4 +1,6 @@
-package SetMute;
+package SetRecording;
+
+import java.util.ArrayList;
 
 import com.StreamPi.ActionAPI.ActionProperty.Property.Property;
 import com.StreamPi.ActionAPI.ActionProperty.Property.Type;
@@ -11,26 +13,32 @@ import com.StreamPi.Util.Version.Version;
 import net.twasi.obsremotejava.OBSRemoteController;
 import net.twasi.obsremotejava.callbacks.Callback;
 import net.twasi.obsremotejava.requests.ResponseBase;
+import net.twasi.obsremotejava.requests.SetCurrentScene.SetCurrentSceneResponse;
 
-public class SetMute extends NormalAction {
+public class SetRecording extends NormalAction {
 
-    public SetMute() {
-        setName("Set Mute");
+    public SetRecording() {
+        setName("Set Recording");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
         setVersion(new Version(1, 0, 0));
+
+        states = new ArrayList<>();
+        states.add("Start");
+        states.add("Stop");
     }
+
+    private ArrayList<String> states;
 
     @Override
     public void initProperties() throws Exception {
-        Property sourceProperty = new Property("source", Type.STRING);
-        sourceProperty.setDisplayName("Source");
 
-        Property isMuteProperty = new Property("mute", Type.BOOLEAN);
-        isMuteProperty.setDisplayName("Mute");
+        Property recordingStatusProperty = new Property("recording_status", Type.LIST);
+        recordingStatusProperty.setListValue(states);
+        recordingStatusProperty.setDisplayName("Recording State");
         
-        addClientProperties(sourceProperty,isMuteProperty);
+        addClientProperties(recordingStatusProperty);
     }
 
     @Override
@@ -49,9 +57,17 @@ public class SetMute extends NormalAction {
                     "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
                             .show();
         } else {
-            controller.setMute(getClientProperties().getSingleProperty("source").getStringValue(), getClientProperties().getSingleProperty("mute").getBoolValue(), MotherConnection.getDefaultCallBack(
-                "Failed to mute source","Failed to do that"
-            ));
+            
+            String state = states.get(getClientProperties().getSingleProperty("recording_status").getSelectedIndex());
+
+            if(state.equals("Start"))
+            {
+                controller.startRecording(MotherConnection.getDefaultCallBack("Failed to Start Recording","Failed to do that"));
+            }
+            else if(state.equals("Stop"))
+            {
+                controller.startRecording(MotherConnection.getDefaultCallBack("Failed to Stop Recording","Failed to do that"));
+            }
         }
     }
 

@@ -25,8 +25,7 @@ public class SetPreviewScene extends NormalAction {
     @Override
     public void initProperties() throws Exception {
         Property previewSceneProperty = new Property("preview_scene", Type.STRING);
-        previewSceneProperty.setDisplayName("Transition Name");
-        previewSceneProperty.setCanBeBlank(false);
+        previewSceneProperty.setDisplayName("Preview Scene");
 
         addClientProperties(previewSceneProperty);
     }

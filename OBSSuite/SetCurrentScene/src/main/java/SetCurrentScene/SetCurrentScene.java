@@ -29,7 +29,6 @@ public class SetCurrentScene extends NormalAction {
 
         Property currentSceneProperty = new Property("current_scene", Type.STRING);
         currentSceneProperty.setDisplayName("Scene Name");
-        currentSceneProperty.setCanBeBlank(false);
         
         addClientProperties(currentSceneProperty);
     }

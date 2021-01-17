@@ -36,6 +36,7 @@ public class Mother extends NormalAction
     public void initProperties() throws Exception {
         Property urlProperty = new Property("url", Type.STRING);
         urlProperty.setDisplayName("URL");
+        urlProperty.setDefaultValueStr("ws://localhost:4444");
         urlProperty.setCanBeBlank(false);
 
         Property passwordProperty = new Property("pass", Type.STRING);

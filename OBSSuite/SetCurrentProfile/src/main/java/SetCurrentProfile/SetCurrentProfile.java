@@ -28,7 +28,6 @@ public class SetCurrentProfile extends NormalAction {
 
         Property currentProfileProperty = new Property("current_profile", Type.STRING);
         currentProfileProperty.setDisplayName("Profile Name");
-        currentProfileProperty.setCanBeBlank(false);
         
         addClientProperties(currentProfileProperty);
     }

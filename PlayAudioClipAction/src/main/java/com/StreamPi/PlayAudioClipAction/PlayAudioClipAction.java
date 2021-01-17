@@ -29,7 +29,6 @@ public class PlayAudioClipAction extends NormalAction {
     public void initProperties() throws Exception {
         Property audioFileLocationProperty = new Property("audio_location", Type.STRING);
         audioFileLocationProperty.setDisplayName("Audio File Location");
-        audioFileLocationProperty.setCanBeBlank(false);
 
         addClientProperties(audioFileLocationProperty);
     }
@@ -42,6 +41,12 @@ public class PlayAudioClipAction extends NormalAction {
     public void onActionClicked() throws Exception 
     {
         Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
+
+        if(audioFileLocationProperty.getStringValue().isBlank())
+        {
+            new StreamPiAlert("Media Action", "No file specified", StreamPiAlertType.ERROR).show();
+            return;
+        }
 
         MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File(audioFileLocationProperty.getStringValue()).toURI().toString()));
 

@@ -70,11 +70,9 @@ public class TwitterAction extends NormalAction {
     {
         Property oAuthConsumerKey = new Property("consumer_key", Type.STRING);
         oAuthConsumerKey.setDisplayName("API Key");
-        oAuthConsumerKey.setCanBeBlank(false);
 
         Property oAuthConsumerKeySecret = new Property("consumer_key_secret", Type.STRING);
         oAuthConsumerKeySecret.setDisplayName("API Key Secret");
-        oAuthConsumerKeySecret.setCanBeBlank(false);
 
         Property oAuthAccessToken = new Property("access_token", Type.STRING);
         oAuthAccessToken.setDisplayName("Access Token");
@@ -95,10 +93,8 @@ public class TwitterAction extends NormalAction {
 
         Property toBeTweeted = new Property("tweet", Type.STRING);
         toBeTweeted.setDisplayName("Tweet");
-
-        toBeTweeted.setCanBeBlank(false);
         toBeTweeted.setDefaultValueStr("Hello From StreamPi!");
-
+        toBeTweeted.setCanBeBlank(false);
 
         addClientProperties(
                 toBeTweeted
