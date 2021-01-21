@@ -1,7 +1,9 @@
 .idea/
+MediaKeyAction.iml
 target/
-WebsiteAction.iml
-.classpath
-.factorypath
-.project
+
+
 .settings/
+.project
+.factorypath
+.classpath
