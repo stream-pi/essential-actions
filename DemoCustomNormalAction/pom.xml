@@ -40,7 +40,7 @@
         <ActionAPIVersion>1.0.0</ActionAPIVersion>
         <UtilVersion>1.0.0</UtilVersion>
 
-        <JavaFXVersion>16-ea+4</JavaFXVersion>
+        <JavaFXVersion>16-ea+6</JavaFXVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
@@ -49,8 +49,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.StreamPi</groupId>
-            <artifactId>Util</artifactId>
+            <groupId>com.stream_pi</groupId>
+            <artifactId>util</artifactId>
             <version>${UtilVersion}</version>
         </dependency>
 
@@ -75,8 +75,8 @@
 
 
         <dependency>
-            <groupId>com.StreamPi</groupId>
-            <artifactId>ActionAPI</artifactId>
+            <groupId>com.stream_pi</groupId>
+            <artifactId>action_api</artifactId>
             <version>${ActionAPIVersion}</version>
         </dependency>
 
