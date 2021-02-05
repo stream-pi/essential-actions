@@ -1,0 +1,68 @@
+package com.stream_pi.websiteaction;
+
+import com.stream_pi.actionapi.actionproperty.property.Property;
+import com.stream_pi.actionapi.actionproperty.property.Type;
+import com.stream_pi.actionapi.normalaction.NormalAction;
+import com.stream_pi.util.alert.StreamPiAlert;
+import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
+import com.stream_pi.util.version.Version;
+
+import java.awt.*;
+import java.net.URI;
+
+public class WebsiteAction extends NormalAction {
+
+    public WebsiteAction()
+    {
+        setName("Website");
+        setCategory("Essentials");
+        setAuthor("rnayabed");
+        setServerButtonGraphic("fas-globe");
+        setHelpLink("https://github.com/stream-pi/essentialactions");
+        setVersion(new Version(1,0,0));
+    }
+
+    @Override
+    public void initProperties() throws Exception {
+        Property websiteUrl = new Property("websiteURL", Type.STRING);
+        websiteUrl.setDisplayName("Website URL");
+        websiteUrl.setDefaultValueStr("https://stream-pi.com/");
+        websiteUrl.setCanBeBlank(false);
+
+        addClientProperties(websiteUrl);
+    }
+
+
+    @Override
+    public void initAction() throws Exception {
+
+    }
+
+    @Override
+    public void onActionClicked() throws Exception {
+        Property website = getClientProperties().getSingleProperty("websiteURL");
+
+        String urlToOpen = website.getStringValue();
+
+        if(!urlToOpen.startsWith("https://") && !urlToOpen.startsWith("http://"))
+        {
+            urlToOpen = "https://" + urlToOpen;
+        }
+
+        try
+        {
+            Desktop.getDesktop().browse(new URI(urlToOpen));
+        }
+        catch (Exception e)
+        {
+            throw new MinorException("Unable to open URL '"+urlToOpen+"'. Check if its correct.");
+        }
+    }
+
+    @Override
+    public void onShutDown() throws Exception {
+        // TODO Auto-generated method stub
+
+    }
+}

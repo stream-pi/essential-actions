@@ -1,84 +1,83 @@
 FOLD=../PreBuiltPlugins
 
-cd HotkeyAction && mvn clean package
+cd hotkeyaction && mvn clean package
 
-mv target/HotkeyAction-1.0.0.jar $FOLD/HotkeyAction.jar
+mv target/hotkeyaction-1.0.0.jar $FOLD/hotkeyaction.jar
 
-cd ../MediaKeyAction && mvn clean package
+cd ../mediakeyaction && mvn clean package
 
-mv target/MediaKeyAction-1.0.0.jar $FOLD/MediaKeyAction.jar
+mv target/mediakeyaction-1.0.0.jar $FOLD/mediakeyaction.jar
 
-cd ../PlayAudioClipAction && mvn clean package
+cd ../playaudioclipaction && mvn clean package
 
-mv target/PlayAudioClipAction-1.0.0.jar $FOLD/PlayAudioClipAction.jar
+mv target/playaudioclipaction-1.0.0.jar $FOLD/playaudioclipaction.jar
 
-cd ../RunCommandAction && mvn clean package 
+cd ../runcommandaction && mvn clean package 
 
-mv target/RunCommandAction-1.0.0.jar $FOLD/RunCommandAction.jar
+mv target/runcommandaction-1.0.0.jar $FOLD/runcommandaction.jar
 
-cd ../TextBlockAction && mvn clean package
+cd ../textblockaction && mvn clean package
 
-mv target/TextBlockAction-1.0.0.jar $FOLD/TextBlockAction.jar
+mv target/textblockaction-1.0.0.jar $FOLD/textblockaction.jar
 
-cd ../TwitterAction && mvn clean package 
+cd ../twitteraction && mvn clean package 
 
-mv target/TwitterAction-1.0.0.jar $FOLD/TwitterAction.jar
+mv target/twitteraction-1.0.0.jar $FOLD/twitteraction.jar
 
-cd ../WebsiteAction && mvn clean package
+cd ../websiteaction && mvn clean package
 
-mv target/WebsiteAction-1.0.0.jar $FOLD/WebsiteAction.jar
+mv target/websiteaction-1.0.0.jar $FOLD/websiteaction.jar
 
 
 # OBS Suite
 
+cd ../obssuite/mother && mvn clean install package 
 
-cd ../OBSSuite/Mother && mvn clean install package 
+mv target/obssuite_motheraction-1.0.0.jar ../$FOLD/obssuite_motheraction.jar
 
-mv target/OBSSuite-MotherAction-1.0.0.jar ../$FOLD/OBSSuite-MotherAction.jar
+cd ../setcurrentprofile && mvn clean package 
 
-cd ../SetCurrentProfile && mvn clean package 
+mv target/obssuite_setcurrentprofileaction-1.0.0.jar ../$FOLD/obssuite_setcurrentprofileaction.jar
 
-mv target/OBSSuite-SetCurrentProfileAction-1.0.0.jar ../$FOLD/OBSSuite-SetCurrentProfileAction.jar
+cd ../setcurrentscene && mvn clean package 
 
-cd ../SetCurrentScene && mvn clean package 
+mv target/obssuite_setcurrentsceneaction-1.0.0.jar ../$FOLD/obssuite_setcurrentsceneaction.jar
 
-mv target/OBSSuite-SetCurrentSceneAction-1.0.0.jar ../$FOLD/OBSSuite-SetCurrentSceneAction.jar
+cd ../setcurrenttransition && mvn clean package 
 
-cd ../SetCurrentTransition && mvn clean package 
+mv target/obssuite_setcurrenttransitionaction-1.0.0.jar ../$FOLD/obssuite_setcurrenttransitionaction.jar
 
-mv target/OBSSuite-SetCurrentTransitionAction-1.0.0.jar ../$FOLD/OBSSuite-SetCurrentTransitionAction.jar
+cd ../setmute && mvn clean package 
 
-cd ../SetMute && mvn clean package 
+mv target/obssuite_setmuteaction-1.0.0.jar ../$FOLD/obssuite_setmuteaction.jar
 
-mv target/OBSSuite-SetMuteAction-1.0.0.jar ../$FOLD/OBSSuite-SetMuteAction.jar
+cd ../setcurrentprofile && mvn clean package 
 
-cd ../SetCurrentProfile && mvn clean package 
+mv target/obssuite_setcurrentprofileaction-1.0.0.jar ../$FOLD/obssuite_setcurrentprofileaction.jar
 
-mv target/OBSSuite-SetCurrentProfileAction-1.0.0.jar ../$FOLD/OBSSuite-SetCurrentProfileAction.jar
+cd ../setpreviewscene && mvn clean package 
 
-cd ../SetPreviewScene && mvn clean package 
+mv target/obssuite_setpreviewsceneaction-1.0.0.jar ../$FOLD/obssuite_setpreviewsceneaction.jar
 
-mv target/OBSSuite-SetPreviewSceneAction-1.0.0.jar ../$FOLD/OBSSuite-SetPreviewSceneAction.jar
+cd ../setrecording && mvn clean package
 
-cd ../SetRecording && mvn clean package
+mv target/obssuite_setrecordingaction-1.0.0.jar ../$FOLD/obssuite_setrecordingaction.jar
 
-mv target/OBSSuite-SetRecordingAction-1.0.0.jar ../$FOLD/OBSSuite-SetRecordingAction.jar
+cd ../setreplaybuffer && mvn clean package 
 
-cd ../SetReplayBuffer && mvn clean package 
+mv target/obssuite_setreplaybufferaction-1.0.0.jar ../$FOLD/obssuite_setreplaybufferaction.jar
 
-mv target/OBSSuite-SetReplayBufferAction-1.0.0.jar ../$FOLD/OBSSuite-SetReplayBufferAction.jar
+cd ../setstreaming && mvn clean package 
 
-cd ../SetStreaming && mvn clean package 
+mv target/obssuite_setstreamingaction-1.0.0.jar ../$FOLD/obssuite_setstreamingaction.jar
 
-mv target/OBSSuite-SetStreamingAction-1.0.0.jar ../$FOLD/OBSSuite-SetStreamingAction.jar
+cd ../setstudiomode && mvn clean package 
 
-cd ../SetStudioMode && mvn clean package 
+mv target/obssuite_setstudiomodeaction-1.0.0.jar ../$FOLD/obssuite_setstudiomodeaction.jar
 
-mv target/OBSSuite-SetStudioModeAction-1.0.0.jar ../$FOLD/OBSSuite-SetStudioModeAction.jar
+cd ../setvolume && mvn clean package
 
-cd ../SetVolume && mvn clean package
-
-mv target/OBSSuite-SetVolumeAction-1.0.0.jar ../$FOLD/OBSSuite-SetVolumeAction.jar
+mv target/obssuite_setvolumeaction-1.0.0.jar ../$FOLD/obssuite_setvolumeaction.jar
 
 
 

@@ -1,0 +1,9 @@
+.idea/
+HotkeyAction.iml
+target/
+
+
+.settings/
+.project
+.factorypath
+.classpath

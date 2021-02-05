@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.stream_pi</groupId>
+    <artifactId>obssuite_setrecordingaction</artifactId>
+    <version>1.0.0</version>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>test-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <ActionAPIVersion>1.0.0</ActionAPIVersion>
+        <UtilVersion>1.0.0</UtilVersion>
+        <OBSSuiteMotherVersion>1.0.0</OBSSuiteMotherVersion>
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.stream_pi</groupId>
+            <artifactId>util</artifactId>
+            <version>${UtilVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.stream_pi</groupId>
+            <artifactId>actionapi</artifactId>
+            <version>${ActionAPIVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.stream_pi</groupId>
+            <artifactId>obssuite_motheraction</artifactId>
+            <version>${OBSSuiteMotherVersion}</version>
+        </dependency>
+    </dependencies>
+</project>
