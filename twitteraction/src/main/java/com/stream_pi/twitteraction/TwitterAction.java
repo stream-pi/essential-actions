@@ -36,7 +36,7 @@ public class TwitterAction extends NormalAction {
         setCategory("Twitter");
         setAuthor("rnayabed");
         setServerButtonGraphic("fab-twitter");
-        setHelpLink("https://github.com/Stream-Pi/EssentialAction");
+        setHelpLink("https://github.com/stream-pi/essentialactions");
         setVersion(new Version(1,0,0));
 
 
