@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.stream_pi</groupId>
+    <groupId>com.stream-pi</groupId>
     <artifactId>mediakeyaction</artifactId>
     <version>1.0.0</version>
 
@@ -37,8 +37,8 @@
     </build>
 
     <properties>
-        <ActionAPIVersion>1.0.0</ActionAPIVersion>
-        <UtilVersion>1.0.0</UtilVersion>
+        <ActionAPIVersion>1.0.0-SNAPSHOT</ActionAPIVersion>
+        <UtilVersion>1.0.0-SNAPSHOT</UtilVersion>
 
         <JavaFXVersion>16-ea+5</JavaFXVersion>
 
@@ -52,14 +52,14 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.stream_pi</groupId>
+            <groupId>com.stream-pi</groupId>
             <artifactId>util</artifactId>
             <version>${UtilVersion}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.stream_pi</groupId>
-            <artifactId>actionapi</artifactId>
+            <groupId>com.stream-pi</groupId>
+            <artifactId>action-api</artifactId>
             <version>${ActionAPIVersion}</version>
         </dependency>
 

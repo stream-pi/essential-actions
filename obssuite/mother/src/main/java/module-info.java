@@ -1,6 +1,6 @@
 module com.stream_pi.obssuite.motheraction
 {
-    requires com.stream_pi.actionapi;
+    requires com.stream_pi.action_api;
     requires com.stream_pi.util;
 
     requires transitive obs.websocket.java;
@@ -16,5 +16,5 @@ module com.stream_pi.obssuite.motheraction
 
     exports mother.motherconnection;
     
-    provides com.stream_pi.actionapi.normalaction.NormalAction with mother.Mother;
+    provides com.stream_pi.action_api.normalaction.NormalAction with mother.Mother;
 }
