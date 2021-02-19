@@ -64,7 +64,6 @@
             <groupId>net.twasi</groupId>
             <artifactId>obs-websocket-java</artifactId>
             <version>${OBSWebsocketJavaVersion}</version>
-
         </dependency>
 
         <dependency>

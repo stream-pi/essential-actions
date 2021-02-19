@@ -5,6 +5,7 @@ import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.normalaction.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import javafx.application.Platform;
@@ -50,8 +51,7 @@ public class HotkeyAction extends NormalAction {
 
         if(keyCombination.getStringValue().isBlank())
         {
-            new StreamPiAlert("Hotkey Action", "No key specified", StreamPiAlertType.ERROR).show();
-            return;
+            throw new MinorException("No key specified");
         }
 
         press(keyCombination.getStringValue()
@@ -79,7 +79,8 @@ public class HotkeyAction extends NormalAction {
         }
     }
 
-    private void releaseCharacters(ArrayList<KeyCode> chars) throws InterruptedException {
+    private void releaseCharacters(ArrayList<KeyCode> chars) throws InterruptedException
+    {
         for(KeyCode c : chars)
         {
             release(c);
@@ -87,7 +88,8 @@ public class HotkeyAction extends NormalAction {
         }
     }
 
-    public KeyCode getKeyCodeValue(String character) {
+    public KeyCode getKeyCodeValue(String character) throws IllegalArgumentException
+    {
         switch (character) {
             case "A": return A;
             case "B": return B; 

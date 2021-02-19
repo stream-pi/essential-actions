@@ -10,15 +10,15 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: com.stream-pi:util:1.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-fontawesome5-pack:11.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-core:11.5.0" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:16-ea+6" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:linux:16-ea+6" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:16-ea+6" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:linux:16-ea+6" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:16-ea+6" level="project" />
-    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:linux:16-ea+6" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:16-ea+7" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-controls:linux:16-ea+7" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:16-ea+7" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-graphics:linux:16-ea+7" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:16-ea+7" level="project" />
+    <orderEntry type="library" name="Maven: org.openjfx:javafx-base:linux:16-ea+7" level="project" />
     <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-javafx:11.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-core:11.5.0" level="project" />
+    <orderEntry type="library" name="Maven: org.kordamp.ikonli:ikonli-fontawesome5-pack:11.5.0" level="project" />
     <orderEntry type="library" name="Maven: com.stream-pi:action-api:1.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.twasi:obs-websocket-java:1.2.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.slf4j:slf4j-api:1.7.30" level="project" />

@@ -13,7 +13,6 @@ module com.stream_pi.obssuite.motheraction
     requires transitive org.eclipse.jetty.io;
 
     requires transitive com.google.gson;
-
     exports mother.motherconnection;
     
     provides com.stream_pi.action_api.normalaction.NormalAction with mother.Mother;

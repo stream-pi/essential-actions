@@ -1,9 +1,9 @@
 package com.stream_pi.democustomnormalaction;
 
-import com.stream_pi.actionapi.actionproperty.property.ControlType;
-import com.stream_pi.actionapi.actionproperty.property.Property;
-import com.stream_pi.actionapi.actionproperty.property.Type;
-import com.stream_pi.actionapi.normalaction.NormalAction;
+import com.stream_pi.action_api.actionproperty.property.ControlType;
+import com.stream_pi.action_api.actionproperty.property.Property;
+import com.stream_pi.action_api.actionproperty.property.Type;
+import com.stream_pi.action_api.normalaction.NormalAction;
 import com.stream_pi.util.version.Version;
 import java.util.ArrayList;
 
