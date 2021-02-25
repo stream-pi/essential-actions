@@ -1,6 +1,6 @@
 # Stream-Pi Essential Actions
 
-Set of pre-built actions and integrations for the Stream-Pi using the [Stream-Pi Action API](https://github.com/stream-pi/actionapi).
+Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [Stream-Pi Action API](https://github.com/stream-pi/actionapi).
 
 ## Prerequisites
 
