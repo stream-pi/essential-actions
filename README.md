@@ -17,6 +17,25 @@ Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [St
 - Text Block
 - Media File
 - Media Key
+- Twitch
+
+## Actions Help Guide
+
+### Twitch Chat Integration
+
+The first step is to acquire an OAuth token from https://twitchapps.com/tmi/, the generated OAuth token should look something like `oauth:xxxxx`.
+
+In the Stream-Pi Server's Plugin page enter your Twitch username, and the generated token then click on `Save Twitch chat credentials` button. You should then be able to use the pre-bundled Twitch chat actions. 
+
+### Supported actions
+
+- Send channel message
+
+### Running locally
+
+Copy the `twitch-chat-connect`, `twitch-send-channel-msg`, and `Java-Twirk` jar files from the `PreBuiltPlugins` directory to your Stream-Pi server plugins' directory. 
+
+---
 
 ## Quick Start
 
