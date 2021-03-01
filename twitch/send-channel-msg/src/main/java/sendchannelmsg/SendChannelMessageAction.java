@@ -7,6 +7,7 @@ import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.normalaction.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
 
@@ -56,12 +57,7 @@ public class SendChannelMessageAction extends NormalAction
         TwitchChatCredentials.ChatCredentials credentials = TwitchChatCredentials.getCredentials();
         if (!isChatCredentialsInitialized(credentials))
         {
-            new StreamPiAlert(
-                    "Twitch Chat plugin configuration uninitialized",
-                    "Please check that the Twitch Chat plugin configuration is correct.",
-                    StreamPiAlertType.ERROR
-            ).show();
-            return;
+            throw new StreamPiException("Twitch Chat uninitialized.","Please check that the Twitch Chat plugin configuration is correct.");
         }
 
         final String channel = getClientProperties().getSingleProperty(TWITCH_CHANNEL_NAME_KEY).getStringValue();
@@ -78,12 +74,11 @@ public class SendChannelMessageAction extends NormalAction
             twirk.channelMessage(message);
         } catch (Exception ex)
         {
-            new StreamPiAlert(
+            throw new StreamPiException(
                     "Failed to send channel message",
                     String.format("Could not send message '%s' to '%s' channel, please try again.",
-                            channel, message),
-                    StreamPiAlertType.ERROR
-            ).show();
+                            channel, message)
+            );
         }
     }
 
