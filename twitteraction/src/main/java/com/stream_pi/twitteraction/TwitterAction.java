@@ -92,7 +92,7 @@ public class TwitterAction extends NormalAction {
 
         Property toBeTweeted = new Property("tweet", Type.STRING);
         toBeTweeted.setDisplayName("Tweet");
-        toBeTweeted.setDefaultValueStr("Hello From StreamPi!");
+        toBeTweeted.setDefaultValueStr("Hello From Stream-Pi!");
         toBeTweeted.setCanBeBlank(false);
 
         addClientProperties(
