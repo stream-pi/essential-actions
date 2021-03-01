@@ -69,7 +69,7 @@ public class TwitterAction extends NormalAction {
             }
         }).start());
 
-        logoutButton = new Button("Login as new user");
+        logoutButton = new Button("Logout");
 
         logoutButton.setOnAction(event-> new Thread(new Task<Void>() {
             @Override
