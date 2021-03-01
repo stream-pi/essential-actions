@@ -37,7 +37,7 @@ public class TwitterAction extends NormalAction {
         setAuthor("rnayabed");
         setServerButtonGraphic("fab-twitter");
         setHelpLink("https://github.com/stream-pi/essentialactions");
-        setVersion(new Version(1,0,0));
+        setVersion(new Version(1,0,1));
 
 
         loginAsNewUserButton = new Button("Login as new user");
