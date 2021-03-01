@@ -1,6 +1,9 @@
 .idea/
+DemoCustomNormalAction.iml
 target/
-.classpath
-.factorypath
-.project
+
+
 .settings/
+.project
+.factorypath
+.classpath
