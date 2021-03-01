@@ -28,7 +28,7 @@ import java.util.Random;
 
 public class TwitterAction extends NormalAction {
 
-    Button loginAsNewUserButton;
+    Button loginAsNewUserButton, logoutButton;
 
     public TwitterAction()
     {
@@ -47,11 +47,20 @@ public class TwitterAction extends NormalAction {
             protected Void call()
             {
                 try {
-                    Platform.runLater(()->loginAsNewUserButton.setDisable(true));
+                    Platform.runLater(()->{
+                        loginAsNewUserButton.setDisable(true);
+                        logoutButton.setDisable(true);
+                    });
+
                     loginAsNewUser();
                 } catch (Exception e) {
                     Platform.runLater(()-> {
-                        loginAsNewUserButton.setDisable(false);
+
+                        Platform.runLater(()->{
+                            loginAsNewUserButton.setDisable(false);
+                            logoutButton.setDisable(false);
+                        });
+
                         new StreamPiAlert(e.getMessage(), StreamPiAlertType.ERROR).show();
                     });
                     e.printStackTrace();
@@ -60,8 +69,35 @@ public class TwitterAction extends NormalAction {
             }
         }).start());
 
+        logoutButton = new Button("Login as new user");
 
-        setButtonBar(loginAsNewUserButton);
+        logoutButton.setOnAction(event-> new Thread(new Task<Void>() {
+            @Override
+            protected Void call()
+            {
+                try {
+                    Platform.runLater(()->{
+                        loginAsNewUserButton.setDisable(false);
+                        logoutButton.setDisable(false);
+                    });
+
+                    logout();
+                } catch (Exception e) {
+                    Platform.runLater(()-> {
+                        Platform.runLater(()->{
+                            loginAsNewUserButton.setDisable(false);
+                            logoutButton.setDisable(false);
+                        });
+
+                        new StreamPiAlert(e.getMessage(), StreamPiAlertType.ERROR).show();
+                    });
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }).start());
+
+        setButtonBar(loginAsNewUserButton, logoutButton);
     }
 
     @Override
@@ -103,13 +139,18 @@ public class TwitterAction extends NormalAction {
 
     public void loginAsNewUser() throws Exception
     {
+        logout();
+
+        getAuthToken();
+    }
+
+    public void logout() throws Exception
+    {
         setNewTwitterConfig(
                 getServerProperties().getSingleProperty("consumer_key").getStringValue(),
                 getServerProperties().getSingleProperty("consumer_key_secret").getStringValue(),
                 null,null
         );
-
-        getAuthToken();
     }
 
     public void getAuthToken() throws Exception {
