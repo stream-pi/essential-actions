@@ -64,7 +64,7 @@ popd || exit
 
 # Twitch Chat
 pushd . || exit
-cd twitch/twitch-chat-connect && mvn clean package
+cd twitch/twitch-chat-connect && mvn clean install package
 mv target/twitch-chat-connect-1.0.0.jar ../$FOLD/twitch-chat-connect.jar
 
 cd ../send-channel-msg && mvn clean package
