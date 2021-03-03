@@ -1,6 +1,4 @@
-import connect.TwitchChatConnectAction;
-
-module com.stream_pi.twitchconnectaction {
+module com.stream_pi.twitchchatconnectaction {
 
     requires com.stream_pi.action_api;
     requires com.stream_pi.util;
@@ -9,5 +7,5 @@ module com.stream_pi.twitchconnectaction {
 
     exports connect.chat;
 
-    provides com.stream_pi.action_api.normalaction.NormalAction with TwitchChatConnectAction;
+    provides com.stream_pi.action_api.normalaction.NormalAction with connect.TwitchChatConnectAction;
 }
