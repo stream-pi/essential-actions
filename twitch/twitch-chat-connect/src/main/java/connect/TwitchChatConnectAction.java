@@ -16,7 +16,7 @@ public class TwitchChatConnectAction extends NormalAction
     private static final String TWITCH_ACCESS_TOKEN_KEY = "twitch_access_token";
     private static final String TWITCH_NICKNAME_KEY = "twitch_nickname";
 
-    private final Button saveCredentialsBtn;
+    private final Button clearCredentialsBtn;
 
     public TwitchChatConnectAction()
     {
@@ -27,61 +27,64 @@ public class TwitchChatConnectAction extends NormalAction
         setVersion(new Version(1, 0, 0));
         setHelpLink("https://github.com/Stream-Pi/essentialactions");
 
-        saveCredentialsBtn = new Button("Save Twitch chat credentials");
-        setButtonBar(saveCredentialsBtn);
+        clearCredentialsBtn = new Button("Clear Twitch chat credentials");
+        onClearCredentials();
+        setButtonBar(clearCredentialsBtn);
     }
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties()
     {
         Property twitchNicknameProp = new Property(TWITCH_NICKNAME_KEY, Type.STRING);
         twitchNicknameProp.setDisplayName("Twitch Username");
-        twitchNicknameProp.setDefaultValueStr("twitch_nickname");
-        twitchNicknameProp.setCanBeBlank(false);
 
         Property twitchAccessTokenProp = new Property(TWITCH_ACCESS_TOKEN_KEY, Type.STRING);
         twitchAccessTokenProp.setDisplayName("Access Token");
-        twitchAccessTokenProp.setDefaultValueStr("twitch_oauth_token");
-        twitchAccessTokenProp.setCanBeBlank(false);
 
         addServerProperties(twitchNicknameProp, twitchAccessTokenProp);
     }
 
     @Override
-    public void initAction() throws Exception
+    public void initAction() throws MinorException
     {
-        saveCredentialsBtn.setOnAction(action ->
+        clearCredentialsBtn.setDisable(isEmptyCredentials());
+
+        TwitchChatCredentials.setCredentials(
+                new TwitchChatCredentials.ChatCredentials()
+                        .setOauthToken(getServerProperties().getSingleProperty(TWITCH_ACCESS_TOKEN_KEY).getStringValue())
+                        .setNickname(getServerProperties().getSingleProperty(TWITCH_NICKNAME_KEY).getStringValue()));
+    }
+
+    private boolean isEmptyCredentials() throws MinorException {
+        final String twitchNickname = getServerProperties().getSingleProperty(TWITCH_NICKNAME_KEY).getStringValue();
+        final String twitchChatOauthToken = getServerProperties().getSingleProperty(TWITCH_ACCESS_TOKEN_KEY).getStringValue();
+        return (twitchNickname == null || twitchNickname.isEmpty()) &&
+                (twitchChatOauthToken == null || twitchChatOauthToken.isEmpty());
+    }
+
+    private void onClearCredentials()
+    {
+        clearCredentialsBtn.setOnAction(action ->
         {
             try
             {
-                persistCredentials();
-
+                getServerProperties().getSingleProperty(TWITCH_ACCESS_TOKEN_KEY).setStringValue("");
+                getServerProperties().getSingleProperty(TWITCH_NICKNAME_KEY).setStringValue("");
+                saveServerProperties();
                 new StreamPiAlert(
-                        "Twitch chat credentials saved",
-                        "Chat credentials been saved, you can now start using Twitch chat integration actions.",
+                        "Twitch chat credentials cleared",
+                        "To revoke token access, disconnect \"Twitch Chat OAuth Token Generator\" from your Twitch settings (https://www.twitch.tv/settings/connections).",
                         StreamPiAlertType.INFORMATION)
                         .show();
             } catch (Exception e)
             {
                 new StreamPiAlert(
                         "Failed to save chat credentials",
-                        "An error has occurred while saving chat credentials, please try again.",
+                        "An error has occurred while clearing chat credentials, please try again.",
                         StreamPiAlertType.WARNING)
                         .show();
             }
         });
-
-        persistCredentials();
-    }
-
-    private void persistCredentials() throws MinorException
-    {
-        final String token = getServerProperties().getSingleProperty(TWITCH_ACCESS_TOKEN_KEY).getStringValue();
-        final String nickname = getServerProperties().getSingleProperty(TWITCH_NICKNAME_KEY).getStringValue();
-        TwitchChatCredentials.setCredentials(
-                new TwitchChatCredentials.ChatCredentials()
-                        .setOauthToken(token)
-                        .setNickname(nickname));
     }
 
     @Override

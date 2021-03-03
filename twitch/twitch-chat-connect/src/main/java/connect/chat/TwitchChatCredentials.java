@@ -2,6 +2,8 @@ package connect.chat;
 
 public final class TwitchChatCredentials
 {
+    public static final String DEFAULT_TWITCH_NICKNAME = "twitch_username";
+    public static final String DEFAULT_TWITCH_TOKEN = "twitch_token";
 
     private static ChatCredentials credentials;
 

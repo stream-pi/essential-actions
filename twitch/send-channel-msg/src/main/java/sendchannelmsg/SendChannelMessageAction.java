@@ -5,11 +5,12 @@ import com.gikk.twirk.TwirkBuilder;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.normalaction.NormalAction;
-import com.stream_pi.util.alert.StreamPiAlert;
-import com.stream_pi.util.alert.StreamPiAlertType;
 import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
+
+import static connect.chat.TwitchChatCredentials.DEFAULT_TWITCH_NICKNAME;
+import static connect.chat.TwitchChatCredentials.DEFAULT_TWITCH_TOKEN;
 
 public class SendChannelMessageAction extends NormalAction
 {
@@ -92,12 +93,12 @@ public class SendChannelMessageAction extends NormalAction
         final String twitchNickname = credentials.getNickname();
         boolean isNicknameInitialized = twitchNickname != null &&
                 !twitchNickname.isEmpty() &&
-                !twitchNickname.equalsIgnoreCase("twitch_nickname");
+                !twitchNickname.equalsIgnoreCase(DEFAULT_TWITCH_NICKNAME);
 
         final String twitchChatOauthToken = credentials.getOauthToken();
         boolean isTokenInitialized = twitchChatOauthToken != null &&
                 !twitchChatOauthToken.isEmpty() &&
-                !twitchChatOauthToken.equalsIgnoreCase("twitch_oauth_token");
+                !twitchChatOauthToken.equalsIgnoreCase(DEFAULT_TWITCH_TOKEN);
 
         return isNicknameInitialized && isTokenInitialized;
     }
