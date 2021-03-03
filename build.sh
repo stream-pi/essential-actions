@@ -1,72 +1,144 @@
+#!/bin/bash
+
 FOLD=../PreBuiltPlugins
 
-pushd . || exit
-cd hotkeyaction && mvn clean package
-mv target/hotkeyaction-1.0.0.jar $FOLD/hotkeyaction.jar
+hotkey() {
+  pushd . || exit
+  cd hotkeyaction && mvn clean package
+  mv target/hotkeyaction-1.0.0.jar $FOLD/hotkeyaction.jar
+  popd || exit
+}
 
-cd ../mediakeyaction && mvn clean package
-mv target/mediakeyaction-1.0.0.jar $FOLD/mediakeyaction.jar
+mediakey() {
+  pushd . || exit
+  cd mediakeyaction && mvn clean package
+  mv target/mediakeyaction-1.0.0.jar $FOLD/mediakeyaction.jar
+  popd || exit
+}
 
-cd ../playaudioclipaction && mvn clean package
-mv target/playaudioclipaction-1.0.0.jar $FOLD/playaudioclipaction.jar
+obssuite() {
+  pushd . || exit
+  cd obssuite/mother && mvn clean install package
+  mv target/obssuite_motheraction-1.0.0.jar ../$FOLD/obssuite_motheraction.jar
 
-cd ../runcommandaction && mvn clean package
-mv target/runcommandaction-1.0.0.jar $FOLD/runcommandaction.jar
+  cd ../setcurrentprofile && mvn clean package
+  mv target/obssuite_setcurrentprofileaction-1.0.0.jar ../$FOLD/obssuite_setcurrentprofileaction.jar
 
-cd ../textblockaction && mvn clean package
-mv target/textblockaction-1.0.0.jar $FOLD/textblockaction.jar
+  cd ../setcurrentscene && mvn clean package
+  mv target/obssuite_setcurrentsceneaction-1.0.0.jar ../$FOLD/obssuite_setcurrentsceneaction.jar
 
-cd ../twitteraction && mvn clean package
-mv target/twitteraction-1.0.0.jar $FOLD/twitteraction.jar
+  cd ../setcurrenttransition && mvn clean package
+  mv target/obssuite_setcurrenttransitionaction-1.0.0.jar ../$FOLD/obssuite_setcurrenttransitionaction.jar
 
-cd ../websiteaction && mvn clean package
-mv target/websiteaction-1.0.0.jar $FOLD/websiteaction.jar
-popd || exit
+  cd ../setmute && mvn clean package
+  mv target/obssuite_setmuteaction-1.0.0.jar ../$FOLD/obssuite_setmuteaction.jar
 
-## OBS Suite
-pushd . || exit
-cd obssuite/mother && mvn clean install package
-mv target/obssuite_motheraction-1.0.0.jar ../$FOLD/obssuite_motheraction.jar
+  cd ../setcurrentprofile && mvn clean package
+  mv target/obssuite_setcurrentprofileaction-1.0.0.jar ../$FOLD/obssuite_setcurrentprofileaction.jar
 
-cd ../setcurrentprofile && mvn clean package
-mv target/obssuite_setcurrentprofileaction-1.0.0.jar ../$FOLD/obssuite_setcurrentprofileaction.jar
+  cd ../setpreviewscene && mvn clean package
+  mv target/obssuite_setpreviewsceneaction-1.0.0.jar ../$FOLD/obssuite_setpreviewsceneaction.jar
 
-cd ../setcurrentscene && mvn clean package
-mv target/obssuite_setcurrentsceneaction-1.0.0.jar ../$FOLD/obssuite_setcurrentsceneaction.jar
+  cd ../setrecording && mvn clean package
+  mv target/obssuite_setrecordingaction-1.0.0.jar ../$FOLD/obssuite_setrecordingaction.jar
 
-cd ../setcurrenttransition && mvn clean package
-mv target/obssuite_setcurrenttransitionaction-1.0.0.jar ../$FOLD/obssuite_setcurrenttransitionaction.jar
+  cd ../setreplaybuffer && mvn clean package
+  mv target/obssuite_setreplaybufferaction-1.0.0.jar ../$FOLD/obssuite_setreplaybufferaction.jar
 
-cd ../setmute && mvn clean package
-mv target/obssuite_setmuteaction-1.0.0.jar ../$FOLD/obssuite_setmuteaction.jar
+  cd ../setstreaming && mvn clean package
+  mv target/obssuite_setstreamingaction-1.0.0.jar ../$FOLD/obssuite_setstreamingaction.jar
 
-cd ../setcurrentprofile && mvn clean package
-mv target/obssuite_setcurrentprofileaction-1.0.0.jar ../$FOLD/obssuite_setcurrentprofileaction.jar
+  cd ../setstudiomode && mvn clean package
+  mv target/obssuite_setstudiomodeaction-1.0.0.jar ../$FOLD/obssuite_setstudiomodeaction.jar
 
-cd ../setpreviewscene && mvn clean package
-mv target/obssuite_setpreviewsceneaction-1.0.0.jar ../$FOLD/obssuite_setpreviewsceneaction.jar
+  cd ../setvolume && mvn clean package
+  mv target/obssuite_setvolumeaction-1.0.0.jar ../$FOLD/obssuite_setvolumeaction.jar
+  popd || exit
+}
 
-cd ../setrecording && mvn clean package
-mv target/obssuite_setrecordingaction-1.0.0.jar ../$FOLD/obssuite_setrecordingaction.jar
+playaudioclip() {
+  pushd . || exit
+  cd playaudioclipaction && mvn clean package
+  mv target/playaudioclipaction-1.0.0.jar $FOLD/playaudioclipaction.jar
+  popd || exit
+}
 
-cd ../setreplaybuffer && mvn clean package
-mv target/obssuite_setreplaybufferaction-1.0.0.jar ../$FOLD/obssuite_setreplaybufferaction.jar
+runcommand() {
+  pushd . || exit
+  cd runcommandaction && mvn clean package
+  mv target/runcommandaction-1.0.0.jar $FOLD/runcommandaction.jar
+  popd || exit
+}
 
-cd ../setstreaming && mvn clean package
-mv target/obssuite_setstreamingaction-1.0.0.jar ../$FOLD/obssuite_setstreamingaction.jar
+textblock() {
+  pushd . || exit
+  cd textblockaction && mvn clean package
+  mv target/textblockaction-1.0.0.jar $FOLD/textblockaction.jar
+  popd || exit
+}
 
-cd ../setstudiomode && mvn clean package
-mv target/obssuite_setstudiomodeaction-1.0.0.jar ../$FOLD/obssuite_setstudiomodeaction.jar
+twitter() {
+  pushd . || exit
+  cd twitteraction && mvn clean package
+  mv target/twitteraction-1.0.0.jar $FOLD/twitteraction.jar
+  popd || exit
+}
 
-cd ../setvolume && mvn clean package
-mv target/obssuite_setvolumeaction-1.0.0.jar ../$FOLD/obssuite_setvolumeaction.jar
-popd || exit
+twitchchat() {
+  pushd . || exit
+  cd twitch/twitch-chat-connect && mvn clean install package
+  mv target/twitch-chat-connect-1.0.0.jar ../$FOLD/twitch-chat-connect.jar
 
-# Twitch Chat
-pushd . || exit
-cd twitch/twitch-chat-connect && mvn clean install package
-mv target/twitch-chat-connect-1.0.0.jar ../$FOLD/twitch-chat-connect.jar
+  cd ../send-channel-msg && mvn clean package
+  mv target/twitch-send-channel-msg-1.0.0.jar ../$FOLD/twitch-send-channel-msg.jar
+  popd || exit
+}
 
-cd ../send-channel-msg && mvn clean package
-mv target/twitch-send-channel-msg-1.0.0.jar ../$FOLD/twitch-send-channel-msg.jar
-popd || exit
+websiteaction() {
+  pushd . || exit
+  cd websiteaction && mvn clean package
+  mv target/websiteaction-1.0.0.jar $FOLD/websiteaction.jar
+  popd || exit
+}
+
+case "$1" in
+hotkey)
+  hotkey
+  ;;
+mediakey)
+  mediakey
+  ;;
+playaudioclip)
+  playaudioclip
+  ;;
+runcommand)
+  runcommand
+  ;;
+textblock)
+  textblock
+  ;;
+twitter)
+  twitter
+  ;;
+website)
+  website
+  ;;
+obssuite)
+  obssuite
+  ;;
+twitchchat)
+  twitchchat
+  ;;
+*)
+  # build all actions as default
+  hotkey
+  mediakey
+  obssuite
+  playaudioclip
+  runcommand
+  textblock
+  twitter
+  twitchchat
+  website
+  ;;
+esac
