@@ -9,14 +9,13 @@ import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
 
-import static connect.chat.TwitchChatCredentials.DEFAULT_TWITCH_NICKNAME;
-import static connect.chat.TwitchChatCredentials.DEFAULT_TWITCH_TOKEN;
+import java.util.UUID;
 
 public class SendChannelMessageAction extends NormalAction
 {
 
-    private static final String TWITCH_CHANNEL_NAME_KEY = "twitch_channel_name";
-    private static final String TWITCH_CHANNEL_MSG_KEY = "twitch_channel_msg";
+    private static final String CHANNEL_NAME_KEY = UUID.randomUUID().toString();
+    private static final String CHANNEL_MSG_KEY = UUID.randomUUID().toString();
 
     private Twirk twirk;
 
@@ -27,18 +26,18 @@ public class SendChannelMessageAction extends NormalAction
         setVisibilityInServerSettingsPane(false);
         setAuthor("j4ckofalltrades");
         setVersion(new Version(1, 0, 0));
-        setHelpLink("https://github.com/stream-pi/essentialactions");
+        setHelpLink("https://github.com/stream-pi/essentialactions#twitch-chat-integration");
     }
 
     @Override
     public void initProperties() throws Exception
     {
-        Property channelName = new Property(TWITCH_CHANNEL_NAME_KEY, Type.STRING);
+        Property channelName = new Property(CHANNEL_NAME_KEY, Type.STRING);
         channelName.setDisplayName("Channel Name");
         channelName.setDefaultValueStr("channel_name");
         channelName.setCanBeBlank(false);
 
-        Property channelMessage = new Property(TWITCH_CHANNEL_MSG_KEY, Type.STRING);
+        Property channelMessage = new Property(CHANNEL_MSG_KEY, Type.STRING);
         channelMessage.setDisplayName("Message");
         channelMessage.setDefaultValueStr("channel_msg");
         channelMessage.setCanBeBlank(false);
@@ -55,22 +54,15 @@ public class SendChannelMessageAction extends NormalAction
     @Override
     public void onActionClicked() throws Exception
     {
-        TwitchChatCredentials.ChatCredentials credentials = TwitchChatCredentials.getCredentials();
-        if (!isChatCredentialsInitialized(credentials))
-        {
-            throw new StreamPiException("Twitch Chat uninitialized.","Please check that the Twitch Chat plugin configuration is correct.");
-        }
+        final TwitchChatCredentials.ChatCredentials credentials = TwitchChatCredentials.getCredentials();
+        credentials.ensureCredentialsInitialized();
 
-        final String channel = getClientProperties().getSingleProperty(TWITCH_CHANNEL_NAME_KEY).getStringValue();
-        final String message = getClientProperties().getSingleProperty(TWITCH_CHANNEL_MSG_KEY).getStringValue();
+        final String channel = getClientProperties().getSingleProperty(CHANNEL_NAME_KEY).getStringValue();
+        final String message = getClientProperties().getSingleProperty(CHANNEL_MSG_KEY).getStringValue();
 
         try
         {
-            twirk = new TwirkBuilder(
-                    getClientProperties().getSingleProperty(TWITCH_CHANNEL_NAME_KEY).getStringValue(),
-                    credentials.getNickname(),
-                    credentials.getOauthToken())
-                    .build();
+            twirk = new TwirkBuilder(channel, credentials.getNickname(), credentials.getOauthToken()).build();
             twirk.connect();
             twirk.channelMessage(message);
         } catch (Exception ex)
@@ -83,31 +75,9 @@ public class SendChannelMessageAction extends NormalAction
         }
     }
 
-    private boolean isChatCredentialsInitialized(TwitchChatCredentials.ChatCredentials credentials)
-    {
-        if (credentials == null)
-        {
-            return false;
-        }
-
-        final String twitchNickname = credentials.getNickname();
-        boolean isNicknameInitialized = twitchNickname != null &&
-                !twitchNickname.isEmpty() &&
-                !twitchNickname.equalsIgnoreCase(DEFAULT_TWITCH_NICKNAME);
-
-        final String twitchChatOauthToken = credentials.getOauthToken();
-        boolean isTokenInitialized = twitchChatOauthToken != null &&
-                !twitchChatOauthToken.isEmpty() &&
-                !twitchChatOauthToken.equalsIgnoreCase(DEFAULT_TWITCH_TOKEN);
-
-        return isNicknameInitialized && isTokenInitialized;
-    }
-
     @Override
     public void onShutDown() throws Exception
     {
         twirk.close();
     }
 }
-
-

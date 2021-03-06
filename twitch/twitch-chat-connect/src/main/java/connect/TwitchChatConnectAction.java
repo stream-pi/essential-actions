@@ -13,8 +13,8 @@ import javafx.scene.control.Button;
 public class TwitchChatConnectAction extends NormalAction
 {
 
-    private static final String TWITCH_ACCESS_TOKEN_KEY = "twitch_access_token";
-    private static final String TWITCH_NICKNAME_KEY = "twitch_nickname";
+    private static final String ACCESS_TOKEN_KEY = "twitch_chat_access_token";
+    private static final String NICKNAME_KEY = "twitch_chat_nickname";
 
     private final Button clearCredentialsBtn;
 
@@ -25,7 +25,7 @@ public class TwitchChatConnectAction extends NormalAction
         setVisibilityInPluginsPane(false);
         setAuthor("j4ckofalltrades");
         setVersion(new Version(1, 0, 0));
-        setHelpLink("https://github.com/Stream-Pi/essentialactions");
+        setHelpLink("https://github.com/stream-pi/essentialactions#twitch-chat-integration");
 
         clearCredentialsBtn = new Button("Clear Twitch chat credentials");
         onClearCredentials();
@@ -35,10 +35,10 @@ public class TwitchChatConnectAction extends NormalAction
     @Override
     public void initProperties()
     {
-        Property twitchNicknameProp = new Property(TWITCH_NICKNAME_KEY, Type.STRING);
+        Property twitchNicknameProp = new Property(NICKNAME_KEY, Type.STRING);
         twitchNicknameProp.setDisplayName("Twitch Username");
 
-        Property twitchAccessTokenProp = new Property(TWITCH_ACCESS_TOKEN_KEY, Type.STRING);
+        Property twitchAccessTokenProp = new Property(ACCESS_TOKEN_KEY, Type.STRING);
         twitchAccessTokenProp.setDisplayName("Access Token");
 
         addServerProperties(twitchNicknameProp, twitchAccessTokenProp);
@@ -51,13 +51,13 @@ public class TwitchChatConnectAction extends NormalAction
 
         TwitchChatCredentials.setCredentials(
                 new TwitchChatCredentials.ChatCredentials()
-                        .setOauthToken(getServerProperties().getSingleProperty(TWITCH_ACCESS_TOKEN_KEY).getStringValue())
-                        .setNickname(getServerProperties().getSingleProperty(TWITCH_NICKNAME_KEY).getStringValue()));
+                        .setOauthToken(getServerProperties().getSingleProperty(ACCESS_TOKEN_KEY).getStringValue())
+                        .setNickname(getServerProperties().getSingleProperty(NICKNAME_KEY).getStringValue()));
     }
 
     private boolean isEmptyCredentials() throws MinorException {
-        final String twitchNickname = getServerProperties().getSingleProperty(TWITCH_NICKNAME_KEY).getStringValue();
-        final String twitchChatOauthToken = getServerProperties().getSingleProperty(TWITCH_ACCESS_TOKEN_KEY).getStringValue();
+        final String twitchNickname = getServerProperties().getSingleProperty(NICKNAME_KEY).getStringValue();
+        final String twitchChatOauthToken = getServerProperties().getSingleProperty(ACCESS_TOKEN_KEY).getStringValue();
         return (twitchNickname == null || twitchNickname.isEmpty()) &&
                 (twitchChatOauthToken == null || twitchChatOauthToken.isEmpty());
     }
@@ -68,8 +68,8 @@ public class TwitchChatConnectAction extends NormalAction
         {
             try
             {
-                getServerProperties().getSingleProperty(TWITCH_ACCESS_TOKEN_KEY).setStringValue("");
-                getServerProperties().getSingleProperty(TWITCH_NICKNAME_KEY).setStringValue("");
+                getServerProperties().getSingleProperty(ACCESS_TOKEN_KEY).setStringValue("");
+                getServerProperties().getSingleProperty(NICKNAME_KEY).setStringValue("");
                 saveServerProperties();
                 new StreamPiAlert(
                         "Twitch chat credentials cleared",

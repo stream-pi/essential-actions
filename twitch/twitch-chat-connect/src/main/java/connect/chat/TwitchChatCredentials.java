@@ -1,9 +1,9 @@
 package connect.chat;
 
+import com.stream_pi.util.exception.StreamPiException;
+
 public final class TwitchChatCredentials
 {
-    public static final String DEFAULT_TWITCH_NICKNAME = "twitch_username";
-    public static final String DEFAULT_TWITCH_TOKEN = "twitch_token";
 
     private static ChatCredentials credentials;
 
@@ -21,6 +21,20 @@ public final class TwitchChatCredentials
     {
         String nickname;
         String oauthToken;
+
+        public void ensureCredentialsInitialized() throws Exception {
+            final String twitchNickname = nickname;
+            boolean isNicknameInitialized = twitchNickname != null && !twitchNickname.isEmpty();
+
+            final String twitchChatOauthToken = oauthToken;
+            boolean isTokenInitialized = twitchChatOauthToken != null && !twitchChatOauthToken.isEmpty();
+
+            if (!isNicknameInitialized && !isTokenInitialized) {
+                throw new StreamPiException(
+                        "Twitch Chat config uninitialized.",
+                        "Please check that the Twitch Chat plugin configuration is correct.");
+            }
+        }
 
         public String getNickname()
         {
