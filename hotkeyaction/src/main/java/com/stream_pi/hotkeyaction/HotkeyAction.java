@@ -24,7 +24,7 @@ public class HotkeyAction extends NormalAction {
         setCategory("Essentials");
         setAuthor("rnayabed");
         setServerButtonGraphic("far-keyboard");
-        setHelpLink("https://github.com/Stream-Pi/EssentialActions");
+        setHelpLink("https://github.com/Stream-Pi/EssentialActions/hotkeyaction");
         setVersion(new Version(1,0,0));
     }
 
@@ -145,13 +145,13 @@ public class HotkeyAction extends NormalAction {
             case "TAB": return TAB;
             case "[": return OPEN_BRACKET; 
             case "]": return CLOSE_BRACKET; 
-            case "\\": return BACK_SLASH; 
             case "{": return OPEN_BRACKET; 
             case "}": return CLOSE_BRACKET; 
-            case "|": return BACK_SLASH; 
+            case "|": return PIPE; 
             case ";": return SEMICOLON; 
             case ":": return COLON; 
-            case "\"": return BACK_SLASH;
+            case "\\": return BACK_SLASH; 
+            case "\"": return QUOTE;
             case ",": return COMMA; 
             case "<": return LESS;
             case ".": return PERIOD; 
