@@ -91,8 +91,11 @@ twitchchat() {
   cd twitch/twitch-chat-connect && mvn clean install package
   mv target/twitch-chat-connect-1.0.0.jar ../$FOLD/twitch-chat-connect.jar
 
-  cd ../send-channel-msg && mvn clean package
+  cd ../send-channel-msg && mvn clean install package
   mv target/twitch-send-channel-msg-1.0.0.jar ../$FOLD/twitch-send-channel-msg.jar
+
+  cd ../clear-chat && mvn clean install package
+  mv target/twitch-clear-chat-1.0.0.jar ../$FOLD/twitch-clear-chat.jar
   popd || exit
 }
 
