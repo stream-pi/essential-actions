@@ -24,7 +24,7 @@ public class HotkeyAction extends NormalAction {
         setCategory("Essentials");
         setAuthor("rnayabed");
         setServerButtonGraphic("far-keyboard");
-        setHelpLink("https://github.com/Stream-Pi/EssentialActions/hotkeyaction");
+        setHelpLink("https://github.com/prubiella/essentialactions/tree/master/hotkeyaction/README.md");
         setVersion(new Version(1,0,0));
     }
 
