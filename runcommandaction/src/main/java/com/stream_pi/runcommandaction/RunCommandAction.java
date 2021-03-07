@@ -15,7 +15,7 @@ public class RunCommandAction extends NormalAction {
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-terminal");
         setHelpLink("https://github.com/Stream-Pi/EssentialActions");
-        setVersion(new Version(1,0,0));
+        setVersion(new Version(1,1,0));
     }
 
     @Override
@@ -35,9 +35,7 @@ public class RunCommandAction extends NormalAction {
     @Override
     public void onActionClicked() throws Exception 
     {
-        int rv = runCommand(getClientProperties().getSingleProperty("command").getStringValue());
-
-        System.out.println(rv);
+        runCommand(getClientProperties().getSingleProperty("command").getStringValue());
     }
 
     @Override
@@ -46,10 +44,9 @@ public class RunCommandAction extends NormalAction {
 
     }
 
-    private int runCommand(String command) throws Exception
+    private void runCommand(String command) throws Exception
     {
         Runtime rt = Runtime.getRuntime();
         Process pr = rt.exec(command);
-        return pr.waitFor();
     }
 }

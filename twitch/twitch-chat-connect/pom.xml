@@ -11,8 +11,8 @@
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
-    <streamPiActionApiVersion>1.0.0</streamPiActionApiVersion>
-    <streamPiUtilVersion>1.0.0</streamPiUtilVersion>
+    <streamPiActionApiVersion>1.0.0-SNAPSHOT</streamPiActionApiVersion>
+    <streamPiUtilVersion>1.0.0-SNAPSHOT</streamPiUtilVersion>
     <javaTwirkVersion>0.6.3</javaTwirkVersion>
   </properties>
 

@@ -24,8 +24,8 @@ public class HotkeyAction extends NormalAction {
         setCategory("Essentials");
         setAuthor("rnayabed");
         setServerButtonGraphic("far-keyboard");
-        setHelpLink("https://github.com/prubiella/essentialactions/tree/master/hotkeyaction/README.md");
-        setVersion(new Version(1,0,0));
+        setHelpLink("https://github.com/stream-pi/essentialactions/blob/master/hotkeyaction/README.md");
+        setVersion(new Version(1,0,1));
     }
 
     @Override
@@ -57,6 +57,7 @@ public class HotkeyAction extends NormalAction {
         press(keyCombination.getStringValue()
             .toUpperCase()
             .replace("?","SHIFT,/")
+            .replace("|","SHIFT,\\")
             .split(",")
         );
     }
@@ -146,8 +147,7 @@ public class HotkeyAction extends NormalAction {
             case "[": return OPEN_BRACKET; 
             case "]": return CLOSE_BRACKET; 
             case "{": return OPEN_BRACKET; 
-            case "}": return CLOSE_BRACKET; 
-            case "|": return PIPE; 
+            case "}": return CLOSE_BRACKET;
             case ";": return SEMICOLON; 
             case ":": return COLON; 
             case "\\": return BACK_SLASH; 
