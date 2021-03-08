@@ -130,15 +130,15 @@ PAUSE                 | PAUSE        |
 NUM LOCK              | NUM LOCK     | 
 CONTROL               | CONTROL      | 
 CAPS LOCK             | CAPS LOCK    | 
-NUM UP                | NUM UP       | 
-UP                  | UP           | 
-NUM LEFT              | NUM LEFT     | 
-LEFT                  | LEFT         | 
+NUM UP                | NUMPAD UP       | 
+UP                    | ARROW UP           | 
+NUM LEFT              | NUMPAD LEFT     | 
+LEFT                  | ARROW LEFT         | 
 ALT GRAPH             | ALT GRAPH    | 
-NUM RIGHT             | NUM RIGHT    | 
-RIGHT                 | RIGHT        | 
-NUM DOWN              | NUM DOWN     | 
-DOWN                  | DOWN         | 
+NUM RIGHT             | NUMPAD RIGHT    | 
+RIGHT                 | ARROW RIGHT        | 
+NUM DOWN              | NUMPAD DOWN     | 
+DOWN                  | ARROW DOWN         | 
 
 ## Usage
 
