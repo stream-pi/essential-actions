@@ -20,15 +20,13 @@ public class MediaKeyAction extends NormalAction
         setCategory("Essentials");
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-volume-up");
-        setHelpLink("https://github.com/Stream-Pi/EssentialActions");
-        setVersion(new Version(1,0,0));
+        setHelpLink("https://github.com/stream-pi/essentialactions/tree/master/mediakeyaction");
+        setVersion(new Version(1,1,0));
     }
-
-    private List<String> states;
 
     @Override
     public void initProperties() throws Exception {
-        states = List.of("Play/Pause", "Previous", "Next", "Vol Up", "Vol Down", "Mute", "Stop");
+        List<String> states = List.of("Play/Pause", "Previous", "Next", "Vol Up", "Vol Down", "Mute", "Stop");
 
         Property mediaKeyTypeProperty = new Property("media_key_type", Type.LIST);
         mediaKeyTypeProperty.setListValue(states);
@@ -66,7 +64,7 @@ public class MediaKeyAction extends NormalAction
     }
 
     @Override
-    public void onActionClicked() throws Exception 
+    public void onActionClicked() throws Exception
     {
         int state = getClientProperties().getSingleProperty("media_key_type").getSelectedIndex();
 
@@ -86,16 +84,16 @@ public class MediaKeyAction extends NormalAction
     }
 
     @Override
-    public void onShutDown() throws Exception
+    public void onShutDown()
     {
 
     }
 
-    private int runCommand(String command) throws Exception
+    private void runCommand(String command) throws Exception
     {
         Runtime rt = Runtime.getRuntime();
         Process pr = rt.exec(command);
-        return pr.waitFor();
+        pr.waitFor();
     }
 
     private void linuxHandler(int state) throws Exception
@@ -117,45 +115,42 @@ public class MediaKeyAction extends NormalAction
         {
             e.printStackTrace();
             
-            new StreamPiAlert("Uh Oh!",
-                "It looks like 'xdotool' is not installed in this computer. Please install it and try again.",
-                StreamPiAlertType.ERROR
-            ).show();
+            throw new UnsupportedOperationException(
+                "It looks like 'xdotool' is not installed in this computer. Please install it and try again."
+            );
         }
     }
 
-    private void windowsHandler(int state) throws Exception
-    {
+    private void windowsHandler(int state) throws Exception {
         try
         {
+            String exe = "\""+absolutePathToExe+"\"";
             switch(state)
             {
-                case 0: runCommand(absolutePathToExe+" 0xB3"); break;
-                case 1: runCommand(absolutePathToExe+" 0xB1"); break;
-                case 2: runCommand(absolutePathToExe+" 0xB0"); break;
-                case 3: runCommand(absolutePathToExe+" 0xAF"); break;
-                case 4: runCommand(absolutePathToExe+" 0xAE"); break;
-                case 5: runCommand(absolutePathToExe+" 0xAD"); break;
-                case 6: runCommand(absolutePathToExe+" 0xB2"); break;
+                case 0: runCommand(exe+" 0xB3"); break;
+                case 1: runCommand(exe+" 0xB1"); break;
+                case 2: runCommand(exe+" 0xB0"); break;
+                case 3: runCommand(exe+" 0xAF"); break;
+                case 4: runCommand(exe+" 0xAE"); break;
+                case 5: runCommand(exe+" 0xAD"); break;
+                case 6: runCommand(exe+" 0xB2"); break;
             }
         }
         catch (Exception e)
         {
             e.printStackTrace();
 
-            new StreamPiAlert("Uh Oh!",
-                    "Internal Error occured. Check logs, stacktrace. Report to us.",
-                    StreamPiAlertType.ERROR
-            ).show();
+            throw new UnsupportedOperationException(
+                    "Internal Error occurred. Check logs, stacktrace. Report to us."
+            );
         }
     }
 
 
     private void othersHandler()
     {
-        new StreamPiAlert("Uh Oh!",
-            "Media Keys arent supported on this platform yet. Check out the supported platforms by clicking the '?' button on plugins pane/Plugins Settings.",
-            StreamPiAlertType.ERROR
-        ).show();
+        throw new UnsupportedOperationException(
+                "Media Keys arent supported on this platform yet. Check out the supported platforms by clicking the '?' button on Plugins Pane"
+        );
     }
 }
