@@ -131,14 +131,14 @@ NUM LOCK              | NUM LOCK     |
 CONTROL               | CONTROL      | 
 CAPS LOCK             | CAPS LOCK    | 
 NUM UP                | NUM UP       | 
-ARROW UP                  | UP           | 
+UP                  | UP           | 
 NUM LEFT              | NUM LEFT     | 
-ARROW LEFT                  | LEFT         | 
+LEFT                  | LEFT         | 
 ALT GRAPH             | ALT GRAPH    | 
 NUM RIGHT             | NUM RIGHT    | 
-ARROW RIGHT                 | RIGHT        | 
+RIGHT                 | RIGHT        | 
 NUM DOWN              | NUM DOWN     | 
-ARROW DOWN                  | DOWN         | 
+DOWN                  | DOWN         | 
 
 ## Usage
 
