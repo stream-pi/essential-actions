@@ -14,7 +14,7 @@ public class RunCommandAction extends NormalAction {
         setCategory("Essentials");
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-terminal");
-        setHelpLink("https://github.com/stream-pi/essentialactions/tree/master/runcommandaction");
+        setHelpLink("https://github.com/stream-pi/essentialactions/blob/master/runcommandaction/README.md");
         setVersion(new Version(1,1,1));
     }
 
