@@ -14,8 +14,8 @@ public class RunCommandAction extends NormalAction {
         setCategory("Essentials");
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-terminal");
-        setHelpLink("https://github.com/Stream-Pi/EssentialActions");
-        setVersion(new Version(1,1,0));
+        setHelpLink("https://github.com/stream-pi/essentialactions/tree/master/runcommandaction");
+        setVersion(new Version(1,1,1));
     }
 
     @Override
@@ -47,6 +47,6 @@ public class RunCommandAction extends NormalAction {
     private void runCommand(String command) throws Exception
     {
         Runtime rt = Runtime.getRuntime();
-        Process pr = rt.exec(command);
+        rt.exec(command);
     }
 }
