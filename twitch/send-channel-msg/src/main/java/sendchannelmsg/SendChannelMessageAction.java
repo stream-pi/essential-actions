@@ -9,13 +9,11 @@ import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
 
-import java.util.UUID;
-
 public class SendChannelMessageAction extends NormalAction
 {
 
-    private static final String CHANNEL_NAME_KEY = UUID.randomUUID().toString();
-    private static final String CHANNEL_MSG_KEY = UUID.randomUUID().toString();
+    private final String channelNameKey = "channel_name_scm";
+    private final String channelMsgKey = "channel_msg_scm";
 
     private Twirk twirk;
 
@@ -32,12 +30,12 @@ public class SendChannelMessageAction extends NormalAction
     @Override
     public void initProperties() throws Exception
     {
-        Property channelName = new Property(CHANNEL_NAME_KEY, Type.STRING);
+        Property channelName = new Property(channelNameKey, Type.STRING);
         channelName.setDisplayName("Channel Name");
         channelName.setDefaultValueStr("channel_name");
         channelName.setCanBeBlank(false);
 
-        Property channelMessage = new Property(CHANNEL_MSG_KEY, Type.STRING);
+        Property channelMessage = new Property(channelMsgKey, Type.STRING);
         channelMessage.setDisplayName("Message");
         channelMessage.setDefaultValueStr("channel_msg");
         channelMessage.setCanBeBlank(false);
@@ -57,8 +55,8 @@ public class SendChannelMessageAction extends NormalAction
         final TwitchChatCredentials.ChatCredentials credentials = TwitchChatCredentials.getCredentials();
         credentials.ensureCredentialsInitialized();
 
-        final String channel = getClientProperties().getSingleProperty(CHANNEL_NAME_KEY).getStringValue();
-        final String message = getClientProperties().getSingleProperty(CHANNEL_MSG_KEY).getStringValue();
+        final String channel = getClientProperties().getSingleProperty(channelNameKey).getStringValue();
+        final String message = getClientProperties().getSingleProperty(channelMsgKey).getStringValue();
 
         try
         {
@@ -78,6 +76,13 @@ public class SendChannelMessageAction extends NormalAction
     @Override
     public void onShutDown() throws Exception
     {
-        twirk.close();
+        if (twirk != null) {
+            try
+            {
+                twirk.disconnect();
+            } catch (Exception ex) {
+                throw new StreamPiException("Twitch connection error", "Please try again.");
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package clearchat;
+package setcolor;
 
 import com.gikk.twirk.Twirk;
 import com.gikk.twirk.TwirkBuilder;
@@ -9,17 +9,18 @@ import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
 
-public class ClearChatAction extends NormalAction
+public class SetColorAction extends NormalAction
 {
 
-    private final String channelNameKey = "channel_name_cc";
+    private final String channelNameKey = "channel_name_sc";
+    private final String usernameColorKey = "username_color_sc";
 
     private Twirk twirk;
 
     @Override
     public void initProperties() throws Exception
     {
-        setName("Clear Chat");
+        setName("Set Color");
         setCategory("Twitch Chat");
         setVisibilityInServerSettingsPane(false);
         setAuthor("j4ckofalltrades");
@@ -35,7 +36,12 @@ public class ClearChatAction extends NormalAction
         channelName.setDefaultValueStr("channel_name");
         channelName.setCanBeBlank(false);
 
-        addClientProperties(channelName);
+        Property usernameColor = new Property(usernameColorKey, Type.STRING);
+        usernameColor.setDisplayName("Color");
+        usernameColor.setDefaultValueStr("color");
+        usernameColor.setCanBeBlank(false);
+
+        addClientProperties(channelName, usernameColor);
     }
 
     @Override
@@ -45,17 +51,19 @@ public class ClearChatAction extends NormalAction
         credentials.ensureCredentialsInitialized();
 
         final String channel = getClientProperties().getSingleProperty(channelNameKey).getStringValue();
+        final String color = getClientProperties().getSingleProperty(usernameColorKey).getStringValue();
 
         try
         {
             twirk = new TwirkBuilder(channel, credentials.getNickname(), credentials.getOauthToken()).build();
             twirk.connect();
-            twirk.channelMessage("/clear");
+            twirk.channelMessage(String.format("/color %s", color));
         } catch (Exception ex)
         {
             throw new StreamPiException(
-                    "Failed to clear channel chat",
-                    String.format("Could not clear chat for '%s' channel, please try again.", channel)
+                    "Failed to change username color",
+                    String.format("Could not change username color to '%s' for '%s' channel, please try again.",
+                            color, channel)
             );
         }
     }
@@ -68,7 +76,7 @@ public class ClearChatAction extends NormalAction
             {
                 twirk.disconnect();
             } catch (Exception ex) {
-                throw new StreamPiException("Twitch Connection error", "Please try again.");
+                throw new StreamPiException("Twitch connection error", "Please try again.");
             }
         }
     }

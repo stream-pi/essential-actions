@@ -96,6 +96,9 @@ twitchchat() {
 
   cd ../clear-chat && mvn clean install package
   mv target/twitch-clear-chat-1.0.0.jar ../$FOLD/twitch-clear-chat.jar
+
+  cd ../set-color && mvn clean install package
+  mv target/twitch-set-color-1.0.0.jar ../$FOLD/twitch-set-color.jar
   popd || exit
 }
 
