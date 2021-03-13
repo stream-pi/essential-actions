@@ -114,6 +114,9 @@ twitchchat() {
 
   cd ../host-channel && mvn clean install package
   mv target/twitch-host-channel-1.0.0.jar ../$FOLD/twitch-host-channel.jar
+
+  cd ../raid-channel && mvn clean install package
+  mv target/twitch-raid-channel-1.0.0.jar ../$FOLD/twitch-raid-channel.jar
   popd || exit
 }
 
