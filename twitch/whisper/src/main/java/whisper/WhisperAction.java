@@ -1,4 +1,4 @@
-package sendchannelmsg;
+package whisper;
 
 import com.gikk.twirk.Twirk;
 import com.gikk.twirk.TwirkBuilder;
@@ -9,17 +9,17 @@ import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
 
-public class SendChannelMessageAction extends NormalAction
+public class WhisperAction extends NormalAction
 {
 
-    private final String channelNameKey = "channel_name_scm";
-    private final String channelMsgKey = "channel_msg_scm";
+    private final String usernameKey = "username_wa";
+    private final String messageKey = "message_wa";
 
     private Twirk twirk;
 
-    public SendChannelMessageAction()
+    public WhisperAction()
     {
-        setName("Send Channel Message");
+        setName("Whisper");
         setCategory("Twitch Chat");
         setVisibilityInServerSettingsPane(false);
         setAuthor("j4ckofalltrades");
@@ -30,17 +30,17 @@ public class SendChannelMessageAction extends NormalAction
     @Override
     public void initProperties() throws Exception
     {
-        Property channelName = new Property(channelNameKey, Type.STRING);
-        channelName.setDisplayName("Channel Name");
-        channelName.setDefaultValueStr("channel_name");
-        channelName.setCanBeBlank(false);
+        Property usernameProp = new Property(usernameKey, Type.STRING);
+        usernameProp.setDisplayName("Twitch Username");
+        usernameProp.setDefaultValueStr("username");
+        usernameProp.setCanBeBlank(false);
 
-        Property channelMessage = new Property(channelMsgKey, Type.STRING);
-        channelMessage.setDisplayName("Message");
-        channelMessage.setDefaultValueStr("channel_msg");
-        channelMessage.setCanBeBlank(false);
+        Property messageProp = new Property(messageKey, Type.STRING);
+        messageProp.setDisplayName("Message");
+        messageProp.setDefaultValueStr("message");
+        messageProp.setCanBeBlank(false);
 
-        addClientProperties(channelName, channelMessage);
+        addClientProperties(usernameProp, messageProp);
     }
 
     @Override
@@ -55,20 +55,20 @@ public class SendChannelMessageAction extends NormalAction
         final TwitchChatCredentials.ChatCredentials credentials = TwitchChatCredentials.getCredentials();
         credentials.ensureCredentialsInitialized();
 
-        final String channel = getClientProperties().getSingleProperty(channelNameKey).getStringValue();
-        final String message = getClientProperties().getSingleProperty(channelMsgKey).getStringValue();
+        final String username = getClientProperties().getSingleProperty(usernameKey).getStringValue();
+        final String message = getClientProperties().getSingleProperty(messageKey).getStringValue();
 
         try
         {
-            twirk = new TwirkBuilder(channel, credentials.getNickname(), credentials.getOauthToken()).build();
+            twirk = new TwirkBuilder(username, credentials.getNickname(), credentials.getOauthToken()).build();
             twirk.connect();
-            twirk.channelMessage(message);
+            twirk.whisper(username, message);
         } catch (Exception ex)
         {
             throw new StreamPiException(
-                    "Failed to send channel message",
-                    String.format("Could not send message '%s' to '%s' channel, please try again.",
-                            channel, message)
+                    "Failed to send message to user",
+                    String.format("Could not send message '%s' to user '%s', please try again.",
+                            username, message)
             );
         }
     }

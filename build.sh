@@ -91,8 +91,35 @@ twitchchat() {
   cd twitch/twitch-chat-connect && mvn clean install package
   mv target/twitch-chat-connect-1.0.0.jar ../$FOLD/twitch-chat-connect.jar
 
-  cd ../send-channel-msg && mvn clean package
+  cd ../send-channel-msg && mvn clean install package
   mv target/twitch-send-channel-msg-1.0.0.jar ../$FOLD/twitch-send-channel-msg.jar
+
+  cd ../clear-chat && mvn clean install package
+  mv target/twitch-clear-chat-1.0.0.jar ../$FOLD/twitch-clear-chat.jar
+
+  cd ../set-color && mvn clean install package
+  mv target/twitch-set-color-1.0.0.jar ../$FOLD/twitch-set-color.jar
+
+  cd ../whisper && mvn clean install package
+  mv target/twitch-whisper-1.0.0.jar ../$FOLD/twitch-whisper.jar
+
+  cd ../unraid && mvn clean install package
+  mv target/twitch-unraid-1.0.0.jar ../$FOLD/twitch-unraid.jar
+
+  cd ../unhost && mvn clean install package
+  mv target/twitch-unhost-1.0.0.jar ../$FOLD/twitch-unhost.jar
+
+  cd ../add-stream-marker && mvn clean install package
+  mv target/twitch-add-stream-marker-1.0.0.jar ../$FOLD/twitch-add-stream-marker.jar
+
+  cd ../host-channel && mvn clean install package
+  mv target/twitch-host-channel-1.0.0.jar ../$FOLD/twitch-host-channel.jar
+
+  cd ../raid-channel && mvn clean install package
+  mv target/twitch-raid-channel-1.0.0.jar ../$FOLD/twitch-raid-channel.jar
+
+  cd ../start-commercial && mvn clean install package
+  mv target/twitch-start-commercial-1.0.0.jar ../$FOLD/twitch-start-commercial.jar
   popd || exit
 }
 

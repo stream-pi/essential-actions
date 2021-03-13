@@ -1,4 +1,4 @@
-package sendchannelmsg;
+package clearchat;
 
 import com.gikk.twirk.Twirk;
 import com.gikk.twirk.TwirkBuilder;
@@ -9,17 +9,17 @@ import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
 
-public class SendChannelMessageAction extends NormalAction
+public class ClearChatAction extends NormalAction
 {
 
-    private final String channelNameKey = "channel_name_scm";
-    private final String channelMsgKey = "channel_msg_scm";
+    private final String channelNameKey = "channel_name_cc";
 
     private Twirk twirk;
 
-    public SendChannelMessageAction()
+    @Override
+    public void initProperties() throws Exception
     {
-        setName("Send Channel Message");
+        setName("Clear Chat");
         setCategory("Twitch Chat");
         setVisibilityInServerSettingsPane(false);
         setAuthor("j4ckofalltrades");
@@ -28,25 +28,14 @@ public class SendChannelMessageAction extends NormalAction
     }
 
     @Override
-    public void initProperties() throws Exception
+    public void initAction() throws Exception
     {
         Property channelName = new Property(channelNameKey, Type.STRING);
         channelName.setDisplayName("Channel Name");
         channelName.setDefaultValueStr("channel_name");
         channelName.setCanBeBlank(false);
 
-        Property channelMessage = new Property(channelMsgKey, Type.STRING);
-        channelMessage.setDisplayName("Message");
-        channelMessage.setDefaultValueStr("channel_msg");
-        channelMessage.setCanBeBlank(false);
-
-        addClientProperties(channelName, channelMessage);
-    }
-
-    @Override
-    public void initAction() throws Exception
-    {
-
+        addClientProperties(channelName);
     }
 
     @Override
@@ -56,19 +45,17 @@ public class SendChannelMessageAction extends NormalAction
         credentials.ensureCredentialsInitialized();
 
         final String channel = getClientProperties().getSingleProperty(channelNameKey).getStringValue();
-        final String message = getClientProperties().getSingleProperty(channelMsgKey).getStringValue();
 
         try
         {
             twirk = new TwirkBuilder(channel, credentials.getNickname(), credentials.getOauthToken()).build();
             twirk.connect();
-            twirk.channelMessage(message);
+            twirk.channelMessage("/clear");
         } catch (Exception ex)
         {
             throw new StreamPiException(
-                    "Failed to send channel message",
-                    String.format("Could not send message '%s' to '%s' channel, please try again.",
-                            channel, message)
+                    "Failed to clear channel chat",
+                    String.format("Could not clear chat for '%s' channel, please try again.", channel)
             );
         }
     }
@@ -81,7 +68,7 @@ public class SendChannelMessageAction extends NormalAction
             {
                 twirk.disconnect();
             } catch (Exception ex) {
-                throw new StreamPiException("Twitch connection error", "Please try again.");
+                throw new StreamPiException("Twitch Connection error", "Please try again.");
             }
         }
     }
