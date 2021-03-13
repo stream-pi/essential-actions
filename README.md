@@ -25,7 +25,7 @@ Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [St
 
 The first step is to acquire an OAuth token from https://twitchapps.com/tmi/, the generated OAuth token should look something like `oauth:xxxxx`.
 
-In the Stream-Pi Server's Plugin page enter your Twitch username, and the generated token then click on `Save Twitch chat credentials` button. You should then be able to use the pre-bundled Twitch chat actions. 
+In the Stream-Pi Server's Plugin page enter your Twitch username, and the generated token then click on `Save Twitch Chat credentials` button. You should then be able to use the pre-bundled Twitch chat actions. 
 
 ### Supported actions (see [Chat Commands](https://help.twitch.tv/s/article/chat-commands?language=en_US) for full documentation)
 
@@ -48,9 +48,9 @@ In the Stream-Pi Server's Plugin page enter your Twitch username, and the genera
 
 - Run commercial (TBA)
 - Host (TBA)
-- Unhost (TBA)
+- Unhost
 - Raid (TBA)
-- Unraid (TBA)
+- Unraid
 - Add stream marker (TBA)
 
 ### Running locally

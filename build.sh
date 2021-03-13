@@ -105,6 +105,9 @@ twitchchat() {
 
   cd ../unraid && mvn clean install package
   mv target/twitch-unraid-1.0.0.jar ../$FOLD/twitch-unraid.jar
+
+  cd ../unhost && mvn clean install package
+  mv target/twitch-unhost-1.0.0.jar ../$FOLD/twitch-unhost.jar
   popd || exit
 }
 
