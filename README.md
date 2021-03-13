@@ -46,10 +46,10 @@ In the Stream-Pi Server's Plugin page enter your Twitch username, and the genera
 
 #### Broadcaster and channel editors
 
-- Run commercial (TBA)
-- Host (TBA)
+- Run commercial
+- Host
 - Unhost
-- Raid (TBA)
+- Raid
 - Unraid
 - Add stream marker
 
