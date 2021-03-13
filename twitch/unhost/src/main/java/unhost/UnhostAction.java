@@ -12,7 +12,7 @@ import connect.chat.TwitchChatCredentials;
 public class UnhostAction extends NormalAction
 {
 
-    private final String channelNameKey = "channel_name_ua";
+    private final String channelNameKey = "channel_name_uh";
 
     private Twirk twirk;
 
@@ -59,8 +59,8 @@ public class UnhostAction extends NormalAction
         } catch (Exception ex)
         {
             throw new StreamPiException(
-                    "Failed to cancel channel raid",
-                    "Could not send cancel channel raid, please try again.");
+                    "Failed to cancel channel hosting",
+                    "Could not cancel channel hosting, please try again.");
         }
     }
 

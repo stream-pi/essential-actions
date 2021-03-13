@@ -51,7 +51,7 @@ In the Stream-Pi Server's Plugin page enter your Twitch username, and the genera
 - Unhost
 - Raid (TBA)
 - Unraid
-- Add stream marker (TBA)
+- Add stream marker
 
 ### Running locally
 

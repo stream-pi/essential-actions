@@ -108,6 +108,9 @@ twitchchat() {
 
   cd ../unhost && mvn clean install package
   mv target/twitch-unhost-1.0.0.jar ../$FOLD/twitch-unhost.jar
+
+  cd ../add-stream-marker && mvn clean install package
+  mv target/twitch-add-stream-marker-1.0.0.jar ../$FOLD/twitch-add-stream-marker.jar
   popd || exit
 }
 
