@@ -102,6 +102,9 @@ twitchchat() {
 
   cd ../whisper && mvn clean install package
   mv target/twitch-whisper-1.0.0.jar ../$FOLD/twitch-whisper.jar
+
+  cd ../unraid && mvn clean install package
+  mv target/twitch-unraid-1.0.0.jar ../$FOLD/twitch-unraid.jar
   popd || exit
 }
 
