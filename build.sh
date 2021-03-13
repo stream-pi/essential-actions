@@ -99,6 +99,9 @@ twitchchat() {
 
   cd ../set-color && mvn clean install package
   mv target/twitch-set-color-1.0.0.jar ../$FOLD/twitch-set-color.jar
+
+  cd ../whisper && mvn clean install package
+  mv target/twitch-whisper-1.0.0.jar ../$FOLD/twitch-whisper.jar
   popd || exit
 }
 

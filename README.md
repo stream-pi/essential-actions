@@ -34,7 +34,7 @@ In the Stream-Pi Server's Plugin page enter your Twitch username, and the genera
 - Set username color
     - Normal users can choose between Blue, Coral, DodgerBlue, SpringGreen, YellowGreen, Green, OrangeRed, Red, GoldenRod, HotPink, CadetBlue, SeaGreen, Chocolate, BlueViolet, and Firebrick. Twitch Turbo users can use any Hex value (i.e: #000000).
 - Send channel message
-- Whisper (send user message, TBA)
+- Whisper (send user message)
 
 #### Broadcaster and Mods
 
