@@ -1,4 +1,4 @@
-module com.stream_pi.twitch.sendchannelmsgaction {
+module com.stream_pi.twitch.addstreammarkeraction {
     requires com.stream_pi.util;
     requires com.stream_pi.action_api;
 

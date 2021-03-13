@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.stream-pi</groupId>
+  <artifactId>twitch-start-commercial</artifactId>
+  <version>1.0.0</version>
+
+  <properties>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+    <streamPiActionApiVersion>1.0.0</streamPiActionApiVersion>
+    <streamPiUtilVersion>1.0.0</streamPiUtilVersion>
+    <streamPiTwitchChatConnectVersion>1.0.0</streamPiTwitchChatConnectVersion>
+    <javaTwirkVersion>0.6.3</javaTwirkVersion>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>test-jar</id>
+            <phase>package</phase>
+            <goals>
+              <goal>test-jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>11</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.stream-pi</groupId>
+      <artifactId>util</artifactId>
+      <version>${streamPiUtilVersion}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.stream-pi</groupId>
+      <artifactId>action-api</artifactId>
+      <version>${streamPiActionApiVersion}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.gikkman</groupId>
+      <artifactId>Java-Twirk</artifactId>
+      <version>${javaTwirkVersion}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.stream-pi</groupId>
+      <artifactId>twitch-chat-connect</artifactId>
+      <version>${streamPiTwitchChatConnectVersion}</version>
+    </dependency>
+  </dependencies>
+
+</project>
