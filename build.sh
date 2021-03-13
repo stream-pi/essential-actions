@@ -111,6 +111,9 @@ twitchchat() {
 
   cd ../add-stream-marker && mvn clean install package
   mv target/twitch-add-stream-marker-1.0.0.jar ../$FOLD/twitch-add-stream-marker.jar
+
+  cd ../host-channel && mvn clean install package
+  mv target/twitch-host-channel-1.0.0.jar ../$FOLD/twitch-host-channel.jar
   popd || exit
 }
 
