@@ -23,9 +23,10 @@ Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [St
 
 ### Twitch Chat Integration
 
-The first step is to acquire an OAuth token from https://twitchapps.com/tmi/, the generated OAuth token should look something like `oauth:xxxxx`.
+The first step is to acquire an [OAuth token](https://twitchapps.com/tmi/), the generated OAuth token should look something like `oauth:xxxxx`.
 
-In the Stream-Pi Server's Plugin page enter your Twitch username, and the generated token then click on `Save Twitch Chat credentials` button. You should then be able to use the pre-bundled Twitch chat actions. 
+Then in the Stream-Pi Server's Plugin page you will need to enter your Twitch username with the generated OAuth token then click on `Save Twitch Chat credentials` button.
+You should then be able to use the pre-bundled Twitch chat actions. 
 
 ### Supported actions (see [Chat Commands](https://help.twitch.tv/s/article/chat-commands?language=en_US) for full documentation)
 
@@ -39,10 +40,6 @@ In the Stream-Pi Server's Plugin page enter your Twitch username, and the genera
 #### Broadcaster and Mods
 
 - Clear chat
-- Toggle slow mode (TBA - pending toggle-button functionality)
-- Toggle followers-only mode (TBA - pending toggle-button functionality)
-- Toggle subs-only mode (TBA - pending toggle-button functionality)
-- Toggle emotes-only mode (TBA - pending toggle-button functionality)
 
 #### Broadcaster and channel editors
 
@@ -53,9 +50,16 @@ In the Stream-Pi Server's Plugin page enter your Twitch username, and the genera
 - Unraid
 - Add stream marker
 
-### Running locally
+#### TODO (pending [toggle-button functionality](https://github.com/stream-pi/actionapi/issues/5))
 
-Copy the `twitch-chat-connect`, `twitch-send-channel-msg`, and `Java-Twirk` jar files from the `PreBuiltPlugins` directory to your Stream-Pi server plugins' directory. 
+- Toggle slow mode
+- Toggle followers-only mode
+- Toggle subs-only mode
+- Toggle emotes-only mode
+
+#### Running locally
+
+Copy the `Java-Twirk` and the `twitch-xxx-action` jar files from the `PreBuiltPlugins` directory to your Stream-Pi server plugins' directory. 
 
 ---
 
@@ -63,5 +67,5 @@ Copy the `twitch-chat-connect`, `twitch-send-channel-msg`, and `Java-Twirk` jar 
 
 Build all actions by executing `make build-all` from the command line or specific actions i.e. `make build-twitch-chat-action`, see [Makefile](Makefile) for complete list.
 
-To test these actions out in your local environment you'll need to run the [Stream-Pi Server](https://github.com/stream-pi/server) and copy the contents of `PreBuiltPlugins/` to the server's
+To test these actions out in your local environment you'll need to run the [Stream-Pi Server](https://github.com/stream-pi/server) and copy the contents of `PreBuiltPlugins` to the server's
 Plugins directory (`data/Plugins` by default), especially if you're writing your own custom action / integration.
