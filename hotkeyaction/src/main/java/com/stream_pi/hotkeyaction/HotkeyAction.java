@@ -155,7 +155,7 @@ public class HotkeyAction extends NormalAction {
             case ".": return PERIOD; 
             case ">": return GREATER;
             case "/": return SLASH; 
-            case " ": return SPACE;
+            case "SPACE": return SPACE;
 
             case "WIN":
             case "WINDOWS":

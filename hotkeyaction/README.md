@@ -66,47 +66,44 @@ Hotkey mapping plugin | Keyboard Key |
  {                    | <kbd>{</kbd>             |  
  }                    | <kbd>}</kbd>             |  
  \|                   | <kbd>\|</kbd>            |  
- \;                   | ;            |  
- \:                   | :            |  
- \                    | \            | 
- ,                    | ,            |  
- \<                   | <            | 
- \.                   | .            |  
- \>                   | >            | 
- /                    | /            |  
-" "                   | " "          | 
-WINDOWS               | WIN          |
-SUPER                 | SUPER        |
-COMMAND               | COMMAND      |
-WIN                   | WIN          |
-META                  | META         | 
-SHIFT                 | SHIFT        | 
-ALT                   | ALT          | 
-F1                    | F1           | 
-F2                    | F2           | 
-F3                    | F3           | 
-F4                    | F4           | 
-F5                    | F5           | 
-F6                    | F6           | 
-F7                    | F7           | 
-F8                    | F8           | 
-F9                    | F9           | 
-F10                   | F10          | 
-F11                   | F11          | 
-F12                   | F12          | 
-F13                   | F13          | 
-F14                   | F14          | 
-F15                   | F15          | 
-F16                   | F16          | 
-F17                   | F17          | 
-F18                   | F18          | 
-F19                   | F19          | 
-F20                   | F20          | 
-F21                   | F21          | 
-F22                   | F22          | 
-F23                   | F23          | 
-F24                   | F24          | 
-NUMPAD 0              | NUMPAD 0     | 
+ \;                   | <kbd>;</kbd>            |  
+ \:                   | <kbd>:</kbd>            |  
+ \                    | <kbd>\</kbd>            | 
+ ,                    | <kbd>,</kbd>            |  
+ \<                   | <kbd><</kbd>            | 
+ \.                   | <kbd>.</kbd>            |  
+ \>                   | <kbd>></kbd>            | 
+ /                    | <kbd>/</kbd>            |  
+SPACE                 | <kbd>SPACE</kbd>          | 
+WINDOWS, SUPER, COMMAND, WIN               | <kbd>⊞</kbd> <kbd>⌘</kbd>          |
+META                  | <kbd>META</kbd>         | 
+SHIFT                 | <kbd>SHIFT</kbd>        | 
+ALT                   | <kbd>ALT</kbd>          | 
+F1                    | <kbd>F1</kbd>           | 
+F2                    | <kbd>F2</kbd>           | 
+F3                    | <kbd>F3</kbd>           | 
+F4                    | <kbd>F4</kbd>           | 
+F5                    | <kbd>F5</kbd>           | 
+F6                    | <kbd>F6</kbd>           | 
+F7                    | <kbd>F7</kbd>           | 
+F8                    | <kbd>F8</kbd>           | 
+F9                    | <kbd>F9</kbd>           | 
+F10                   | <kbd>F10</kbd>          | 
+F11                   | <kbd>F11</kbd>          | 
+F12                   | <kbd>F12</kbd>          | 
+F13                   | <kbd>F13</kbd>          | 
+F14                   | <kbd>F14</kbd>          | 
+F15                   | <kbd>F15</kbd>          | 
+F16                   | <kbd>F16</kbd>          | 
+F17                   | <kbd>F17</kbd>          | 
+F18                   | <kbd>F18</kbd>          | 
+F19                   | <kbd>F19</kbd>          | 
+F20                   | <kbd>F20</kbd>          | 
+F21                   | <kbd>F21</kbd>          | 
+F22                   | <kbd>F22</kbd>          | 
+F23                   | <kbd>F23</kbd>          | 
+F24                   | <kbd>F24</kbd>          | 
+NUMPAD 0              | <kbd>NUMPAD<br/> 0<kbd>     | 
 NUMPAD 1              | NUMPAD 1     | 
 NUMPAD 2              | NUMPAD 2     | 
 NUMPAD 3              | NUMPAD 3     | 
