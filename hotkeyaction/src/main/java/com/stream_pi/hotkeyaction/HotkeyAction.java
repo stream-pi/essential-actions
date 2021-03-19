@@ -229,6 +229,10 @@ public class HotkeyAction extends NormalAction {
             case "CONTROL": return CONTROL;
 
             case "CAPS LOCK": return CAPS;
+                
+            case "ESCAPE":
+            case "ESC":
+                return ESCAPE;
 
             case "NUM UP": return KP_UP;
             case "UP": return UP;
