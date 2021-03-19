@@ -104,15 +104,15 @@ F22                   | <kbd>F22</kbd>          |
 F23                   | <kbd>F23</kbd>          | 
 F24                   | <kbd>F24</kbd>          | 
 NUMPAD 0              | <kbd>0<br/>Ins</kbd>     | 
-NUMPAD 1              | NUMPAD 1     | 
-NUMPAD 2              | NUMPAD 2     | 
-NUMPAD 3              | NUMPAD 3     | 
-NUMPAD 4              | NUMPAD 4     | 
-NUMPAD 5              | NUMPAD 5     | 
-NUMPAD 6              | NUMPAD 6     | 
-NUMPAD 7              | NUMPAD 7     | 
-NUMPAD 8              | NUMPAD 8     | 
-NUMPAD 9              | NUMPAD 9     | 
+NUMPAD 1              | <kbd>1<br/>End</kbd>     | 
+NUMPAD 2              | <kbd>2<br/>🠗</kbd>      | 
+NUMPAD 3              | <kbd>3<br/>PgDn</kbd>      | 
+NUMPAD 4              | <kbd>4<br/>🠔</kbd>      | 
+NUMPAD 5              | <kbd>5<br/></kbd>      | 
+NUMPAD 6              | <kbd>6<br/>🠖</kbd>      | 
+NUMPAD 7              | <kbd>7<br/>Home</kbd>      | 
+NUMPAD 8              | <kbd>8<br/>🠕</kbd>      | 
+NUMPAD 9              | <kbd>9<br/>PgUp</kbd>      | 
 NUMBER SIGN           | NUMBER SIGN  | 
 HOME                  | HOME         | 
 INSERT                | INSERT       | 
