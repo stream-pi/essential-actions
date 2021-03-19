@@ -103,7 +103,7 @@ F21                   | <kbd>F21</kbd>          |
 F22                   | <kbd>F22</kbd>          | 
 F23                   | <kbd>F23</kbd>          | 
 F24                   | <kbd>F24</kbd>          | 
-NUMPAD 0              | <kbd>NUMPAD<br/> 0<kbd>     | 
+NUMPAD 0              | <kbd>0<br/>Ins<kbd>     | 
 NUMPAD 1              | NUMPAD 1     | 
 NUMPAD 2              | NUMPAD 2     | 
 NUMPAD 3              | NUMPAD 3     | 
