@@ -51,21 +51,21 @@ Hotkey mapping plugin | Keyboard Key |
  !                    | <kbd>!</kbd>             |  
  @                    | <kbd>@</kbd>             |  
  \#                   | <kbd>#</kbd>             |  
- $                    | $            | 
- ^                    | ^            |  
- &                    | &            |  
- \*                    | *            |  
- (                    | (            |  
- )                    | )            |  
- \_                    | _            |  
- \+                    | +            |  
- TAB                  | TAB           | 
- \[                    | \[            |  
- ]                    | ]            |  
- \\                   | \\           |  
- {                    | {            |  
- }                    | }            |  
- \|                   | \|            |  
+ $                    | <kbd>$</kbd>             | 
+ ^                    | <kbd>^</kbd>             |  
+ &                    | <kbd>&</kbd>             |  
+ \*                   | <kbd>*</kbd>             |  
+ (                    | <kbd>(</kbd>             |  
+ )                    | <kbd>)</kbd>             |  
+ \_                   | <kbd>_</kbd>             |  
+ \+                   | <kbd>+</kbd>             |  
+ TAB                  | <kbd>TAB</kbd>           | 
+ \[                   | <kbd>\[</kbd>            |  
+ ]                    | <kbd>]</kbd>             |  
+ \\                   | <kbd>\\</kbd>            |  
+ {                    | <kbd>{</kbd>             |  
+ }                    | <kbd>}</kbd>             |  
+ \|                   | <kbd>\|</kbd>            |  
  \;                   | ;            |  
  \:                   | :            |  
  \                    | \            | 
