@@ -112,31 +112,30 @@ NUMPAD 5              | <kbd>5<br/></kbd>      |
 NUMPAD 6              | <kbd>6<br/>🠖</kbd>      | 
 NUMPAD 7              | <kbd>7<br/>Home</kbd>      | 
 NUMPAD 8              | <kbd>8<br/>🠕</kbd>      | 
-NUMPAD 9              | <kbd>9<br/>PgUp</kbd>      | 
-NUMBER SIGN           | NUMBER SIGN  | 
-HOME                  | HOME         | 
-INSERT                | INSERT       | 
-PAGE UP               | PAGE UP      | 
-PAGE DOWN             | PAGE DOWN    | 
-END                   | END          | 
-ENTER                 | ENTER        | 
-DELETE                | DELETE       | 
-SCROLL LOCK           | SCROLL LOCK  |
-PRINT SCREEN          | PRINT SCREEN | 
-PAUSE                 | PAUSE        | 
-NUM LOCK              | NUM LOCK     | 
-CONTROL               | CONTROL      | 
-CAPS LOCK             | CAPS LOCK    | 
-NUM UP                | NUMPAD UP       | 
-UP                    | ARROW UP           | 
-NUM LEFT              | NUMPAD LEFT     | 
-LEFT                  | ARROW LEFT         | 
-ALT GRAPH             | ALT GRAPH    | 
-NUM RIGHT             | NUMPAD RIGHT    | 
-RIGHT                 | ARROW RIGHT        | 
-NUM DOWN              | NUMPAD DOWN     | 
-DOWN                  | ARROW DOWN         | 
-ESC, ESCAPE           | ESCAPE |
+NUMPAD 9              | <kbd>9<br/>PgUp</kbd>      |
+HOME                  | <kbd>HOME</kbd>         | 
+INSERT                | <kbd>Insert</kbd>       | 
+PAGE UP               | <kbd>Page<br/>Up</kbd>      | 
+PAGE DOWN             | <kbd>Page<br/>Up</kbd>    | 
+END                   | <kbd>End</kbd>          | 
+ENTER                 | <kbd>Enter</kbd>        | 
+DELETE                | <kbd>Delete</kbd>       | 
+SCROLL LOCK           | <kbd>Scroll<br/>Lock</kbd>  |
+PRINT SCREEN          | <kbd>Print<br/>Screen</kbd> | 
+PAUSE                 | <kbd>Pause</kbd>        | 
+NUM LOCK              | <kbd>Num<br/>Lock</kbd>     | 
+CONTROL               | <kbd>Ctrl</kbd>      | 
+CAPS LOCK             | <kbd>Caps Lock</kbd>    | 
+NUM UP                | <kbd>8<br/>🠕</kbd>             | 
+UP                    | <kbd>🠕</kbd>           | 
+NUM LEFT              | <kbd>4<br/>🠔</kbd>     | 
+LEFT                  | <kbd>🠔</kbd>         | 
+ALT GRAPH             | <kbd>ALT GRAPH</kbd>    | 
+NUM RIGHT             | <kbd>6<br/>🠖</kbd>    | 
+RIGHT                 | <kbd>🠖</kbd>        | 
+NUM DOWN              | <kbd>2<br/>🠗</kbd>      | 
+DOWN                  | <kbd>🠗</kbd>         | 
+ESC, ESCAPE           | <kbd>ESC</kbd> |
 
 ## Usage
 

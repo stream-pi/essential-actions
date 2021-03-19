@@ -206,8 +206,6 @@ public class HotkeyAction extends NormalAction {
             case "NUMPAD 7": return NUMPAD7;
             case "NUMPAD 8": return NUMPAD8;
             case "NUMPAD 9": return NUMPAD9;
-
-            case "NUMBER SIGN": return NUMBER_SIGN;
             
 
             case "HOME": return HOME;
