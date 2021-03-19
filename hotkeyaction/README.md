@@ -8,7 +8,7 @@ The following table shows the relation between our keyboard and what we have to 
 
 Hotkey mapping plugin | Keyboard Key | 
 --------------------- | ------------ | 
- A                    | A            | 
+ A                    | <kbd>A</kbd>            | 
  B                    | B            |   
  C                    | C            |  
  D                    | D            |  
