@@ -139,6 +139,7 @@ NUM RIGHT             | NUMPAD RIGHT    |
 RIGHT                 | ARROW RIGHT        | 
 NUM DOWN              | NUMPAD DOWN     | 
 DOWN                  | ARROW DOWN         | 
+ESC, ESCAPE           | ESCAPE |
 
 ## Usage
 
