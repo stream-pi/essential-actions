@@ -1,9 +1,10 @@
 package com.stream_pi.democustomtoggleaction;
 
+import com.stream_pi.action_api.action.DisplayTextAlignment;
 import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.ToggleAction;
+import com.stream_pi.action_api.externalplugin.ToggleAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.version.Version;
 import java.util.ArrayList;
@@ -23,8 +24,25 @@ public class DemoCustomToggleAction extends ToggleAction
     }
 
     @Override
-    public void onToggleOn() throws Exception {
-        new StreamPiAlert("Alert", "Toggle ON").show();
+    public void onToggleOn() throws Exception
+    {
+
+    }
+
+    @Override
+    public void onActionCreate()
+    {
+        setDisplayText("Hi");
+        setDisplayTextAlignment(DisplayTextAlignment.BOTTOM);
+
+        try
+        {
+            setToggleOnIcon(getClass().getResource("streamdeck_key.png").openStream().readAllBytes());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override

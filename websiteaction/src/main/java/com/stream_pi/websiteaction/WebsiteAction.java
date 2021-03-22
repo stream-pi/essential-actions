@@ -2,14 +2,15 @@ package com.stream_pi.websiteaction;
 
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.NormalAction;
+import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import java.awt.*;
 import java.net.URI;
 
-public class WebsiteAction extends NormalAction {
+public class WebsiteAction extends NormalAction
+{
 
     public WebsiteAction()
     {
@@ -19,6 +20,19 @@ public class WebsiteAction extends NormalAction {
         setServerButtonGraphic("fas-globe");
         setHelpLink("https://github.com/stream-pi/essentialactions");
         setVersion(new Version(1,0,0));
+    }
+
+    @Override
+    public void onActionSavedFromServer() throws Exception
+    {
+        String website = getClientProperties().getSingleProperty("websiteURL").getStringValue();
+
+        if(website != null)
+        {
+            if(website.contains("google.com"))
+            setDisplayText("GOOGLE");
+            saveClientAction();
+        }
     }
 
     @Override
