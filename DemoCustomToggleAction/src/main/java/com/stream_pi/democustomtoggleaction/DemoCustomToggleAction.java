@@ -14,7 +14,7 @@ public class DemoCustomToggleAction extends ToggleAction
 
     public DemoCustomToggleAction()
     {
-        setName("Demo Action");
+        setName("Demo Toggle Action");
         setAuthor("dubbadhar");
         setHelpLink("https://github.com/Stream-Pi/");
         setVersion(new Version(1,0,0));
