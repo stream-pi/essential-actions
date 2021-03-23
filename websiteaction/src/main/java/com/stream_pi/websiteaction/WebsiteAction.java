@@ -31,7 +31,6 @@ public class WebsiteAction extends NormalAction
         {
             if(website.contains("google.com"))
             setDisplayText("GOOGLE");
-            saveClientAction();
         }
     }
 
