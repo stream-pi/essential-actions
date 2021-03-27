@@ -2,7 +2,7 @@ package com.stream_pi.hotkeyaction;
 
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.NormalAction;
+import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
