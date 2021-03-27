@@ -4,7 +4,7 @@ import com.gikk.twirk.Twirk;
 import com.gikk.twirk.TwirkBuilder;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.NormalAction;
+import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
@@ -63,11 +63,13 @@ public class ClearChatAction extends NormalAction
     @Override
     public void onShutDown() throws Exception
     {
-        if (twirk != null) {
+        if (twirk != null)
+        {
             try
             {
                 twirk.disconnect();
-            } catch (Exception ex) {
+            } catch (Exception ex)
+            {
                 throw new StreamPiException("Twitch Connection error", "Please try again.");
             }
         }
