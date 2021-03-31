@@ -15,7 +15,7 @@ public class DemoCustomToggleAction extends ToggleAction
     public DemoCustomToggleAction()
     {
         setName("Demo Toggle Action");
-        setAuthor("dubbadhar");
+        setAuthor("rnayabed");
         setHelpLink("https://github.com/Stream-Pi/");
         setVersion(new Version(1,0,0));
 
@@ -26,13 +26,14 @@ public class DemoCustomToggleAction extends ToggleAction
     @Override
     public void onToggleOn() throws Exception
     {
-
+        setDisplayText("ON");
+        saveClientAction();
     }
 
     @Override
     public void onActionCreate()
     {
-        setDisplayText("Hi");
+        //setDisplayText("Hi");
         setDisplayTextAlignment(DisplayTextAlignment.BOTTOM);
 
         try
@@ -47,7 +48,8 @@ public class DemoCustomToggleAction extends ToggleAction
 
     @Override
     public void onToggleOff() throws Exception {
-        new StreamPiAlert("Alert", "Toggle OFF").show();
+        setDisplayText("OFF");
+        saveClientAction();
     }
 
     @Override

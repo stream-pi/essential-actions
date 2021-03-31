@@ -38,6 +38,12 @@ public class DemoCustomNormalAction extends NormalAction
     @Override
     public void initAction()  {
 
+    }
+
+    @Override
+    public void initClientActionSettingsButtonBar()
+    {
+
         Button b1 = new Button("Test Alert");
         b1.setOnAction(actionEvent -> {
             new StreamPiAlert("Hi","Hello").show();
@@ -48,6 +54,7 @@ public class DemoCustomNormalAction extends NormalAction
             try
             {
                 System.out.println("AAAAAAAAAAAAAAAAAAAAAAA : "+getProfileID());
+                System.out.println("BBBBBBBBBBb : "+getID());
                 getClientProperties().getSingleProperty("ClientServerProperty1")
                         .setStringValue("This property was dynamically modified");
 
@@ -60,8 +67,6 @@ public class DemoCustomNormalAction extends NormalAction
                 e.printStackTrace();
             }
         });
-
-
 
 
         setClientActionSettingsButtonBar(b1,b2);
