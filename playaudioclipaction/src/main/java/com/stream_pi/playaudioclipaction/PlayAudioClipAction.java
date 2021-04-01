@@ -60,21 +60,22 @@ public class PlayAudioClipAction extends NormalAction {
         }
 
 
-        if(!path.equals(audioFileLocationProperty.getStringValue()))
+        if(mediaPlayer != null)
         {
-            if(mediaPlayer!=null)
+            if(mediaPlayer.isPlaying())
             {
-                if(mediaPlayer.isPlaying())
-                    Platform.runLater(mediaPlayer::stop);
+                Platform.runLater(mediaPlayer::stop);
+                return;
             }
+        }
+
+        if(!audioFileLocationProperty.getStringValue().equals(path))
+        {
             path = audioFileLocationProperty.getStringValue();
             mediaPlayer = new AudioClip(new File(path).toURI().toString());
         }
 
-        if(mediaPlayer.isPlaying())
-            Platform.runLater(mediaPlayer::stop);
-        else
-            Platform.runLater(mediaPlayer::play);
+        Platform.runLater(mediaPlayer::play);
     }
 
     @Override
