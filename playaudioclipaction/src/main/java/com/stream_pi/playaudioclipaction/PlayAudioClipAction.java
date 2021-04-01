@@ -52,16 +52,14 @@ public class PlayAudioClipAction extends NormalAction {
     {
         Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
 
-        if (audioFileLocationProperty.getStringValue().isBlank()) {
+        if (audioFileLocationProperty.getStringValue().isBlank())
+        {
             new StreamPiAlert("Media Action", "No file specified", StreamPiAlertType.ERROR).show();
             return;
         }
 
         if(mediaPlayer == null)
-        {
-            System.out.println("NEW INIT@@@@");
             mediaPlayer = new AudioClip(new File(audioFileLocationProperty.getStringValue()).toURI().toString());
-        }
 
         if(mediaPlayer.isPlaying())
             Platform.runLater(mediaPlayer::stop);
