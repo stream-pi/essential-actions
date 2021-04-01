@@ -46,6 +46,7 @@ public class PlayAudioClipAction extends NormalAction {
     }
 
     public AudioClip mediaPlayer = null;
+    public String path = null;
 
     @Override
     public void onActionClicked() throws Exception
@@ -58,12 +59,23 @@ public class PlayAudioClipAction extends NormalAction {
             return;
         }
 
-        if(mediaPlayer == null)
-            mediaPlayer = new AudioClip(new File(audioFileLocationProperty.getStringValue()).toURI().toString());
+
+        if(mediaPlayer == null || !path.equals(audioFileLocationProperty.getStringValue()))
+        {
+            path = audioFileLocationProperty.getStringValue();
+            mediaPlayer = new AudioClip(new File(path).toURI().toString());
+        }
 
         if(mediaPlayer.isPlaying())
             Platform.runLater(mediaPlayer::stop);
         else
             Platform.runLater(mediaPlayer::play);
+    }
+
+    @Override
+    public void onShutDown()
+    {
+        if(mediaPlayer.isPlaying())
+            Platform.runLater(mediaPlayer::stop);
     }
 }
