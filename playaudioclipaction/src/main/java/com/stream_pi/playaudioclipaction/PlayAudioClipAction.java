@@ -4,14 +4,13 @@ import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.FileExtensionFilter;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.NormalAction;
+import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
 import com.stream_pi.util.version.Version;
 
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.stage.FileChooser;
+import javafx.application.Platform;
+import javafx.scene.media.AudioClip;
 
 import java.io.File;
 
@@ -24,7 +23,7 @@ public class PlayAudioClipAction extends NormalAction {
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-volume-up");
         setHelpLink("https://github.com/Stream-Pi/EssentialActions");
-        setVersion(new Version(1,1,0));
+        setVersion(new Version(2,0,0));
     }
 
     @Override
@@ -46,29 +45,27 @@ public class PlayAudioClipAction extends NormalAction {
         addClientProperties(audioFileLocationProperty);
     }
 
-    @Override
-    public void initAction() throws Exception {
-    }
+    public AudioClip mediaPlayer = null;
 
     @Override
-    public void onActionClicked() throws Exception 
+    public void onActionClicked() throws Exception
     {
         Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
 
-        if(audioFileLocationProperty.getStringValue().isBlank())
-        {
+        if (audioFileLocationProperty.getStringValue().isBlank()) {
             new StreamPiAlert("Media Action", "No file specified", StreamPiAlertType.ERROR).show();
             return;
         }
 
-        MediaPlayer mediaPlayer = new MediaPlayer(new Media(new File(audioFileLocationProperty.getStringValue()).toURI().toString()));
+        if(mediaPlayer == null)
+        {
+            System.out.println("NEW INIT@@@@");
+            mediaPlayer = new AudioClip(new File(audioFileLocationProperty.getStringValue()).toURI().toString());
+        }
 
-        mediaPlayer.setOnReady(mediaPlayer::play);
-    }
-
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
-
+        if(mediaPlayer.isPlaying())
+            Platform.runLater(mediaPlayer::stop);
+        else
+            Platform.runLater(mediaPlayer::play);
     }
 }
