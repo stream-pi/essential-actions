@@ -10,5 +10,5 @@ module com.stream_pi.twitteraction {
 
     requires java.desktop;
 
-    provides com.stream_pi.action_api.normalaction.NormalAction with com.stream_pi.twitteraction.TwitterAction;
+    provides com.stream_pi.action_api.externalplugin.ExternalPlugin with com.stream_pi.twitteraction.TwitterAction;
 }

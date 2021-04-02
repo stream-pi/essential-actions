@@ -4,7 +4,7 @@ FOLD=../PreBuiltPlugins
 
 hotkey() {
   pushd . || exit
-  cd hotkeyaction && mvn clean package
+  cd hotkeyaction && mvn clean -Dmaven.test.skip package
   mv target/hotkeyaction-1.0.0.jar $FOLD/hotkeyaction.jar
   popd || exit
 }
@@ -13,7 +13,7 @@ hotkey() {
 
 mediakey() {
   pushd . || exit
-  cd mediakeyaction && mvn clean package
+  cd mediakeyaction && mvn clean -Dmaven.test.skip package
   mv target/mediakeyaction-1.0.0.jar $FOLD/mediakeyaction.jar
   popd || exit
 }
@@ -23,65 +23,65 @@ obssuite() {
   cd obssuite/mother && mvn clean install package
   mv target/obssuite_motheraction-1.0.0.jar ../$FOLD/obssuite_motheraction.jar
 
-  cd ../setcurrentprofile && mvn clean package
+  cd ../setcurrentprofile && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setcurrentprofileaction-1.0.0.jar ../$FOLD/obssuite_setcurrentprofileaction.jar
 
-  cd ../setcurrentscene && mvn clean package
+  cd ../setcurrentscene && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setcurrentsceneaction-1.0.0.jar ../$FOLD/obssuite_setcurrentsceneaction.jar
 
-  cd ../setcurrenttransition && mvn clean package
+  cd ../setcurrenttransition && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setcurrenttransitionaction-1.0.0.jar ../$FOLD/obssuite_setcurrenttransitionaction.jar
 
-  cd ../setmute && mvn clean package
+  cd ../setmute && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setmuteaction-1.0.0.jar ../$FOLD/obssuite_setmuteaction.jar
 
-  cd ../setcurrentprofile && mvn clean package
+  cd ../setcurrentprofile && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setcurrentprofileaction-1.0.0.jar ../$FOLD/obssuite_setcurrentprofileaction.jar
 
-  cd ../setpreviewscene && mvn clean package
+  cd ../setpreviewscene && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setpreviewsceneaction-1.0.0.jar ../$FOLD/obssuite_setpreviewsceneaction.jar
 
-  cd ../setrecording && mvn clean package
+  cd ../setrecording && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setrecordingaction-1.0.0.jar ../$FOLD/obssuite_setrecordingaction.jar
 
-  cd ../setreplaybuffer && mvn clean package
+  cd ../setreplaybuffer && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setreplaybufferaction-1.0.0.jar ../$FOLD/obssuite_setreplaybufferaction.jar
 
-  cd ../setstreaming && mvn clean package
+  cd ../setstreaming && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setstreamingaction-1.0.0.jar ../$FOLD/obssuite_setstreamingaction.jar
 
-  cd ../setstudiomode && mvn clean package
+  cd ../setstudiomode && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setstudiomodeaction-1.0.0.jar ../$FOLD/obssuite_setstudiomodeaction.jar
 
-  cd ../setvolume && mvn clean package
+  cd ../setvolume && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setvolumeaction-1.0.0.jar ../$FOLD/obssuite_setvolumeaction.jar
   popd || exit
 }
 
 playaudioclip() {
   pushd . || exit
-  cd playaudioclipaction && mvn clean package
+  cd playaudioclipaction && mvn clean -Dmaven.test.skip package
   mv target/playaudioclipaction-1.0.0.jar $FOLD/playaudioclipaction.jar
   popd || exit
 }
 
 runcommand() {
   pushd . || exit
-  cd runcommandaction && mvn clean package
+  cd runcommandaction && mvn clean -Dmaven.test.skip package
   mv target/runcommandaction-1.0.0.jar $FOLD/runcommandaction.jar
   popd || exit
 }
 
 textblock() {
   pushd . || exit
-  cd textblockaction && mvn clean package
+  cd textblockaction && mvn clean -Dmaven.test.skip package
   mv target/textblockaction-1.0.0.jar $FOLD/textblockaction.jar
   popd || exit
 }
 
 twitter() {
   pushd . || exit
-  cd twitteraction && mvn clean package
+  cd twitteraction && mvn clean -Dmaven.test.skip package
   mv target/twitteraction-1.0.0.jar $FOLD/twitteraction.jar
   popd || exit
 }
@@ -125,7 +125,7 @@ twitchchat() {
 
 websiteaction() {
   pushd . || exit
-  cd websiteaction && mvn clean package
+  cd websiteaction && mvn clean -Dmaven.test.skip package
   mv target/websiteaction-1.0.0.jar $FOLD/websiteaction.jar
   popd || exit
 }

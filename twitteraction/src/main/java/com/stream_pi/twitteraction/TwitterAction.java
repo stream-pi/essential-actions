@@ -2,7 +2,7 @@ package com.stream_pi.twitteraction;
 
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.NormalAction;
+import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertListener;
 import com.stream_pi.util.alert.StreamPiAlertType;
@@ -97,7 +97,7 @@ public class TwitterAction extends NormalAction {
             }
         }).start());
 
-        setButtonBar(loginAsNewUserButton, logoutButton);
+        setServerSettingsButtonBar(loginAsNewUserButton, logoutButton);
     }
 
     @Override
