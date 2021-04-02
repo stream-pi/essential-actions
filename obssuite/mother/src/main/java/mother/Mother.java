@@ -1,5 +1,6 @@
 package mother;
 
+import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
@@ -21,7 +22,7 @@ public class Mother extends NormalAction
         setVisibilityInPluginsPane(false);
         setAuthor("rnayabed");
         setHelpLink("https://github.com/Stream-Pi/EssentialActions");
-        setVersion(new Version(1,0,0));
+        setVersion(new Version(1,1,0));
 
 
         connectDisconnectButton = new Button("Connect");
@@ -39,6 +40,7 @@ public class Mother extends NormalAction
         urlProperty.setCanBeBlank(false);
 
         Property passwordProperty = new Property("pass", Type.STRING);
+        passwordProperty.setControlType(ControlType.TEXT_FIELD_MASKED);
         passwordProperty.setDisplayName("Password");
        
         Property connectOnStartupProperty = new Property("connect_on_startup", Type.BOOLEAN);
