@@ -2,7 +2,7 @@ package mother;
 
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.NormalAction;
+import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.version.Version;
 import com.stream_pi.util.exception.MinorException;
 
@@ -26,7 +26,7 @@ public class Mother extends NormalAction
 
         connectDisconnectButton = new Button("Connect");
         
-        setButtonBar(connectDisconnectButton);
+        setServerSettingsButtonBar(connectDisconnectButton);
     }
 
     private Button connectDisconnectButton;

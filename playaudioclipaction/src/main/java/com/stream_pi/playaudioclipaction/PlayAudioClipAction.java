@@ -81,8 +81,11 @@ public class PlayAudioClipAction extends NormalAction {
     @Override
     public void onShutDown()
     {
-        if(mediaPlayer.isPlaying())
-            Platform.runLater(mediaPlayer::stop);
+        if(mediaPlayer != null)
+        {
+            if(mediaPlayer.isPlaying())
+                Platform.runLater(mediaPlayer::stop);
+        }
     }
 
 
