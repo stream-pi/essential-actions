@@ -9,8 +9,6 @@ hotkey() {
   popd || exit
 }
 
-
-
 mediakey() {
   pushd . || exit
   cd mediakeyaction && mvn clean -Dmaven.test.skip package
@@ -20,7 +18,7 @@ mediakey() {
 
 obssuite() {
   pushd . || exit
-  cd obssuite/mother && mvn clean install package
+  cd obssuite/mother && mvn clean install -Dmaven.test.skip package
   mv target/obssuite_motheraction-*.jar ../$FOLD/obssuite_motheraction.jar
 
   cd ../setcurrentprofile && mvn clean -Dmaven.test.skip package
@@ -88,42 +86,42 @@ twitter() {
 
 twitchchat() {
   pushd . || exit
-  cd twitch/twitch-chat-connect && mvn clean install package
+  cd twitch/twitch-chat-connect && mvn clean install -Dmaven.test.skip package
   mv target/twitch-chat-connect-*.jar ../$FOLD/twitch-chat-connect.jar
 
-  cd ../send-channel-msg && mvn clean install package
+  cd ../send-channel-msg && mvn clean -Dmaven.test.skip package
   mv target/twitch-send-channel-msg-*.jar ../$FOLD/twitch-send-channel-msg.jar
 
-  cd ../clear-chat && mvn clean install package
+  cd ../clear-chat && mvn clean -Dmaven.test.skip package
   mv target/twitch-clear-chat-*.jar ../$FOLD/twitch-clear-chat.jar
 
-  cd ../set-color && mvn clean install package
+  cd ../set-color && mvn clean -Dmaven.test.skip package
   mv target/twitch-set-color-*.jar ../$FOLD/twitch-set-color.jar
 
-  cd ../whisper && mvn clean install package
+  cd ../whisper && mvn clean -Dmaven.test.skip package
   mv target/twitch-whisper-*.jar ../$FOLD/twitch-whisper.jar
 
-  cd ../unraid && mvn clean install package
+  cd ../unraid && mvn clean -Dmaven.test.skip package
   mv target/twitch-unraid-*.jar ../$FOLD/twitch-unraid.jar
 
-  cd ../unhost && mvn clean install package
+  cd ../unhost && mvn clean -Dmaven.test.skip package
   mv target/twitch-unhost-*.jar ../$FOLD/twitch-unhost.jar
 
-  cd ../add-stream-marker && mvn clean install package
+  cd ../add-stream-marker && mvn clean -Dmaven.test.skip package
   mv target/twitch-add-stream-marker-*.jar ../$FOLD/twitch-add-stream-marker.jar
 
-  cd ../host-channel && mvn clean install package
+  cd ../host-channel && mvn clean -Dmaven.test.skip package
   mv target/twitch-host-channel-*.jar ../$FOLD/twitch-host-channel.jar
 
-  cd ../raid-channel && mvn clean install package
+  cd ../raid-channel && mvn clean -Dmaven.test.skip package
   mv target/twitch-raid-channel-*.jar ../$FOLD/twitch-raid-channel.jar
 
-  cd ../start-commercial && mvn clean install package
+  cd ../start-commercial && mvn clean -Dmaven.test.skip package
   mv target/twitch-start-commercial-*.jar ../$FOLD/twitch-start-commercial.jar
   popd || exit
 }
 
-websiteaction() {
+website() {
   pushd . || exit
   cd websiteaction && mvn clean -Dmaven.test.skip package
   mv target/websiteaction-*.jar $FOLD/websiteaction.jar
