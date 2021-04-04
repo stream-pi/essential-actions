@@ -30,10 +30,17 @@ public class Mother extends NormalAction
         setServerSettingsButtonBar(connectDisconnectButton);
     }
 
+    @Override
+    public void onActionClicked()
+    {
+
+    }
+
     private Button connectDisconnectButton;
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties() throws Exception
+    {
         Property urlProperty = new Property("url", Type.STRING);
         urlProperty.setDisplayName("URL");
         urlProperty.setDefaultValueStr("ws://localhost:4444");
@@ -109,13 +116,7 @@ public class Mother extends NormalAction
     }
 
     @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onShutDown() throws Exception
+    public void onShutDown()
     {
         if(MotherConnection.getRemoteController() != null)
         {
