@@ -9,7 +9,8 @@ import net.twasi.obsremotejava.OBSRemoteController;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
 
-public class OBSActionConnectionTask extends Task<Void> {
+public class OBSActionConnectionTask extends Task<Void>
+{
 
     String url, pass;
     Button connectDisconnectButton;

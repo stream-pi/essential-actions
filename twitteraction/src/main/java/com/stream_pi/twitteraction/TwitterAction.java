@@ -1,5 +1,6 @@
 package com.stream_pi.twitteraction;
 
+import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
@@ -107,6 +108,7 @@ public class TwitterAction extends NormalAction {
         oAuthConsumerKey.setDisplayName("API Key");
 
         Property oAuthConsumerKeySecret = new Property("consumer_key_secret", Type.STRING);
+        oAuthConsumerKeySecret.setControlType(ControlType.TEXT_FIELD_MASKED);
         oAuthConsumerKeySecret.setDisplayName("API Key Secret");
 
         Property oAuthAccessToken = new Property("access_token", Type.STRING);

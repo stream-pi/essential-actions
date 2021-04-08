@@ -1,5 +1,6 @@
 package connect;
 
+import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
@@ -33,12 +34,13 @@ public class TwitchChatConnectAction extends NormalAction
     }
 
     @Override
-    public void initProperties()
+    public void initProperties() throws MinorException
     {
         Property twitchNicknameProp = new Property(NICKNAME_KEY, Type.STRING);
         twitchNicknameProp.setDisplayName("Twitch Username");
 
         Property twitchAccessTokenProp = new Property(ACCESS_TOKEN_KEY, Type.STRING);
+        twitchAccessTokenProp.setControlType(ControlType.TEXT_FIELD_MASKED);
         twitchAccessTokenProp.setDisplayName("Access Token");
 
         addServerProperties(twitchNicknameProp, twitchAccessTokenProp);
