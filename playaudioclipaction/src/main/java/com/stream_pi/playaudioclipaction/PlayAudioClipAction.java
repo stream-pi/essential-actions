@@ -81,6 +81,23 @@ public class PlayAudioClipAction extends NormalAction {
     @Override
     public void onShutDown()
     {
+        shutDown();
+    }
+
+    @Override
+    public void onActionDeleted()
+    {
+        shutDown();
+    }
+
+    @Override
+    public void onClientDisconnected()
+    {
+        shutDown();
+    }
+
+    private void shutDown()
+    {
         if(mediaPlayer != null)
         {
             if(mediaPlayer.isPlaying())
