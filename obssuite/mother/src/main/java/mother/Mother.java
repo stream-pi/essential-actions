@@ -22,8 +22,7 @@ public class Mother extends NormalAction
         setVisibilityInPluginsPane(false);
         setAuthor("rnayabed");
         setHelpLink("https://github.com/Stream-Pi/EssentialActions");
-        setVersion(new Version(1,1,0));
-
+        setVersion(MotherConnection.VERSION);
 
         connectDisconnectButton = new Button("Connect");
         
@@ -63,7 +62,11 @@ public class Mother extends NormalAction
     }
 
     @Override
-    public void initAction() throws Exception {
+    public void initAction() throws Exception
+    {
+        MotherConnection.setPass(getPassword());
+        MotherConnection.setUrl(getURL());
+        MotherConnection.setConnectDisconnectButton(connectDisconnectButton);
 
         connectDisconnectButton.setOnAction(action->{
             try
@@ -112,7 +115,7 @@ public class Mother extends NormalAction
     {
         MotherConnection.setPass(pass);
         MotherConnection.setUrl(url);
-        new OBSActionConnectionTask(connectDisconnectButton, true);
+        new OBSActionConnectionTask(true, null, null, null);
     }
 
     @Override

@@ -5,58 +5,87 @@ import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
-import com.stream_pi.util.version.Version;
 
+import com.stream_pi.util.exception.MinorException;
 import mother.motherconnection.MotherConnection;
-import net.twasi.obsremotejava.OBSRemoteController;
 
 public class SetCurrentProfile extends NormalAction
 {
-
     public SetCurrentProfile() {
         setName("Set Current Profile");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
-        setVersion(new Version(1, 0, 0));
+        setVersion(MotherConnection.VERSION);
     }
 
     @Override
-    public void initProperties() throws Exception {
-        // TODO Auto-generated method stub
-
-        Property currentProfileProperty = new Property("current_profile", Type.STRING);
+    public void initProperties() throws Exception
+    {
+        Property currentProfileProperty = new Property("profile", Type.STRING);
         currentProfileProperty.setDisplayName("Profile Name");
+
+        Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
         
-        addClientProperties(currentProfileProperty);
+        addClientProperties(currentProfileProperty, autoConnectProperty);
     }
 
     @Override
-    public void initAction() throws Exception {
-        // TODO Auto-generated method stub
-    }
+    public void onActionClicked() throws Exception
+    {
+        String profile = getClientProperties().getSingleProperty("profile").getStringValue();
 
-    @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
+        if(profile.isBlank())
+        {
+            throw new MinorException("Blank Profile Name","No Profile Name specified");
+        }
 
-        OBSRemoteController controller = MotherConnection.getRemoteController();
+        if (MotherConnection.getRemoteController() == null)
+        {
+            boolean autoConnect = getClientProperties().getSingleProperty(
+                    "auto_connect"
+            ).getBoolValue();
 
-        if (controller == null) {
-            new StreamPiAlert("Is OBS Connected?",
-                    "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                            .show();
-        } else {
-            controller.setCurrentProfile(getClientProperties().getSingleProperty("current_profile").getStringValue(), MotherConnection.getDefaultCallBack(
-                "Unable to Set Current Profile","Failed to set current profile"
-            ));
+            if(autoConnect)
+            {
+                MotherConnection.connect(()->setProfile(profile));
+            }
+            else
+            {
+                new StreamPiAlert("Is OBS Connected?",
+                        "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
+                        .show();
+            }
+        }
+        else
+        {
+            setProfile(profile);
         }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
+    public void setProfile(String profile)
+    {
+        MotherConnection.getRemoteController().setCurrentProfile(profile, setCurrentProfileResponse -> {
+            String status = setCurrentProfileResponse.getStatus();
+            String error = setCurrentProfileResponse.getError();
 
+            if(status.equals("error"))
+            {
+                String content;
+
+                if(error.equals("profile does not exist"))
+                {
+                    content = "Profile "+profile+" does not exist.";
+                }
+                else
+                {
+                    content = error;
+                }
+
+                new StreamPiAlert("OBS",content, StreamPiAlertType.ERROR).show();
+            }
+        });
     }
-    
 }

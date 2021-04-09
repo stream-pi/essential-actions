@@ -11,16 +11,16 @@ import com.stream_pi.util.alert.StreamPiAlertType;
 
 public class OBSActionConnectionTask extends Task<Void>
 {
+    private Runnable onFailToConnectRunnable = null;
+    private Runnable onConnectRunnable = null;
+    private Runnable onDisconnectRunnable = null;
 
-    String url, pass;
-    Button connectDisconnectButton;
-
-    public OBSActionConnectionTask(Button connectDisconnectButton,
-                                   boolean runAsync)
+    public OBSActionConnectionTask(boolean runAsync, Runnable onFailToConnectRunnable,
+                                   Runnable onConnectRunnable, Runnable onDisconnectRunnable)
     {
-        this.url = MotherConnection.getUrl();
-        this.pass = MotherConnection.getPass();
-        this.connectDisconnectButton = connectDisconnectButton;
+        this.onFailToConnectRunnable = onFailToConnectRunnable;
+        this.onConnectRunnable = onConnectRunnable;
+        this.onDisconnectRunnable = onDisconnectRunnable;
 
         if(runAsync)
         {
@@ -37,6 +37,9 @@ public class OBSActionConnectionTask extends Task<Void>
     {
         try
         {
+            String url = MotherConnection.getUrl();
+            String pass = MotherConnection.getPass();
+
             setConnectDisconnectButtonDisable(true);
          
             if(!url.startsWith("ws://"))
@@ -66,17 +69,35 @@ public class OBSActionConnectionTask extends Task<Void>
                 new StreamPiAlert("Unable to Connect", "Unable to establish connection to WebSocket with provided crendentials\n\n"+
                     "Detailed Error : "+message, StreamPiAlertType.ERROR).show();
                 MotherConnection.setRemoteController(null);
+
+                if(onFailToConnectRunnable != null)
+                {
+                    onFailToConnectRunnable.run();
+                    onFailToConnectRunnable = null;
+                }
             });
 
             obsRemoteController.registerDisconnectCallback(()->{
                 setConnectDisconnectButtonText("Connect");
                 MotherConnection.setRemoteController(null);
+
+                if(onDisconnectRunnable != null)
+                {
+                    onDisconnectRunnable.run();
+                    onDisconnectRunnable = null;
+                }
             });
 
 
             obsRemoteController.registerConnectCallback(onConnect->{
                 setConnectDisconnectButtonText("Disconnect");
                 MotherConnection.setRemoteController(obsRemoteController);
+
+                if(onConnectRunnable != null)
+                {
+                    onConnectRunnable.run();
+                    onConnectRunnable = null;
+                }
             });
         }
         catch (Exception e)
@@ -96,18 +117,18 @@ public class OBSActionConnectionTask extends Task<Void>
 
     private void setConnectDisconnectButtonText(String text)
     {
-        if(connectDisconnectButton == null)
+        if(MotherConnection.getConnectDisconnectButton() == null)
             return;
 
-        Platform.runLater(()-> connectDisconnectButton.setText(text));
+        Platform.runLater(()-> MotherConnection.getConnectDisconnectButton().setText(text));
     }
 
     private void setConnectDisconnectButtonDisable(boolean disable)
     {
-        if(connectDisconnectButton == null)
+        if(MotherConnection.getConnectDisconnectButton() == null)
             return;
 
-        Platform.runLater(()-> connectDisconnectButton.setDisable(disable));
+        Platform.runLater(()-> MotherConnection.getConnectDisconnectButton().setDisable(disable));
     }
     
 }
