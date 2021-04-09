@@ -1,5 +1,7 @@
 # Hotkey Action plugin
 
+![version](https://img.shields.io/badge/Version-2.0.0-green)
+
 This plugin allows map and execute keyboard shortcuts
 
 ## KeyBoard Mapping Reference to Hotkeyaction
@@ -103,16 +105,16 @@ F21                   | <kbd>F21</kbd>          |
 F22                   | <kbd>F22</kbd>          | 
 F23                   | <kbd>F23</kbd>          | 
 F24                   | <kbd>F24</kbd>          | 
-NUMPAD 0              | <kbd>0<br/>Ins</kbd>     | 
-NUMPAD 1              | <kbd>1<br/>End</kbd>     | 
-NUMPAD 2              | <kbd>2<br/>🠗</kbd>      | 
-NUMPAD 3              | <kbd>3<br/>PgDn</kbd>      | 
-NUMPAD 4              | <kbd>4<br/>🠔</kbd>      | 
-NUMPAD 5              | <kbd>5<br/></kbd>      | 
-NUMPAD 6              | <kbd>6<br/>🠖</kbd>      | 
-NUMPAD 7              | <kbd>7<br/>Home</kbd>      | 
-NUMPAD 8              | <kbd>8<br/>🠕</kbd>      | 
-NUMPAD 9              | <kbd>9<br/>PgUp</kbd>      |
+NUMPAD 0, NUM 0, N1              | <kbd>0<br/>Ins</kbd>     | 
+NUMPAD 1, NUM 1, N1              | <kbd>1<br/>End</kbd>     | 
+NUMPAD 2, NUM 2, N2              | <kbd>2<br/>🠗</kbd>      | 
+NUMPAD 3, NUM 3, N3              | <kbd>3<br/>PgDn</kbd>      | 
+NUMPAD 4, NUM 4, N4              | <kbd>4<br/>🠔</kbd>      | 
+NUMPAD 5, NUM 5, N5              | <kbd>5<br/></kbd>      | 
+NUMPAD 6, NUM 6, N6              | <kbd>6<br/>🠖</kbd>      | 
+NUMPAD 7, NUM 7, N7              | <kbd>7<br/>Home</kbd>      | 
+NUMPAD 8, NUM 8, N8              | <kbd>8<br/>🠕</kbd>      | 
+NUMPAD 9, NUM 9, N9              | <kbd>9<br/>PgUp</kbd>      |
 HOME                  | <kbd>HOME</kbd>         | 
 INSERT                | <kbd>Insert</kbd>       | 
 PAGE UP               | <kbd>Page<br/>Up</kbd>      | 
