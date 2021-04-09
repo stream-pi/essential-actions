@@ -15,15 +15,25 @@ public class OBSActionConnectionTask extends Task<Void>
     String url, pass;
     Button connectDisconnectButton;
 
-    public OBSActionConnectionTask(String url, String pass, Button connectDisconnectButton)
+    public OBSActionConnectionTask(Button connectDisconnectButton,
+                                   boolean runAsync)
     {
-        this.url = url;
-        this.pass = pass;
-        this.connectDisconnectButton = connectDisconnectButton;    
+        this.url = MotherConnection.getUrl();
+        this.pass = MotherConnection.getPass();
+        this.connectDisconnectButton = connectDisconnectButton;
+
+        if(runAsync)
+        {
+            new Thread(this).start();
+        }
+        else
+        {
+            call();
+        }
     }
 
     @Override
-    protected Void call() throws Exception
+    protected Void call()
     {
         try
         {
@@ -86,11 +96,17 @@ public class OBSActionConnectionTask extends Task<Void>
 
     private void setConnectDisconnectButtonText(String text)
     {
+        if(connectDisconnectButton == null)
+            return;
+
         Platform.runLater(()-> connectDisconnectButton.setText(text));
     }
 
     private void setConnectDisconnectButtonDisable(boolean disable)
     {
+        if(connectDisconnectButton == null)
+            return;
+
         Platform.runLater(()-> connectDisconnectButton.setDisable(disable));
     }
     

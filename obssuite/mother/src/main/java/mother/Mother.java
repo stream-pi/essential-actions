@@ -110,9 +110,9 @@ public class Mother extends NormalAction
 
     private void connect(String url, String pass)
     {
-        new Thread(
-            new OBSActionConnectionTask(url, pass, connectDisconnectButton)
-        ).start();
+        MotherConnection.setPass(pass);
+        MotherConnection.setUrl(url);
+        new OBSActionConnectionTask(connectDisconnectButton, true);
     }
 
     @Override
