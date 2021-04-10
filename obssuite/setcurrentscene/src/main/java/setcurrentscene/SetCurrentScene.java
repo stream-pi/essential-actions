@@ -5,56 +5,86 @@ import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
-import com.stream_pi.util.version.Version;
+import com.stream_pi.util.exception.MinorException;
 import mother.motherconnection.MotherConnection;
-import net.twasi.obsremotejava.OBSRemoteController;
 
-public class SetCurrentScene extends NormalAction {
-
-    public SetCurrentScene() {
+public class SetCurrentScene extends NormalAction
+{
+    public SetCurrentScene()
+    {
         setName("Set Current Scene");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
-        setVersion(new Version(1, 0, 0));
+        setVersion(MotherConnection.VERSION);
     }
 
     @Override
-    public void initProperties() throws Exception {
-        // TODO Auto-generated method stub
-
-        Property currentSceneProperty = new Property("current_scene", Type.STRING);
+    public void initProperties() throws Exception
+    {
+        Property currentSceneProperty = new Property("scene", Type.STRING);
         currentSceneProperty.setDisplayName("Scene Name");
-        
-        addClientProperties(currentSceneProperty);
+
+        Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
+
+        addClientProperties(currentSceneProperty, autoConnectProperty);
     }
 
     @Override
-    public void initAction() throws Exception {
-        // TODO Auto-generated method stub
-    }
+    public void onActionClicked() throws Exception
+    {
+        String scene = getClientProperties().getSingleProperty("scene").getStringValue();
 
-    @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
+        if(scene.isBlank())
+        {
+            throw new MinorException("Blank Scene Name","No Scene Name specified");
+        }
 
-        OBSRemoteController controller = MotherConnection.getRemoteController();
+        if (MotherConnection.getRemoteController() == null)
+        {
+            boolean autoConnect = getClientProperties().getSingleProperty(
+                    "auto_connect"
+            ).getBoolValue();
 
-        if (controller == null) {
-            new StreamPiAlert("Is OBS Connected?",
-                    "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                            .show();
-        } else {
-            controller.setCurrentScene(getClientProperties().getSingleProperty("current_scene").getStringValue(), MotherConnection.getDefaultCallBack(
-                "Unable to Set Current Scene","Failed to set current Scene"
-            ));
+            if(autoConnect)
+            {
+                MotherConnection.connect(()->setScene(scene));
+            }
+            else
+            {
+                MotherConnection.showOBSNotRunningError();
+            }
+        }
+        else
+        {
+            setScene(scene);
         }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
+    public void setScene(String scene)
+    {
+        MotherConnection.getRemoteController().setCurrentScene(scene, setCurrentSceneResponse -> {
+            String status = setCurrentSceneResponse.getStatus();
+            String error = setCurrentSceneResponse.getError();
 
+            if(status.equals("error"))
+            {
+                String content;
+
+                if(error.equals("scene does not exist"))
+                {
+                    content = "Scene "+scene+" does not exist.";
+                }
+                else
+                {
+                    content = error;
+                }
+
+                new StreamPiAlert("OBS",content, StreamPiAlertType.ERROR).show();
+            }
+        });
     }
     
 }

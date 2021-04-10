@@ -102,7 +102,7 @@ public class OBSActionConnectionTask extends Task<Void>
         }
         catch (Exception e)
         {
-            new StreamPiAlert("Unable to Connect", "Unable to establish connection to WebSocket with provided crendentials", StreamPiAlertType.ERROR).show();
+            MotherConnection.showOBSNotRunningError();
             MotherConnection.setRemoteController(null);
             e.printStackTrace();
         }

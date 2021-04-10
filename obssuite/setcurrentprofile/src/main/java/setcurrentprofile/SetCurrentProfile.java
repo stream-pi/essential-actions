@@ -54,9 +54,7 @@ public class SetCurrentProfile extends NormalAction
             }
             else
             {
-                new StreamPiAlert("Is OBS Connected?",
-                        "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                        .show();
+                MotherConnection.showOBSNotRunningError();
             }
         }
         else

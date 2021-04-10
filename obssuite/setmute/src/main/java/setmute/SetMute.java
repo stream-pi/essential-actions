@@ -3,60 +3,102 @@ package setmute;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
+import com.stream_pi.action_api.externalplugin.ToggleAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import mother.motherconnection.MotherConnection;
 import net.twasi.obsremotejava.OBSRemoteController;
 
-public class SetMute extends NormalAction {
-
-    public SetMute() {
+public class SetMute extends ToggleAction
+{
+    public SetMute()
+    {
         setName("Set Mute");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
-        setVersion(new Version(1, 0, 0));
+        setVersion(MotherConnection.VERSION);
     }
 
     @Override
-    public void initProperties() throws Exception {
+    public void onToggleOn() throws Exception
+    {
+        onClicked(true);
+    }
+
+    @Override
+    public void onToggleOff() throws Exception
+    {
+        onClicked(false);
+    }
+
+    @Override
+    public void initProperties() throws Exception
+    {
         Property sourceProperty = new Property("source", Type.STRING);
         sourceProperty.setDisplayName("Source");
 
-        Property isMuteProperty = new Property("mute", Type.BOOLEAN);
-        isMuteProperty.setDisplayName("Mute");
-        
-        addClientProperties(sourceProperty,isMuteProperty);
+        Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
+
+        addClientProperties(sourceProperty, autoConnectProperty);
     }
 
-    @Override
-    public void initAction() throws Exception {
-        // TODO Auto-generated method stub
-    }
+    public void onClicked(boolean mute) throws MinorException
+    {
+        String source = getClientProperties().getSingleProperty("source").getStringValue();
 
-    @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
+        if(source.isBlank())
+        {
+            throw new MinorException("Blank Source Name","No Source specified");
+        }
 
-        OBSRemoteController controller = MotherConnection.getRemoteController();
+        if (MotherConnection.getRemoteController() == null)
+        {
+            boolean autoConnect = getClientProperties().getSingleProperty(
+                    "auto_connect"
+            ).getBoolValue();
 
-        if (controller == null) {
-            new StreamPiAlert("Is OBS Connected?",
-                    "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                            .show();
-        } else {
-            controller.setMute(getClientProperties().getSingleProperty("source").getStringValue(), getClientProperties().getSingleProperty("mute").getBoolValue(), MotherConnection.getDefaultCallBack(
-                "Failed to mute source","Failed to do that"
-            ));
+            if(autoConnect)
+            {
+                MotherConnection.connect(()->setMute(source, mute));
+            }
+            else
+            {
+                MotherConnection.showOBSNotRunningError();
+            }
+        }
+        else
+        {
+            setMute(source, mute);
         }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
+    public void setMute(String scene, boolean mute)
+    {
+        MotherConnection.getRemoteController().setMute(scene, mute, setMuteResponse -> {
+            String status = setMuteResponse.getStatus();
+            String error = setMuteResponse.getError();
 
+            if(status.equals("error"))
+            {
+                String content;
+
+                if(error.equals("source does not exist"))
+                {
+                    content = "Source "+scene+" does not exist.";
+                }
+                else
+                {
+                    content = error;
+                }
+
+                new StreamPiAlert("OBS",content, StreamPiAlertType.ERROR).show();
+            }
+        });
     }
-    
 }

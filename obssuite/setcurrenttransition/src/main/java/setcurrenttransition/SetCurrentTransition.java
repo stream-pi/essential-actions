@@ -5,6 +5,7 @@ import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import mother.motherconnection.MotherConnection;
@@ -12,48 +13,82 @@ import net.twasi.obsremotejava.OBSRemoteController;
 
 public class SetCurrentTransition extends NormalAction {
 
-    public SetCurrentTransition() {
+    public SetCurrentTransition()
+    {
         setName("Set Current Transition");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
-        setVersion(new Version(1, 0, 0));
+        setVersion(MotherConnection.VERSION);
     }
 
     @Override
-    public void initProperties() throws Exception {
-        Property currentTransitionProperty = new Property("current_transition", Type.STRING);
+    public void initProperties() throws Exception
+    {
+        Property currentTransitionProperty = new Property("transition", Type.STRING);
         currentTransitionProperty.setDisplayName("Transition Name");
-        
-        addClientProperties(currentTransitionProperty);
+
+        Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
+
+        addClientProperties(currentTransitionProperty, autoConnectProperty);
     }
 
-    @Override
-    public void initAction() throws Exception {
-        // TODO Auto-generated method stub
-    }
 
     @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
+    public void onActionClicked() throws Exception
+    {
+        String transition = getClientProperties().getSingleProperty("transition").getStringValue();
 
-        OBSRemoteController controller = MotherConnection.getRemoteController();
+        if(transition.isBlank())
+        {
+            throw new MinorException("Blank Transition Name","No Transition Name specified");
+        }
 
-        if (controller == null) {
-            new StreamPiAlert("Is OBS Connected?",
-                    "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                            .show();
-        } else {
-            controller.setCurrentTransition(getClientProperties().getSingleProperty("current_transition").getStringValue(), MotherConnection.getDefaultCallBack(
-                "Unable to Set Current Transition","Failed to set current Transition"
-            ));
+        if (MotherConnection.getRemoteController() == null)
+        {
+            boolean autoConnect = getClientProperties().getSingleProperty(
+                    "auto_connect"
+            ).getBoolValue();
+
+            if(autoConnect)
+            {
+                MotherConnection.connect(()->setTransition(transition));
+            }
+            else
+            {
+                MotherConnection.showOBSNotRunningError();
+            }
+        }
+        else
+        {
+            setTransition(transition);
         }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
 
+    public void setTransition(String transition)
+    {
+        MotherConnection.getRemoteController().setCurrentTransition(transition, setCurrentTransitionResponse -> {
+            String status = setCurrentTransitionResponse.getStatus();
+            String error = setCurrentTransitionResponse.getError();
+
+            if(status.equals("error"))
+            {
+                String content;
+
+                if(error.equals("transition does not exist"))
+                {
+                    content = "Transition "+transition+" does not exist.";
+                }
+                else
+                {
+                    content = error;
+                }
+
+                new StreamPiAlert("OBS",content, StreamPiAlertType.ERROR).show();
+            }
+        });
     }
-    
 }

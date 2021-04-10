@@ -5,73 +5,97 @@ import java.util.ArrayList;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
+import com.stream_pi.action_api.externalplugin.ToggleAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import mother.motherconnection.MotherConnection;
 import net.twasi.obsremotejava.OBSRemoteController;
 
-public class SetRecording extends NormalAction {
-
+public class SetRecording extends ToggleAction
+{
     public SetRecording() {
         setName("Set Recording");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
-        setVersion(new Version(1, 0, 0));
-
-        states = new ArrayList<>();
-        states.add("Start");
-        states.add("Stop");
-    }
-
-    private ArrayList<String> states;
-
-    @Override
-    public void initProperties() throws Exception {
-
-        Property recordingStatusProperty = new Property("recording_status", Type.LIST);
-        recordingStatusProperty.setListValue(states);
-        recordingStatusProperty.setDisplayName("Recording State");
-        
-        addClientProperties(recordingStatusProperty);
+        setVersion(MotherConnection.VERSION);
     }
 
     @Override
-    public void initAction() throws Exception {
-        // TODO Auto-generated method stub
+    public void onToggleOn() throws Exception
+    {
+        onClicked(true);
     }
 
     @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
+    public void onToggleOff() throws Exception
+    {
+        onClicked(false);
+    }
 
-        OBSRemoteController controller = MotherConnection.getRemoteController();
+    @Override
+    public void initProperties() throws Exception
+    {
+        Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
 
-        if (controller == null) {
-            new StreamPiAlert("Is OBS Connected?",
-                    "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                            .show();
-        } else {
-            
-            String state = states.get(getClientProperties().getSingleProperty("recording_status").getSelectedIndex());
+        addClientProperties(autoConnectProperty);
+    }
 
-            if(state.equals("Start"))
+    public void onClicked(boolean record) throws MinorException
+    {
+        if (MotherConnection.getRemoteController() == null)
+        {
+            boolean autoConnect = getClientProperties().getSingleProperty(
+                    "auto_connect"
+            ).getBoolValue();
+
+            if(autoConnect)
             {
-                controller.startRecording(MotherConnection.getDefaultCallBack("Failed to Start Recording","Failed to do that"));
+                MotherConnection.connect(()->setRecording(record));
             }
-            else if(state.equals("Stop"))
+            else
             {
-                controller.stopRecording(MotherConnection.getDefaultCallBack("Failed to Stop Recording","Failed to do that"));
+                MotherConnection.showOBSNotRunningError();
             }
+        }
+        else
+        {
+            setRecording(record);
         }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
+    public void setRecording(boolean recording)
+    {
+        if(recording)
+        {
+            MotherConnection.getRemoteController().startRecording(setRecordingResponse -> {
+                String status = setRecordingResponse.getStatus();
+                String error = setRecordingResponse.getError();
 
+                errorHandler(status, error);
+            });
+        }
+        else
+        {
+            MotherConnection.getRemoteController().stopRecording(setRecordingResponse -> {
+                String status = setRecordingResponse.getStatus();
+                String error = setRecordingResponse.getError();
+
+                errorHandler(status, error);
+            });
+        }
     }
-    
+
+    private void errorHandler(String status, String error)
+    {
+        if(status.equals("error"))
+        {
+            new StreamPiAlert("OBS",error, StreamPiAlertType.ERROR).show();
+        }
+    }
 }

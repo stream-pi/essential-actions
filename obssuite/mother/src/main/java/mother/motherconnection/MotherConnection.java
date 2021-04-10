@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import mother.OBSActionConnectionTask;
 import net.twasi.obsremotejava.OBSRemoteController;
 import net.twasi.obsremotejava.callbacks.Callback;
+import net.twasi.obsremotejava.requests.ResponseBase;
 
 public class MotherConnection
 {
@@ -82,5 +83,12 @@ public class MotherConnection
                 new StreamPiAlert(head, content, StreamPiAlertType.ERROR).show();
             }
         };
+    }
+
+    public static void showOBSNotRunningError()
+    {
+        new StreamPiAlert("Is OBS Connected?",
+                "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
+                .show();
     }
 }
