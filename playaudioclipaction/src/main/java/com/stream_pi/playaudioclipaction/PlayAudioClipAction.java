@@ -2,6 +2,7 @@ package com.stream_pi.playaudioclipaction;
 
 import java.util.ArrayList;
 
+
 import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.FileExtensionFilter;
 import com.stream_pi.action_api.actionproperty.property.Property;
@@ -13,6 +14,9 @@ import com.stream_pi.util.version.Version;
 
 import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
+
+import java.awt.*;
+import java.net.URI;
 
 import java.io.File;
 
@@ -27,19 +31,19 @@ public class PlayAudioClipAction extends NormalAction {
         setHelpLink("https://github.com/Stream-Pi/EssentialActions");
         setVersion(new Version(2,0,0));
 
-        loopState = new ArrayList<>();
-        loopState.add("No");
-        loopState.add("Yes");
+        states = new ArrayList<>();
+        states.add("Audio Clip");
+        states.add("Music Clip");
     }
 
-    private ArrayList<String> loopState;
+    private ArrayList<String> states;
 
     @Override
     public void initProperties() throws Exception
     {
-        Property looped = new Property("audio_clip_loop", Type.LIST);
-        looped.setListValue(loopState);
-        looped.setDisplayName("Clip Looped?");
+        Property audioOrMusic = new Property("selection", Type.LIST);
+        audioOrMusic.setListValue(states);
+        audioOrMusic.setDisplayName("Audio Clip or Music Clip");
         Property audioFileLocationProperty = new Property("audio_location", Type.STRING);
         audioFileLocationProperty.setControlType(ControlType.FILE_PATH);
         audioFileLocationProperty.setDisplayName("Audio File Location");
@@ -53,7 +57,7 @@ public class PlayAudioClipAction extends NormalAction {
                 new FileExtensionFilter("HLS","*.m3u8")
         );
 
-        addClientProperties(audioFileLocationProperty, looped);
+        addClientProperties(audioOrMusic, audioFileLocationProperty);
     }
 
     public AudioClip mediaPlayer = null;
@@ -62,6 +66,47 @@ public class PlayAudioClipAction extends NormalAction {
     @Override
     public void onActionClicked() throws Exception
     {
+        String state = states.get(getClientProperties().getSingleProperty("selection").getSelectedIndex());
+
+        if(state.equals("Audio Clip"))
+        {
+            audioClipPlay();
+        }
+        else if(state.equals("Music Clip"))
+        {
+            musicClipPlay();
+        }
+
+    }
+
+    @Override
+    public void onShutDown()
+    {
+        shutDown();
+    }
+
+    public void onActionDeleted()
+    {
+        shutDown();
+    }
+
+    public void onClientDisconnected()
+    {
+        shutDown();
+    }
+
+    private void shutDown()
+    {
+        if(mediaPlayer != null)
+        {
+            if(mediaPlayer.isPlaying())
+                Platform.runLater(mediaPlayer::stop);
+        }
+    }
+
+    public void audioClipPlay() throws Exception
+    {
+
         Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
 
         if (audioFileLocationProperty.getStringValue().isBlank())
@@ -70,16 +115,6 @@ public class PlayAudioClipAction extends NormalAction {
             return;
         }
 
-        String state = loopState.get(getClientProperties().getSingleProperty("audio_clip_looped").getSelectedIndex());
-
-        if(state.equals("Yes"))
-        {
-            mediaPlayer.setCycleCount(AudioClip.INDEFINITE);
-        }
-        else if(state.equals("No"))
-        {
-            mediaPlayer.setCycleCount(0);
-        }
 
         if(mediaPlayer != null)
         {
@@ -99,30 +134,25 @@ public class PlayAudioClipAction extends NormalAction {
         Platform.runLater(mediaPlayer::play);
     }
 
-    @Override
-    public void onShutDown()
+    public void musicClipPlay() throws Exception
     {
-        shutDown();
-    }
-    @Override
-    public void onActionDeleted()
-    {
-        shutDown();
-    }
 
-    @Override
-    public void onClientDisconnected()
-    {
-        shutDown();
-    }
+        Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
 
-    private void shutDown()
-    {
-        if(mediaPlayer != null)
+        if (audioFileLocationProperty.getStringValue().isBlank())
         {
-            if(mediaPlayer.isPlaying())
-                Platform.runLater(mediaPlayer::stop);
+            new StreamPiAlert("Media Action", "No file specified", StreamPiAlertType.ERROR).show();
+            return;
         }
+
+        if(!audioFileLocationProperty.getStringValue().equals(path))
+        {
+            path = audioFileLocationProperty.getStringValue();
+        }
+
+        File file = new File(path);
+
+        Desktop.getDesktop().open(file);
     }
 
 
