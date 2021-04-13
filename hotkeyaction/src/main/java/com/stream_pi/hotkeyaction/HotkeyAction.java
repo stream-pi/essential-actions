@@ -2,7 +2,7 @@ package com.stream_pi.hotkeyaction;
 
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.NormalAction;
+import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
@@ -23,7 +23,7 @@ public class HotkeyAction extends NormalAction {
         setAuthor("rnayabed");
         setServerButtonGraphic("far-keyboard");
         setHelpLink("https://github.com/stream-pi/essentialactions/blob/master/hotkeyaction/README.md");
-        setVersion(new Version(1,0,1));
+        setVersion(new Version(2,0,0));
     }
 
     @Override
@@ -196,17 +196,61 @@ public class HotkeyAction extends NormalAction {
             case "F23": return F23;
             case "F24": return F24;
 
-            case "NUMPAD 0": return NUMPAD0;
-            case "NUMPAD 1": return NUMPAD1;
-            case "NUMPAD 2": return NUMPAD2;
-            case "NUMPAD 3": return NUMPAD3;
-            case "NUMPAD 4": return NUMPAD4;
-            case "NUMPAD 5": return NUMPAD5;
-            case "NUMPAD 6": return NUMPAD6;
-            case "NUMPAD 7": return NUMPAD7;
-            case "NUMPAD 8": return NUMPAD8;
-            case "NUMPAD 9": return NUMPAD9;
-            
+            case "NUMPAD 0":
+            case "NUM 0":
+            case "N0":
+                return NUMPAD0;
+
+            case "NUMPAD 1":
+            case "NUM 1":
+            case "N1":
+                return NUMPAD1;
+
+
+            case "NUMPAD 2":
+            case "NUM 2":
+            case "N2":
+                return NUMPAD2;
+
+
+            case "NUMPAD 3":
+            case "NUM 3":
+            case "N3":
+                return NUMPAD3;
+
+
+            case "NUMPAD 4":
+            case "NUM 4":
+            case "N4":
+                return NUMPAD4;
+
+
+            case "NUMPAD 5":
+            case "NUM 5":
+            case "N5":
+                return NUMPAD5;
+
+
+            case "NUMPAD 6":
+            case "NUM 6":
+            case "N6":
+                return NUMPAD6;
+
+
+            case "NUMPAD 7":
+            case "NUM 7":
+            case "N7":
+                return NUMPAD7;
+
+            case "NUMPAD 8":
+            case "NUM 8":
+            case "N8":
+                return NUMPAD8;
+
+            case "NUMPAD 9":
+            case "NUM 9":
+            case "N9":
+                return NUMPAD9;
 
             case "HOME": return HOME;
 

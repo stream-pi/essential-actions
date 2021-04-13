@@ -6,7 +6,7 @@
 
     <groupId>com.stream-pi</groupId>
     <artifactId>obssuite_motheraction</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 
     <build>
         <plugins>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.eclipse.jetty.websocket</groupId>
             <artifactId>websocket-client</artifactId>
-            <version>9.4.35.v20201120</version>
+            <version>9.4.39.v20210325</version>
         </dependency>
 
         <dependency>

@@ -1,8 +1,9 @@
 package connect;
 
+import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.NormalAction;
+import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
 import com.stream_pi.util.exception.MinorException;
@@ -29,16 +30,17 @@ public class TwitchChatConnectAction extends NormalAction
 
         clearCredentialsBtn = new Button("Clear Twitch chat credentials");
         onClearCredentials();
-        setButtonBar(clearCredentialsBtn);
+        setServerSettingsButtonBar(clearCredentialsBtn);
     }
 
     @Override
-    public void initProperties()
+    public void initProperties() throws MinorException
     {
         Property twitchNicknameProp = new Property(NICKNAME_KEY, Type.STRING);
         twitchNicknameProp.setDisplayName("Twitch Username");
 
         Property twitchAccessTokenProp = new Property(ACCESS_TOKEN_KEY, Type.STRING);
+        twitchAccessTokenProp.setControlType(ControlType.TEXT_FIELD_MASKED);
         twitchAccessTokenProp.setDisplayName("Access Token");
 
         addServerProperties(twitchNicknameProp, twitchAccessTokenProp);

@@ -6,5 +6,5 @@ module com.stream_pi.obssuite.setreplaybufferaction
     requires obs.websocket.java;
     requires com.stream_pi.obssuite.motheraction;
 
-    provides com.stream_pi.action_api.normalaction.NormalAction with setreplaybuffer.SetReplayBuffer;
+    provides com.stream_pi.action_api.externalplugin.ExternalPlugin with setreplaybuffer.SetReplayBuffer;
 }

@@ -1,8 +1,9 @@
 package com.stream_pi.twitteraction;
 
+import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.NormalAction;
+import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertListener;
 import com.stream_pi.util.alert.StreamPiAlertType;
@@ -97,7 +98,7 @@ public class TwitterAction extends NormalAction {
             }
         }).start());
 
-        setButtonBar(loginAsNewUserButton, logoutButton);
+        setServerSettingsButtonBar(loginAsNewUserButton, logoutButton);
     }
 
     @Override
@@ -107,6 +108,7 @@ public class TwitterAction extends NormalAction {
         oAuthConsumerKey.setDisplayName("API Key");
 
         Property oAuthConsumerKeySecret = new Property("consumer_key_secret", Type.STRING);
+        oAuthConsumerKeySecret.setControlType(ControlType.TEXT_FIELD_MASKED);
         oAuthConsumerKeySecret.setDisplayName("API Key Secret");
 
         Property oAuthAccessToken = new Property("access_token", Type.STRING);

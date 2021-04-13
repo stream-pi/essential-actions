@@ -1,8 +1,9 @@
 package mother;
 
+import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.normalaction.NormalAction;
+import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.version.Version;
 import com.stream_pi.util.exception.MinorException;
 
@@ -21,24 +22,32 @@ public class Mother extends NormalAction
         setVisibilityInPluginsPane(false);
         setAuthor("rnayabed");
         setHelpLink("https://github.com/Stream-Pi/EssentialActions");
-        setVersion(new Version(1,0,0));
+        setVersion(new Version(1,1,0));
 
 
         connectDisconnectButton = new Button("Connect");
         
-        setButtonBar(connectDisconnectButton);
+        setServerSettingsButtonBar(connectDisconnectButton);
+    }
+
+    @Override
+    public void onActionClicked()
+    {
+
     }
 
     private Button connectDisconnectButton;
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties() throws Exception
+    {
         Property urlProperty = new Property("url", Type.STRING);
         urlProperty.setDisplayName("URL");
         urlProperty.setDefaultValueStr("ws://localhost:4444");
         urlProperty.setCanBeBlank(false);
 
         Property passwordProperty = new Property("pass", Type.STRING);
+        passwordProperty.setControlType(ControlType.TEXT_FIELD_MASKED);
         passwordProperty.setDisplayName("Password");
        
         Property connectOnStartupProperty = new Property("connect_on_startup", Type.BOOLEAN);
@@ -101,19 +110,13 @@ public class Mother extends NormalAction
 
     private void connect(String url, String pass)
     {
-        new Thread(
-            new OBSActionConnectionTask(url, pass, connectDisconnectButton)
-        ).start();
+        MotherConnection.setPass(pass);
+        MotherConnection.setUrl(url);
+        new OBSActionConnectionTask(connectDisconnectButton, true);
     }
 
     @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void onShutDown() throws Exception
+    public void onShutDown()
     {
         if(MotherConnection.getRemoteController() != null)
         {

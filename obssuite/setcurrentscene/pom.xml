@@ -39,11 +39,11 @@
     <properties>
         <ActionAPIVersion>1.0.0-SNAPSHOT</ActionAPIVersion>
         <UtilVersion>1.0.0-SNAPSHOT</UtilVersion>
-        <OBSSuiteMotherVersion>1.0.0</OBSSuiteMotherVersion>
+        <OBSSuiteMotherVersion>1.1.0</OBSSuiteMotherVersion>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-
     </properties>
 
     <dependencies>
