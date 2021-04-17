@@ -1,7 +1,5 @@
 package com.stream_pi.playaudioclipaction;
 
-import java.util.ArrayList;
-
 import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.FileExtensionFilter;
 import com.stream_pi.action_api.actionproperty.property.Property;
