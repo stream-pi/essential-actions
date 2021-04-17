@@ -1,4 +1,4 @@
-package com.stream_pi.playaudioclipaction;
+package com.stream_pi.playmusicclipaction;
 
 import java.util.ArrayList;
 
@@ -11,21 +11,21 @@ import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
 import com.stream_pi.util.version.Version;
 
-import javafx.application.Platform;
-import javafx.scene.media.AudioClip;
+import java.awt.*;
+import java.net.URI;
 
 import java.io.File;
 
-public class PlayAudioClipAction extends NormalAction {
+public class PlayMusicClipAction extends NormalAction {
 
-    public PlayAudioClipAction()
+    public PlayMusicClipAction()
     {
-        setName("Play Audio Clip");
+        setName("Play Music Clip");
         setCategory("Essentials");
-        setAuthor("rnayabed");
+        setAuthor("quimodotcom");
         setServerButtonGraphic("fas-volume-up");
         setHelpLink("https://github.com/Stream-Pi/EssentialActions");
-        setVersion(new Version(2,0,0));
+        setVersion(new Version(1,0,0));
     }
 
     @Override
@@ -47,63 +47,16 @@ public class PlayAudioClipAction extends NormalAction {
         addClientProperties(audioFileLocationProperty);
     }
 
-    public AudioClip mediaPlayer = null;
-    public String path = null;
 
     @Override
     public void onActionClicked() throws Exception
     {
         
-        Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
+        Property audioFileLocationProperty1 = getClientProperties().getSingleProperty("audio_location");
 
-        if (audioFileLocationProperty.getStringValue().isBlank())
-        {
-            new StreamPiAlert("Media Action", "No file specified", StreamPiAlertType.ERROR).show();
-            return;
-        }
+        File file = new File(audioFileLocationProperty1.getStringValue());
 
+        Desktop.getDesktop().open(file);
 
-        if(mediaPlayer != null)
-        {
-            if(mediaPlayer.isPlaying())
-            {
-                Platform.runLater(mediaPlayer::stop);
-                return;
-            }
-        }
-
-        if(!audioFileLocationProperty.getStringValue().equals(path))
-        {
-            path = audioFileLocationProperty.getStringValue();
-            mediaPlayer = new AudioClip(new File(path).toURI().toString());
-        }
-
-        Platform.runLater(mediaPlayer::play);
-
-    }
-
-    @Override
-    public void onShutDown()
-    {
-        shutDown();
-    }
-
-    public void onActionDeleted()
-    {
-        shutDown();
-    }
-
-    public void onClientDisconnected()
-    {
-        shutDown();
-    }
-
-    private void shutDown()
-    {
-        if(mediaPlayer != null)
-        {
-            if(mediaPlayer.isPlaying())
-                Platform.runLater(mediaPlayer::stop);
-        }
     }
 }
