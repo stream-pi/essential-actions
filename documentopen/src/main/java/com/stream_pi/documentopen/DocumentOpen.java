@@ -24,7 +24,7 @@ public class DocumentOpen extends NormalAction
         setHelpLink("https://github.com/stream-pi/essentialactions");
         setVersion(new Version(1,0,0));
 
-        setCategory("Essential Actions");
+        setCategory("Essentials");
 
     }
 

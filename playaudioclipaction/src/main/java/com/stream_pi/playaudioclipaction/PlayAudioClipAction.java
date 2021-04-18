@@ -1,8 +1,5 @@
 package com.stream_pi.playaudioclipaction;
 
-import java.util.ArrayList;
-
-
 import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.FileExtensionFilter;
 import com.stream_pi.action_api.actionproperty.property.Property;
@@ -14,9 +11,6 @@ import com.stream_pi.util.version.Version;
 
 import javafx.application.Platform;
 import javafx.scene.media.AudioClip;
-
-import java.awt.*;
-import java.net.URI;
 
 import java.io.File;
 
@@ -30,20 +24,11 @@ public class PlayAudioClipAction extends NormalAction {
         setServerButtonGraphic("fas-volume-up");
         setHelpLink("https://github.com/Stream-Pi/EssentialActions");
         setVersion(new Version(2,0,0));
-
-        states = new ArrayList<>();
-        states.add("Audio Clip");
-        states.add("Music Clip");
     }
-
-    private ArrayList<String> states;
 
     @Override
     public void initProperties() throws Exception
     {
-        Property audioOrMusic = new Property("selection", Type.LIST);
-        audioOrMusic.setListValue(states);
-        audioOrMusic.setDisplayName("Audio Clip or Music Clip");
         Property audioFileLocationProperty = new Property("audio_location", Type.STRING);
         audioFileLocationProperty.setControlType(ControlType.FILE_PATH);
         audioFileLocationProperty.setDisplayName("Audio File Location");
@@ -57,7 +42,7 @@ public class PlayAudioClipAction extends NormalAction {
                 new FileExtensionFilter("HLS","*.m3u8")
         );
 
-        addClientProperties(audioOrMusic, audioFileLocationProperty);
+        addClientProperties(audioFileLocationProperty);
     }
 
     public AudioClip mediaPlayer = null;
@@ -66,16 +51,32 @@ public class PlayAudioClipAction extends NormalAction {
     @Override
     public void onActionClicked() throws Exception
     {
-        String state = states.get(getClientProperties().getSingleProperty("selection").getSelectedIndex());
+        
+        Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
 
-        if(state.equals("Audio Clip"))
+        if (audioFileLocationProperty.getStringValue().isBlank())
         {
-            audioClipPlay();
+            new StreamPiAlert("Media Action", "No file specified", StreamPiAlertType.ERROR).show();
+            return;
         }
-        else if(state.equals("Music Clip"))
+
+
+        if(mediaPlayer != null)
         {
-            musicClipPlay();
+            if(mediaPlayer.isPlaying())
+            {
+                Platform.runLater(mediaPlayer::stop);
+                return;
+            }
         }
+
+        if(!audioFileLocationProperty.getStringValue().equals(path))
+        {
+            path = audioFileLocationProperty.getStringValue();
+            mediaPlayer = new AudioClip(new File(path).toURI().toString());
+        }
+
+        Platform.runLater(mediaPlayer::play);
 
     }
 
@@ -103,57 +104,4 @@ public class PlayAudioClipAction extends NormalAction {
                 Platform.runLater(mediaPlayer::stop);
         }
     }
-
-    public void audioClipPlay() throws Exception
-    {
-
-        Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
-
-        if (audioFileLocationProperty.getStringValue().isBlank())
-        {
-            new StreamPiAlert("Media Action", "No file specified", StreamPiAlertType.ERROR).show();
-            return;
-        }
-
-
-        if(mediaPlayer != null)
-        {
-            if(mediaPlayer.isPlaying())
-            {
-                Platform.runLater(mediaPlayer::stop);
-                return;
-            }
-        }
-
-        if(!audioFileLocationProperty.getStringValue().equals(path))
-        {
-            path = audioFileLocationProperty.getStringValue();
-            mediaPlayer = new AudioClip(new File(path).toURI().toString());
-        }
-
-        Platform.runLater(mediaPlayer::play);
-    }
-
-    public void musicClipPlay() throws Exception
-    {
-
-        Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
-
-        if (audioFileLocationProperty.getStringValue().isBlank())
-        {
-            new StreamPiAlert("Media Action", "No file specified", StreamPiAlertType.ERROR).show();
-            return;
-        }
-
-        if(!audioFileLocationProperty.getStringValue().equals(path))
-        {
-            path = audioFileLocationProperty.getStringValue();
-        }
-
-        File file = new File(path);
-
-        Desktop.getDesktop().open(file);
-    }
-
-
 }
