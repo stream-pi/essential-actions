@@ -23,18 +23,6 @@ public class WebsiteAction extends NormalAction
     }
 
     @Override
-    public void onActionSavedFromServer() throws Exception
-    {
-        String website = getClientProperties().getSingleProperty("websiteURL").getStringValue();
-
-        if(website != null)
-        {
-            if(website.contains("google.com"))
-            setDisplayText("GOOGLE");
-        }
-    }
-
-    @Override
     public void initProperties() throws Exception {
         Property websiteUrl = new Property("websiteURL", Type.STRING);
         websiteUrl.setDisplayName("Website URL");
