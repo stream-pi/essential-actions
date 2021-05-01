@@ -119,6 +119,9 @@ twitchchat() {
 
   cd ../start-commercial && mvn clean -Dmaven.test.skip package
   mv target/twitch-start-commercial-*.jar ../../$FOLD/twitch-start-commercial.jar
+
+  cd ../subs-only && mvn clean -Dmaven.test.skip package
+  mv target/twitch-subs-only-*.jar ../../$FOLD/twitch-subs-only.jar
   popd || exit
 }
 
