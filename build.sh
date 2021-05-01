@@ -122,6 +122,10 @@ twitchchat() {
 
   cd ../subs-only && mvn clean -Dmaven.test.skip package
   mv target/twitch-subs-only-*.jar ../../$FOLD/twitch-subs-only.jar
+
+  cd ../slow-mode && mvn clean -Dmaven.test.skip package
+  mv target/twitch-slow-mode-*.jar ../../$FOLD/twitch-slow-mode.jar
+
   popd || exit
 }
 
