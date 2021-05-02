@@ -10,22 +10,18 @@ import com.stream_pi.util.alert.StreamPiAlertType;
 import com.stream_pi.util.uihelper.HBoxInputBox;
 import com.stream_pi.util.version.Version;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import twitter4j.Status;
 import twitter4j.Twitter;
-import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
-
-import java.net.URI;
-import java.util.Random;
 
 public class TwitterAction extends NormalAction {
 

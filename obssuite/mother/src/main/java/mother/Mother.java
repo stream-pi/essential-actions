@@ -4,13 +4,9 @@ import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
-import com.stream_pi.util.version.Version;
 import com.stream_pi.util.exception.MinorException;
-
-import mother.motherconnection.MotherConnection;
-
-
 import javafx.scene.control.Button;
+import mother.motherconnection.MotherConnection;
 
 public class Mother extends NormalAction
 {
