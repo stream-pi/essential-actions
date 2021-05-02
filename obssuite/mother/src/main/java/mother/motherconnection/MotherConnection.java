@@ -2,13 +2,11 @@ package mother.motherconnection;
 
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
-
 import com.stream_pi.util.version.Version;
 import javafx.scene.control.Button;
 import mother.OBSActionConnectionTask;
 import net.twasi.obsremotejava.OBSRemoteController;
 import net.twasi.obsremotejava.callbacks.Callback;
-import net.twasi.obsremotejava.requests.ResponseBase;
 
 public class MotherConnection
 {

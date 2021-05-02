@@ -10,14 +10,14 @@ hotkey() {
   popd || exit
 }
 
-mediakey() {
+media_key() {
   pushd . || exit
   cd mediakeyaction && mvn clean -Dmaven.test.skip package
   mv target/mediakeyaction-*.jar ../$FOLD/mediakeyaction.jar
   popd || exit
 }
 
-obssuite() {
+obs_suite() {
   pushd . || exit
   cd obssuite/mother && mvn clean install -Dmaven.test.skip package
   mv target/obssuite_motheraction-*.jar ../../$FOLD/obssuite_motheraction.jar
@@ -57,35 +57,28 @@ obssuite() {
   popd || exit
 }
 
-playaudioclip() {
+play_audio_clip() {
   pushd . || exit
   cd playaudioclipaction && mvn clean -Dmaven.test.skip package
   mv target/playaudioclipaction-*.jar ../$FOLD/playaudioclipaction.jar
   popd || exit
 }
 
-runcommand() {
+run_command() {
   pushd . || exit
   cd runcommandaction && mvn clean -Dmaven.test.skip package
   mv target/runcommandaction-*.jar ../$FOLD/runcommandaction.jar
   popd || exit
 }
 
-textblock() {
+text_block() {
   pushd . || exit
   cd textblockaction && mvn clean -Dmaven.test.skip package
   mv target/textblockaction-*.jar ../$FOLD/textblockaction.jar
   popd || exit
 }
 
-twitter() {
-  pushd . || exit
-  cd twitteraction && mvn clean -Dmaven.test.skip package
-  mv target/twitteraction-*.jar ../$FOLD/twitteraction.jar
-  popd || exit
-}
-
-twitchchat() {
+twitch_chat() {
   pushd . || exit
   cd twitch/twitch-chat-connect && mvn clean install -Dmaven.test.skip package
   mv target/twitch-chat-connect-*.jar ../../$FOLD/twitch-chat-connect.jar
@@ -129,6 +122,13 @@ twitchchat() {
   popd || exit
 }
 
+twitter() {
+  pushd . || exit
+  cd twitteraction && mvn clean -Dmaven.test.skip package
+  mv target/twitteraction-*.jar ../$FOLD/twitteraction.jar
+  popd || exit
+}
+
 website() {
   pushd . || exit
   cd websiteaction && mvn clean -Dmaven.test.skip package
@@ -136,30 +136,31 @@ website() {
   popd || exit
 }
 
-
-
-
 mkdir -p $FOLD
 rm -rf "${FOLD:?}/"*
-
 cp $DEPS/* $FOLD/
-
 
 case "$1" in
 hotkey)
   hotkey
   ;;
-mediakey)
-  mediakey
+media_key)
+  media_key
   ;;
-playaudioclip)
-  playaudioclip
+obs_suite)
+  obs_suite
   ;;
-runcommand)
-  runcommand
+play_audio_clip)
+  play_audio_clip
   ;;
-textblock)
-  textblock
+run_command)
+  run_command
+  ;;
+text_block)
+  text_block
+  ;;
+twitch_chat)
+  twitch_chat
   ;;
 twitter)
   twitter
@@ -167,22 +168,16 @@ twitter)
 website)
   website
   ;;
-obssuite)
-  obssuite
-  ;;
-twitchchat)
-  twitchchat
-  ;;
 *)
   # build all actions as default
   hotkey
-  mediakey
-  obssuite
-  playaudioclip
-  runcommand
-  textblock
+  media_key
+  obs_suite
+  play_audio_clip
+  run_command
+  text_block
+  twitch_chat
   twitter
-  twitchchat
   website
   ;;
 esac

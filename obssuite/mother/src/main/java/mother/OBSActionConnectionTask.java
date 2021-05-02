@@ -1,13 +1,11 @@
 package mother;
 
-import mother.motherconnection.MotherConnection;
-
-import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.scene.control.Button;
-import net.twasi.obsremotejava.OBSRemoteController;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
+import mother.motherconnection.MotherConnection;
+import net.twasi.obsremotejava.OBSRemoteController;
 
 public class OBSActionConnectionTask extends Task<Void>
 {

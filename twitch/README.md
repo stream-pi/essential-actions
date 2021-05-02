@@ -5,7 +5,7 @@ The first step is to acquire an [OAuth token](https://twitchapps.com/tmi/), the 
 Then in the Stream-Pi Server's Plugin page you will need to enter your Twitch username with the generated OAuth token then click on `Save Twitch Chat credentials` button.
 You should then be able to use the pre-bundled Twitch chat actions.
 
-## Supported actions (see [Chat Commands](https://help.twitch.tv/s/article/chat-commands?language=en_US) for full documentation)
+## Supported actions (see [Twitch Chat Commands](https://help.twitch.tv/s/article/chat-commands?language=en_US) for full documentation)
 
 ### All Users
 
@@ -26,14 +26,13 @@ You should then be able to use the pre-bundled Twitch chat actions.
 - Raid
 - Unraid
 - Add stream marker
+- Toggle slow mode
+- Toggle subs-only mode
 
 ### TODO
 
-- Toggle slow mode
 - Toggle followers-only mode
-- Toggle subs-only mode
-- Toggle emotes-only mode
 
 ## Running locally
 
-Copy the `Java-Twirk` and the `twitch-xxx-action` jar files from the `PreBuiltPlugins` directory to your Stream-Pi server plugins' directory.
+Copy the `Java-Twirk` from the `Dependencies` directory and the `twitch-xxx-action` jar files from the `PreBuiltPlugins` directory to your Stream-Pi server plugins' directory.
