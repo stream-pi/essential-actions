@@ -48,12 +48,6 @@
 
     <dependencies>
 
-	<dependency>
-  	    <groupId>com.github.thelinmichael</groupId>
-  	    <artifactId>spotify-web-api-java</artifactId>
-  	    <version>master-SNAPSHOT</version>
-	</dependency>
-
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
