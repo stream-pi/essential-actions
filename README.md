@@ -5,7 +5,6 @@ Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [St
 ## Prerequisites
 
 - Java >= 11
-- Maven >= 3.6.3
 
 ## List of Actions
 
@@ -27,7 +26,13 @@ Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [St
 
 ## Quick Start
 
+### on Linux or Mac
+
 Build all actions by executing `make build-all` from the command line or specific actions i.e. `make twitch-chat`, see [Makefile](Makefile) for complete list.
+
+### on Windows
+
+Build all actions by executing `build.bat` from the command line or specific actions i.e. `build.bat Hotkey`, see [batch file](build.bat) for complete list.
 
 To test these actions out in your local environment you'll need to run the [Stream-Pi Server](https://github.com/stream-pi/server) and copy the contents of `PreBuiltPlugins` to the server's
 Plugins directory (`$HOME/Stream-Pi/Server/Plugins` by default), especially if you're writing your own custom action / integration.
