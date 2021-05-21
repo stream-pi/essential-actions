@@ -31,5 +31,7 @@ Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [St
 DO NOT BUILD THESE PLUGINS!!!!
 
 EITHER BUILD THE OFFICIAL PLUGINS: https://github.com/stream-pi/essentialactions
+---
 OR
+---
 DOWNLOAD THE PLUGINS FROM MY WEBSITE: https://quimostreampi.rf.gd
