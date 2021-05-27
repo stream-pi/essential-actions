@@ -69,9 +69,9 @@ cd ..\setcurrenttransition
 CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setcurrenttransitionaction-*.jar ..\..\%FOLD%\obssuite_setcurrenttransitionaction.jar
 
-cd ..\setmute
+cd ..\togglemute
 CALL mvn clean -Dmaven.test.skip package
-move target\obssuite_setmuteaction-*.jar ..\..\%FOLD%\obssuite_setmuteaction.jar
+move target\obssuite_togglemuteaction-*.jar ..\..\%FOLD%\obssuite_togglemuteaction.jar
 
 cd ..\setcurrentprofile
 CALL mvn clean -Dmaven.test.skip package

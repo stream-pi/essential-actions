@@ -1,4 +1,4 @@
-package setmute;
+package togglemute;
 
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
@@ -8,11 +8,11 @@ import com.stream_pi.util.alert.StreamPiAlertType;
 import com.stream_pi.util.exception.MinorException;
 import mother.motherconnection.MotherConnection;
 
-public class SetMute extends ToggleAction
+public class ToggleMute extends ToggleAction
 {
-    public SetMute()
+    public ToggleMute()
     {
-        setName("Set Mute");
+        setName("Toggle Mute");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
