@@ -1,10 +1,11 @@
 # Stream-Pi Essential Actions
 
-Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [Stream-Pi Action API](https://github.com/stream-pi/actionapi).
+Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [Stream-Pi Action API](https://github.com/stream-pi/action-api).
 
 ## Prerequisites
 
 - Java >= 11
+- Maven >= 3.6.3
 
 ## List of Actions
 

@@ -17,7 +17,7 @@ public class SetVolume extends NormalAction {
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
-        setVersion(new Version(1, 0, 0));
+        setVersion(MotherConnection.VERSION);
     }
 
     @Override
@@ -43,7 +43,8 @@ public class SetVolume extends NormalAction {
 
         OBSRemoteController controller = MotherConnection.getRemoteController();
 
-        if (controller == null) {
+        if (controller == null)
+        {
             new StreamPiAlert("Is OBS Connected?",
                     "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
                             .show();

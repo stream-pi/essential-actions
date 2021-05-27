@@ -2,76 +2,111 @@ package setstreaming;
 
 import java.util.ArrayList;
 
+import com.stream_pi.action_api.actionproperty.property.BooleanProperty;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
+import com.stream_pi.action_api.externalplugin.ToggleAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import mother.motherconnection.MotherConnection;
 import net.twasi.obsremotejava.OBSRemoteController;
 
-public class SetStreaming extends NormalAction {
+public class SetStreaming extends ToggleAction
+{
 
-    public SetStreaming() {
+    public SetStreaming()
+    {
         setName("Set Streaming");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
-        setVersion(new Version(1, 0, 0));
-
-        states = new ArrayList<>();
-        states.add("Start");
-        states.add("Stop");
-    }
-
-    private ArrayList<String> states;
-
-    @Override
-    public void initProperties() throws Exception {
-
-        Property streamingStatusProperty = new Property("streaming_status", Type.LIST);
-        streamingStatusProperty.setListValue(states);
-        streamingStatusProperty.setDisplayName("Streaming State");
-        
-        addClientProperties(streamingStatusProperty);
+        setVersion(MotherConnection.VERSION);
     }
 
     @Override
-    public void initAction() throws Exception {
-        // TODO Auto-generated method stub
+    public void initProperties() throws Exception
+    {
+        BooleanProperty autoConnectProperty = new BooleanProperty("auto_connect");
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
+
+        addClientProperties(autoConnectProperty);
     }
 
     @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
+    public void onToggleOn() throws Exception
+    {
+        onClicked(true);
+    }
 
-        OBSRemoteController controller = MotherConnection.getRemoteController();
+    @Override
+    public void onToggleOff() throws Exception
+    {
+        onClicked(false);
+    }
 
-        if (controller == null) {
-            new StreamPiAlert("Is OBS Connected?",
-                    "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                            .show();
-        } else {
-            
-            String state = states.get(getClientProperties().getSingleProperty("streaming_status").getSelectedIndex());
+    public void onClicked(boolean streaming) throws MinorException
+    {
+        if (MotherConnection.getRemoteController() == null)
+        {
+            boolean autoConnect = getClientProperties().getSingleProperty(
+                    "auto_connect"
+            ).getBoolValue();
 
-            if(state.equals("Start"))
+            if(autoConnect)
             {
-                controller.startStreaming(MotherConnection.getDefaultCallBack("Failed to Start Streaming","Failed to do that"));
+                MotherConnection.connect(()->setStreaming(streaming));
             }
-            else if(state.equals("Stop"))
+            else
             {
-                controller.stopStreaming(MotherConnection.getDefaultCallBack("Failed to Stop Streaming","Failed to do that"));
+                MotherConnection.showOBSNotRunningError();
             }
+        }
+        else
+        {
+            setStreaming(streaming);
         }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
+
+    public void setStreaming(boolean enabled)
+    {
+        if(enabled)
+        {
+            MotherConnection.getRemoteController().startStreaming(startStreamingResponse -> {
+                String status = startStreamingResponse.getStatus();
+                String error = startStreamingResponse.getError();
+
+                if(status.equals("error"))
+                {
+                    String content;
+
+                    content = error;
+
+                    new StreamPiAlert("OBS",content, StreamPiAlertType.ERROR).show();
+                }
+            });
+        }
+        else
+        {
+            MotherConnection.getRemoteController().stopStreaming(stopStreamingResponse -> {
+                String status = stopStreamingResponse.getStatus();
+                String error = stopStreamingResponse.getError();
+
+                if(status.equals("error"))
+                {
+                    String content;
+
+                    content = error;
+
+                    new StreamPiAlert("OBS",content, StreamPiAlertType.ERROR).show();
+                }
+            });
+        }
 
     }
-    
 }

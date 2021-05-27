@@ -2,60 +2,87 @@ package SetStudioMode;
 
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
-import com.stream_pi.action_api.externalplugin.NormalAction;
+import com.stream_pi.action_api.externalplugin.ToggleAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import mother.motherconnection.MotherConnection;
-import net.twasi.obsremotejava.OBSRemoteController;
 
-public class SetStudioMode extends NormalAction {
+public class SetStudioMode extends ToggleAction
+{
 
-    public SetStudioMode() {
+    public SetStudioMode()
+    {
         setName("Set Studio Mode");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
-        setVersion(new Version(1, 0, 0));
+        setVersion(MotherConnection.VERSION);
     }
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties() throws Exception
+    {
+        Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
 
-        Property studioModeStatusProperty = new Property("studio_mode_status", Type.BOOLEAN);
-        studioModeStatusProperty.setDisplayName("Studio Mode");
-        
-        addClientProperties(studioModeStatusProperty);
+        addClientProperties(autoConnectProperty);
     }
 
     @Override
-    public void initAction() throws Exception {
-        // TODO Auto-generated method stub
+    public void onToggleOn() throws Exception
+    {
+        onClicked(true);
     }
 
     @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
+    public void onToggleOff() throws Exception
+    {
+        onClicked(false);
+    }
 
-        OBSRemoteController controller = MotherConnection.getRemoteController();
-
-        if (controller == null) {
-            new StreamPiAlert("Is OBS Connected?",
-                    "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                            .show();
-        } else 
+    public void onClicked(boolean studioMode) throws MinorException
+    {
+        if (MotherConnection.getRemoteController() == null)
         {
-            controller.setStudioModeEnabled(getClientProperties().getSingleProperty("studio_mode_status").getBoolValue(),
-            MotherConnection.getDefaultCallBack("Failed to set studio mode","Failed to do that"));
-            
+            boolean autoConnect = getClientProperties().getSingleProperty(
+                    "auto_connect"
+            ).getBoolValue();
+
+            if(autoConnect)
+            {
+                MotherConnection.connect(()->setStudioMode(studioMode));
+            }
+            else
+            {
+                MotherConnection.showOBSNotRunningError();
+            }
+        }
+        else
+        {
+            setStudioMode(studioMode);
         }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
 
+    public void setStudioMode(boolean enabled)
+    {
+        MotherConnection.getRemoteController().setStudioModeEnabled(enabled, setStudioModeEnabledResponse -> {
+            String status = setStudioModeEnabledResponse.getStatus();
+            String error = setStudioModeEnabledResponse.getError();
+
+            if(status.equals("error"))
+            {
+                String content;
+
+                content = error;
+
+                new StreamPiAlert("OBS",content, StreamPiAlertType.ERROR).show();
+            }
+        });
     }
     
 }
