@@ -81,21 +81,21 @@ cd ..\setpreviewscene
 CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setpreviewsceneaction-*.jar ..\..\%FOLD%\obssuite_setpreviewsceneaction.jar
 
-cd ..\setrecording
+cd ..\togglerecording
 CALL mvn clean -Dmaven.test.skip package
-move target\obssuite_setrecordingaction-*.jar ..\..\%FOLD%\obssuite_setrecordingaction.jar
+move target\obssuite_togglerecordingaction-*.jar ..\..\%FOLD%\obssuite_togglerecordingaction.jar
 
 cd ..\setreplaybuffer
 CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setreplaybufferaction-*.jar ..\..\%FOLD%\obssuite_setreplaybufferaction.jar
 
-cd ..\setstreaming
+cd ..\togglestreaming
 CALL mvn clean -Dmaven.test.skip package
-move target\obssuite_setstreamingaction-*.jar ..\..\%FOLD%\obssuite_setstreamingaction.jar
+move target\obssuite_togglestreamingaction-*.jar ..\..\%FOLD%\obssuite_togglestreamingaction.jar
 
-cd ..\setstudiomode
+cd ..\togglestudiomode
 CALL mvn clean -Dmaven.test.skip package
-move target\obssuite_setstudiomodeaction-*.jar ..\..\%FOLD%\obssuite_setstudiomodeaction.jar
+move target\obssuite_togglestudiomodeaction-*.jar ..\..\%FOLD%\obssuite_togglestudiomodeaction.jar
 
 cd ..\setvolume
 CALL mvn clean -Dmaven.test.skip package

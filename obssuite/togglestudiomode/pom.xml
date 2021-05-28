@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.stream-pi</groupId>
-    <artifactId>obssuite_setrecordingaction</artifactId>
-    <version>2.0.0</version>
+    <artifactId>obssuite_togglestudiomodeaction</artifactId>
+    <version>1.0.0</version>
 
     <build>
         <plugins>

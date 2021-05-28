@@ -1,4 +1,4 @@
-package setrecording;
+package togglerecording;
 
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
@@ -8,10 +8,11 @@ import com.stream_pi.util.alert.StreamPiAlertType;
 import com.stream_pi.util.exception.MinorException;
 import mother.motherconnection.MotherConnection;
 
-public class SetRecording extends ToggleAction
+public class ToggleRecording extends ToggleAction
 {
-    public SetRecording() {
-        setName("Set Recording");
+    public ToggleRecording()
+    {
+        setName("Toggle Recording");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");

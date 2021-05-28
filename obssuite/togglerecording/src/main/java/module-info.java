@@ -1,4 +1,4 @@
-module com.stream_pi.obssuite.setstreamingaction
+module com.stream_pi.obssuite.togglerecordingaction
 {
     requires com.stream_pi.action_api;
     requires com.stream_pi.util;
@@ -6,5 +6,5 @@ module com.stream_pi.obssuite.setstreamingaction
     requires obs.websocket.java;
     requires com.stream_pi.obssuite.motheraction;
 
-    provides com.stream_pi.action_api.externalplugin.ExternalPlugin with setstreaming.SetStreaming;
+    provides com.stream_pi.action_api.externalplugin.ExternalPlugin with togglerecording.ToggleRecording;
 }

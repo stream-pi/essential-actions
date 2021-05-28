@@ -50,7 +50,6 @@ public class ToggleMute extends ToggleAction
 
         if(source.isBlank())
         {
-            reverse(mute);
             throw new MinorException("Blank Source Name","No Source specified");
         }
 
@@ -95,23 +94,8 @@ public class ToggleMute extends ToggleAction
                 }
 
                 new StreamPiAlert("OBS",content, StreamPiAlertType.ERROR).show();
-
-
-                reverse(mute);
             }
         });
 
-    }
-
-    private void reverse(boolean current)
-    {
-        try
-        {
-            setCurrentStatus(!current);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
     }
 }
