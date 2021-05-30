@@ -51,7 +51,6 @@ public class PlayAudioClipAction extends NormalAction {
     @Override
     public void onActionClicked() throws Exception
     {
-        
         Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
 
         if (audioFileLocationProperty.getStringValue().isBlank())
@@ -77,7 +76,6 @@ public class PlayAudioClipAction extends NormalAction {
         }
 
         Platform.runLater(mediaPlayer::play);
-
     }
 
     @Override
@@ -86,11 +84,13 @@ public class PlayAudioClipAction extends NormalAction {
         shutDown();
     }
 
+    @Override
     public void onActionDeleted()
     {
         shutDown();
     }
 
+    @Override
     public void onClientDisconnected()
     {
         shutDown();
@@ -104,4 +104,6 @@ public class PlayAudioClipAction extends NormalAction {
                 Platform.runLater(mediaPlayer::stop);
         }
     }
+
+
 }

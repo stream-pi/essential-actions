@@ -1,29 +1,29 @@
 build-all:
 	./build.sh
 
-build-hotkey-action:
+hotkey:
 	./build.sh hotkey
 
-build-media-key-action:
-	./build.sh mediakey
+media-key:
+	./build.sh media_key
 
-build-obs-suite-action:
-	./build.sh obssuite
+obs-suite:
+	./build.sh obs_suite
 
-build-play-audio-clip-action:
-	./build.sh playaudioclip
+play-audio-clip:
+	./build.sh play_audio_clip
 
-build-run-command-action:
-	./build.sh runcommand
+run-command:
+	./build.sh run_command
 
-build-text-block-action:
-	./build.sh textblock
+text-block:
+	./build.sh text_block
 
-build-twitch-chat-action:
-	./build.sh twitchchat
+twitch-chat:
+	./build.sh twitch_chat
 
-build-twitter-action:
+twitter:
 	./build.sh twitter
 
-build-website-action:
+website:
 	./build.sh website

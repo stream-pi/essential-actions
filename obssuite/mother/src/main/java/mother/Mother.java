@@ -4,13 +4,9 @@ import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
-import com.stream_pi.util.version.Version;
 import com.stream_pi.util.exception.MinorException;
-
-import mother.motherconnection.MotherConnection;
-
-
 import javafx.scene.control.Button;
+import mother.motherconnection.MotherConnection;
 
 public class Mother extends NormalAction
 {
@@ -22,8 +18,7 @@ public class Mother extends NormalAction
         setVisibilityInPluginsPane(false);
         setAuthor("rnayabed");
         setHelpLink("https://github.com/Stream-Pi/EssentialActions");
-        setVersion(new Version(1,1,0));
-
+        setVersion(MotherConnection.VERSION);
 
         connectDisconnectButton = new Button("Connect");
         
@@ -63,7 +58,11 @@ public class Mother extends NormalAction
     }
 
     @Override
-    public void initAction() throws Exception {
+    public void initAction() throws Exception
+    {
+        MotherConnection.setPass(getPassword());
+        MotherConnection.setUrl(getURL());
+        MotherConnection.setConnectDisconnectButton(connectDisconnectButton);
 
         connectDisconnectButton.setOnAction(action->{
             try
@@ -112,7 +111,7 @@ public class Mother extends NormalAction
     {
         MotherConnection.setPass(pass);
         MotherConnection.setUrl(url);
-        new OBSActionConnectionTask(connectDisconnectButton, true);
+        new OBSActionConnectionTask(true, null, null, null);
     }
 
     @Override

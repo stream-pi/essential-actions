@@ -1,6 +1,6 @@
 .idea/
 target/
-TwitterAction.iml
+*.iml
 
 .classpath
 .factorypath

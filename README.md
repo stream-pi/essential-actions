@@ -1,6 +1,6 @@
 # Stream-Pi Essential Actions
 
-Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [Stream-Pi Action API](https://github.com/stream-pi/actionapi).
+Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [Stream-Pi Action API](https://github.com/stream-pi/action-api).
 
 ## Prerequisites
 
@@ -22,16 +22,18 @@ Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [St
 ## Actions Help Guide
 
 - [Hotkey](hotkeyaction/README.md)
+- [Run Command](runcommandaction/README.md)
 - [Twitch Chat](twitch/README.md)
-
----
 
 ## Quick Start
 
-DO NOT BUILD THESE PLUGINS!!!!
+### on Linux or Mac
 
-EITHER BUILD THE OFFICIAL PLUGINS: https://github.com/stream-pi/essentialactions
+Build all actions by executing `make build-all` from the command line or specific actions i.e. `make twitch-chat`, see [Makefile](Makefile) for complete list.
 
-OR
+### on Windows
 
-DOWNLOAD THE PLUGINS FROM MY WEBSITE: https://quimostreampi.rf.gd
+Build all actions by executing `build.bat` from the command line or specific actions i.e. `build.bat Hotkey`, see [batch file](build.bat) for complete list.
+
+To test these actions out in your local environment you'll need to run the [Stream-Pi Server](https://github.com/stream-pi/server) and copy the contents of `PreBuiltPlugins` to the server's
+Plugins directory (`$HOME/Stream-Pi/Server/Plugins` by default), especially if you're writing your own custom action / integration.

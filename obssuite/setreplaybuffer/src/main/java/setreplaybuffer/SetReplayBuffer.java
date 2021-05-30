@@ -15,12 +15,13 @@ import net.twasi.obsremotejava.OBSRemoteController;
 public class SetReplayBuffer extends NormalAction
 {
 
-    public SetReplayBuffer() {
+    public SetReplayBuffer()
+    {
         setName("Set Replay Buffer");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
         setAuthor("rnayabed");
-        setVersion(new Version(1, 0, 0));
+        setVersion(MotherConnection.VERSION);
 
         states = new ArrayList<>();
         states.add("Start");
