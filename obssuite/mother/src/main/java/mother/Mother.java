@@ -34,7 +34,7 @@ public class Mother extends NormalAction
     private Button connectDisconnectButton;
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties() throws MinorException
     {
         Property urlProperty = new Property("url", Type.STRING);
         urlProperty.setDisplayName("URL");
@@ -58,7 +58,7 @@ public class Mother extends NormalAction
     }
 
     @Override
-    public void initAction() throws Exception
+    public void initAction() throws MinorException
     {
         MotherConnection.setPass(getPassword());
         MotherConnection.setUrl(getURL());
