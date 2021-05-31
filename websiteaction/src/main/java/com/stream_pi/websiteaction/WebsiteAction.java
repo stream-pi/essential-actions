@@ -11,7 +11,6 @@ import java.net.URI;
 
 public class WebsiteAction extends NormalAction
 {
-
     public WebsiteAction()
     {
         setName("Website");
@@ -19,11 +18,12 @@ public class WebsiteAction extends NormalAction
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-globe");
         setHelpLink("https://github.com/stream-pi/essentialactions");
-        setVersion(new Version(1,0,0));
+        setVersion(new Version(1,0,1));
     }
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties() throws MinorException
+    {
         Property websiteUrl = new Property("websiteURL", Type.STRING);
         websiteUrl.setDisplayName("Website URL");
         websiteUrl.setDefaultValueStr("https://stream-pi.com/");
@@ -32,14 +32,9 @@ public class WebsiteAction extends NormalAction
         addClientProperties(websiteUrl);
     }
 
-
     @Override
-    public void initAction() throws Exception {
-
-    }
-
-    @Override
-    public void onActionClicked() throws Exception {
+    public void onActionClicked() throws MinorException
+    {
         Property website = getClientProperties().getSingleProperty("websiteURL");
 
         String urlToOpen = website.getStringValue();
@@ -57,11 +52,5 @@ public class WebsiteAction extends NormalAction
         {
             throw new MinorException("Unable to open URL '"+urlToOpen+"'. Check if its correct.");
         }
-    }
-
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
-
     }
 }
