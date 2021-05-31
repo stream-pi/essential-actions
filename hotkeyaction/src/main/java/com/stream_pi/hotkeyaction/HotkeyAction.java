@@ -23,11 +23,12 @@ public class HotkeyAction extends NormalAction {
         setAuthor("rnayabed");
         setServerButtonGraphic("far-keyboard");
         setHelpLink("https://github.com/stream-pi/essentialactions/blob/master/hotkeyaction/README.md");
-        setVersion(new Version(2,0,0));
+        setVersion(new Version(2,0,1));
     }
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties()
+    {
         Property keyCombination = new Property("key_comb", Type.STRING);
         keyCombination.setDisplayName("Key combination (Separate using comma)");
 
@@ -38,12 +39,13 @@ public class HotkeyAction extends NormalAction {
     private Robot robot;
 
     @Override
-    public void initAction() throws Exception {
+    public void initAction()
+    {
         Platform.runLater(()->robot = new Robot());
     }
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         Property keyCombination = getClientProperties().getSingleProperty("key_comb");
 
@@ -52,15 +54,24 @@ public class HotkeyAction extends NormalAction {
             throw new MinorException("No key specified");
         }
 
-        press(keyCombination.getStringValue()
-            .toUpperCase()
-            .replace("?","SHIFT,/")
-            .replace("|","SHIFT,\\")
-            .split(",")
-        );
+        try
+        {
+            press(keyCombination.getStringValue()
+                    .toUpperCase()
+                    .replace("?","SHIFT,/")
+                    .replace("|","SHIFT,\\")
+                    .split(",")
+            );
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+            throw new MinorException("Interrupted while press called. \n"+e.getMessage());
+        }
     }
 
-    public void press(String[] characters) throws InterruptedException {
+    public void press(String[] characters) throws InterruptedException
+    {
 
         ArrayList<KeyCode> pressedChars = new ArrayList<>();
 
@@ -116,7 +127,9 @@ public class HotkeyAction extends NormalAction {
             case "X": return X; 
             case "Y": return Y; 
             case "Z": return Z; 
-            case "`": return BACK_QUOTE; 
+            case "`":
+            case "~":
+                return BACK_QUOTE;
             case "0": return DIGIT0;
             case "1": return DIGIT1;
             case "2": return DIGIT2;
@@ -128,8 +141,7 @@ public class HotkeyAction extends NormalAction {
             case "8": return DIGIT8;
             case "9": return DIGIT9;
             case "-": return MINUS; 
-            case "=": return EQUALS; 
-            case "~": return BACK_QUOTE; 
+            case "=": return EQUALS;
             case "!": return EXCLAMATION_MARK; 
             case "@": return AT; 
             case "#": return NUMBER_SIGN; 
@@ -142,10 +154,8 @@ public class HotkeyAction extends NormalAction {
             case "_": return UNDERSCORE; 
             case "+": return PLUS; 
             case "TAB": return TAB;
-            case "[": return OPEN_BRACKET; 
-            case "]": return CLOSE_BRACKET; 
-            case "{": return OPEN_BRACKET; 
-            case "}": return CLOSE_BRACKET;
+            case "[": case "{" : return OPEN_BRACKET;
+            case "]": case "}" : return CLOSE_BRACKET;
             case ";": return SEMICOLON; 
             case ":": return COLON; 
             case "\\": return BACK_SLASH; 
@@ -304,12 +314,6 @@ public class HotkeyAction extends NormalAction {
     private void release(KeyCode keyCode)
     {
         Platform.runLater(()->robot.keyRelease(keyCode));
-    }
-
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
-
     }
 }
 
