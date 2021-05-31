@@ -3,10 +3,13 @@ package com.stream_pi.runcommandaction;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
+import java.io.IOException;
 
-public class RunCommandAction extends NormalAction {
+public class RunCommandAction extends NormalAction
+{
 
     public RunCommandAction()
     {
@@ -19,7 +22,8 @@ public class RunCommandAction extends NormalAction {
     }
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties()
+    {
         Property commandProperty = new Property("command", Type.STRING);
         commandProperty.setDisplayName("Command");
 
@@ -27,24 +31,22 @@ public class RunCommandAction extends NormalAction {
     }
 
     @Override
-    public void initAction() throws Exception {
-
-
-    }
-
-    @Override
-    public void onActionClicked() throws Exception 
+    public void onActionClicked() throws MinorException
     {
-        runCommand(getClientProperties().getSingleProperty("command").getStringValue());
+        String command = getClientProperties().getSingleProperty("command").getStringValue();
+
+        try
+        {
+            runCommand(command);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            throw new MinorException("Unable to run command \n\n"+command+"\n\n.Reason:\n"+e.getMessage());
+        }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
-
-    }
-
-    private void runCommand(String command) throws Exception
+    private void runCommand(String command) throws IOException
     {
         Runtime rt = Runtime.getRuntime();
         rt.exec(command);

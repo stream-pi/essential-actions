@@ -1,4 +1,3 @@
-
 module com.stream_pi.runcommandaction
 {
     requires com.stream_pi.action_api;
@@ -8,5 +7,4 @@ module com.stream_pi.runcommandaction
     requires org.kordamp.ikonli.fontawesome5;
 
     provides com.stream_pi.action_api.externalplugin.ExternalPlugin with com.stream_pi.runcommandaction.RunCommandAction;
-
 }
