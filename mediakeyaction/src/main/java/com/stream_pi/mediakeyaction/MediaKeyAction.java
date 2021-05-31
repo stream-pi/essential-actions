@@ -3,11 +3,13 @@ package com.stream_pi.mediakeyaction;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.platform.Platform;
 import com.stream_pi.util.version.Version;
 
 import java.io.*;
 import java.util.List;
+import java.util.Objects;
 
 public class MediaKeyAction extends NormalAction
 {
@@ -19,11 +21,12 @@ public class MediaKeyAction extends NormalAction
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-volume-up");
         setHelpLink("https://github.com/stream-pi/essentialactions/tree/master/mediakeyaction");
-        setVersion(new Version(1,1,0));
+        setVersion(new Version(1,1,1));
     }
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties() throws MinorException
+    {
         List<String> states = List.of("Play/Pause", "Previous", "Next", "Vol Up", "Vol Down", "Mute", "Stop");
 
         Property mediaKeyTypeProperty = new Property("media_key_type", Type.LIST);
@@ -34,17 +37,27 @@ public class MediaKeyAction extends NormalAction
     }
 
     @Override
-    public void initAction() throws Exception {
-        if(getServerConnection().getPlatform() == Platform.WINDOWS)
-            extractKeyEXEToTmpDirectory();
+    public void initAction() throws MinorException
+    {
+        try
+        {
+            if(getServerConnection().getPlatform() == Platform.WINDOWS)
+                extractKeyEXEToTmpDirectory();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            throw new MinorException("Error","IOException occurred. \n\n"+e.getMessage());
+        }
+
     }
 
     private static String absolutePathToExe;
-    private void extractKeyEXEToTmpDirectory() throws Exception
+    private void extractKeyEXEToTmpDirectory() throws IOException
     {
         String tmpDirectory = System.getProperty("java.io.tmpdir");
 
-        InputStream is = getClass().getResource("key.exe").openStream();
+        InputStream is = Objects.requireNonNull(getClass().getResource("key.exe")).openStream();
         absolutePathToExe = tmpDirectory+"/key.exe";
         File file = new File(absolutePathToExe);
         file.deleteOnExit();
@@ -62,7 +75,7 @@ public class MediaKeyAction extends NormalAction
     }
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         int state = getClientProperties().getSingleProperty("media_key_type").getSelectedIndex();
 
@@ -81,12 +94,6 @@ public class MediaKeyAction extends NormalAction
         }
     }
 
-    @Override
-    public void onShutDown()
-    {
-
-    }
-
     private void runCommand(String command) throws Exception
     {
         Runtime rt = Runtime.getRuntime();
@@ -94,7 +101,7 @@ public class MediaKeyAction extends NormalAction
         pr.waitFor();
     }
 
-    private void linuxHandler(int state) throws Exception
+    private void linuxHandler(int state)
     {
         try
         {
@@ -119,7 +126,8 @@ public class MediaKeyAction extends NormalAction
         }
     }
 
-    private void windowsHandler(int state) throws Exception {
+    private void windowsHandler(int state)
+    {
         try
         {
             String exe = "\""+absolutePathToExe+"\"";
