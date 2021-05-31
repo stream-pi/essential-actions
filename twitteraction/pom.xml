@@ -6,7 +6,7 @@
 
     <groupId>com.stream-pi</groupId>
     <artifactId>twitteraction</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 
     <build>
         <plugins>
@@ -40,27 +40,17 @@
         <ActionAPIVersion>1.0.0-SNAPSHOT</ActionAPIVersion>
         <UtilVersion>1.0.0-SNAPSHOT</UtilVersion>
 
-        <JavaFXVersion>16-ea+5</JavaFXVersion>
-
+        <Twitter4JVersion>4.0.7</Twitter4JVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-
-        <IkonliVersion>11.5.0</IkonliVersion>
-        <IkonliFA5PackVersion>11.5.0</IkonliFA5PackVersion>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.twitter4j</groupId>
             <artifactId>twitter4j-core</artifactId>
-            <version>4.0.7</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${JavaFXVersion}</version>
+            <version>${Twitter4JVersion}</version>
         </dependency>
 
         <dependency>
@@ -73,18 +63,6 @@
             <groupId>com.stream-pi</groupId>
             <artifactId>action-api</artifactId>
             <version>${ActionAPIVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-fontawesome5-pack</artifactId>
-            <version>${IkonliFA5PackVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-javafx</artifactId>
-            <version>${IkonliVersion}</version>
         </dependency>
     </dependencies>
 </project>

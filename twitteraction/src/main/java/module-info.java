@@ -1,4 +1,5 @@
-module com.stream_pi.twitteraction {
+module com.stream_pi.twitteraction
+{
     requires com.stream_pi.action_api;
     requires com.stream_pi.util;
 
