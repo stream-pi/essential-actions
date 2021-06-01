@@ -11,7 +11,8 @@ import mother.motherconnection.MotherConnection;
 
 public class SetCurrentProfile extends NormalAction
 {
-    public SetCurrentProfile() {
+    public SetCurrentProfile()
+    {
         setName("Set Current Profile");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
@@ -20,7 +21,7 @@ public class SetCurrentProfile extends NormalAction
     }
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties() throws MinorException
     {
         Property currentProfileProperty = new Property("profile", Type.STRING);
         currentProfileProperty.setDisplayName("Profile Name");
@@ -33,7 +34,7 @@ public class SetCurrentProfile extends NormalAction
     }
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         String profile = getClientProperties().getSingleProperty("profile").getStringValue();
 
