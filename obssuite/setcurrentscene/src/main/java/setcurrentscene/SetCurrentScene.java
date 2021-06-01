@@ -20,7 +20,7 @@ public class SetCurrentScene extends NormalAction
     }
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties() throws MinorException
     {
         Property currentSceneProperty = new Property("scene", Type.STRING);
         currentSceneProperty.setDisplayName("Scene Name");
@@ -33,7 +33,7 @@ public class SetCurrentScene extends NormalAction
     }
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         String scene = getClientProperties().getSingleProperty("scene").getStringValue();
 
