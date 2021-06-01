@@ -20,7 +20,7 @@ public class SetCurrentTransition extends NormalAction {
     }
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties() throws MinorException
     {
         Property currentTransitionProperty = new Property("transition", Type.STRING);
         currentTransitionProperty.setDisplayName("Transition Name");
@@ -34,7 +34,7 @@ public class SetCurrentTransition extends NormalAction {
 
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         String transition = getClientProperties().getSingleProperty("transition").getStringValue();
 

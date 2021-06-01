@@ -22,7 +22,7 @@ public class ToggleStudioMode extends ToggleAction
     }
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties() throws MinorException
     {
         Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
         autoConnectProperty.setDefaultValueBoolean(true);
@@ -32,13 +32,13 @@ public class ToggleStudioMode extends ToggleAction
     }
 
     @Override
-    public void onToggleOn() throws Exception
+    public void onToggleOn() throws MinorException
     {
         onClicked(true);
     }
 
     @Override
-    public void onToggleOff() throws Exception
+    public void onToggleOff() throws MinorException
     {
         onClicked(false);
     }

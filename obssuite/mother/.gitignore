@@ -5,4 +5,4 @@ target/
 .factorypath
 .project
 .settings/
-obssuite_motheraction.iml
+*.iml
