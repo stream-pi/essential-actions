@@ -20,7 +20,8 @@ public class SetPreviewScene extends NormalAction
     }
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties() throws MinorException
+    {
         Property previewSceneProperty = new Property("preview_scene", Type.STRING);
         previewSceneProperty.setDisplayName("Preview Scene");
 
@@ -32,7 +33,7 @@ public class SetPreviewScene extends NormalAction
     }
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         String previewScene = getClientProperties().getSingleProperty("preview_scene").getStringValue();
 
