@@ -13,8 +13,8 @@ import net.twasi.obsremotejava.OBSRemoteController;
 
 public class SetVolume extends NormalAction
 {
-
-    public SetVolume() {
+    public SetVolume()
+    {
         setName("Set Volume");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
@@ -28,19 +28,20 @@ public class SetVolume extends NormalAction
         Property sourceProperty = new Property("source", Type.STRING);
         sourceProperty.setDisplayName("Source");
 
-        Property setVolumeProperty = new Property("volume", Type.DOUBLE);
-        setVolumeProperty.setDisplayName("Volume");
+        Property volumeProperty = new Property("volume", Type.DOUBLE);
+        volumeProperty.setDisplayName("Volume");
 
         Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
         autoConnectProperty.setDefaultValueBoolean(true);
         autoConnectProperty.setDisplayName("Auto Connect if not connected");
         
-        addClientProperties(sourceProperty, setVolumeProperty, autoConnectProperty);
+        addClientProperties(sourceProperty, volumeProperty, autoConnectProperty);
     }
 
     @Override
     public void onActionClicked() throws MinorException
     {
+        String source = getClientProperties().getSingleProperty("source").getStringValue();
         double volume = getClientProperties().getSingleProperty("volume").getDoubleValue();
 
         if (MotherConnection.getRemoteController() == null)
@@ -51,7 +52,7 @@ public class SetVolume extends NormalAction
 
             if(autoConnect)
             {
-                MotherConnection.connect(()->setReplayBuffer(state));
+                MotherConnection.connect(()->setVolume(source, volume));
             }
             else
             {
@@ -60,27 +61,17 @@ public class SetVolume extends NormalAction
         }
         else
         {
-            setReplayBuffer(state);
-        }
-
-        OBSRemoteController controller = MotherConnection.getRemoteController();
-
-        if (controller == null)
-        {
-            new StreamPiAlert("Is OBS Connected?",
-                    "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                            .show();
-        } 
-        else 
-        {
-            String source = getClientProperties().getSingleProperty("source").getStringValue();
-            double volume = getClientProperties().getSingleProperty("volume").getDoubleValue();
-            controller.setVolume(source, volume, MotherConnection.getDefaultCallBack("Failed to Set Volume","Failed to do that"));
+            setVolume(source, volume);
         }
     }
 
-    private void setVolume(state)
+    private void setVolume(String source, double volume)
     {
-
+        MotherConnection.getRemoteController().setVolume(source, volume, setVolumeResponse -> {
+            if(setVolumeResponse.getError().equals("error"))
+            {
+                new StreamPiAlert("OBS",setVolumeResponse.getStatus(), StreamPiAlertType.ERROR).show();
+            }
+        });
     }
 }
