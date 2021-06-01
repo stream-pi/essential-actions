@@ -5,12 +5,14 @@ import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import mother.motherconnection.MotherConnection;
 import net.twasi.obsremotejava.OBSRemoteController;
 
-public class SetVolume extends NormalAction {
+public class SetVolume extends NormalAction
+{
 
     public SetVolume() {
         setName("Set Volume");
@@ -21,25 +23,45 @@ public class SetVolume extends NormalAction {
     }
 
     @Override
-    public void initProperties() throws Exception {
-
+    public void initProperties() throws MinorException
+    {
         Property sourceProperty = new Property("source", Type.STRING);
         sourceProperty.setDisplayName("Source");
 
         Property setVolumeProperty = new Property("volume", Type.DOUBLE);
         setVolumeProperty.setDisplayName("Volume");
+
+        Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
         
-        addClientProperties(sourceProperty, setVolumeProperty);
+        addClientProperties(sourceProperty, setVolumeProperty, autoConnectProperty);
     }
 
     @Override
-    public void initAction() throws Exception {
-        // TODO Auto-generated method stub
-    }
+    public void onActionClicked() throws MinorException
+    {
+        double volume = getClientProperties().getSingleProperty("volume").getDoubleValue();
 
-    @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
+        if (MotherConnection.getRemoteController() == null)
+        {
+            boolean autoConnect = getClientProperties().getSingleProperty(
+                    "auto_connect"
+            ).getBoolValue();
+
+            if(autoConnect)
+            {
+                MotherConnection.connect(()->setReplayBuffer(state));
+            }
+            else
+            {
+                MotherConnection.showOBSNotRunningError();
+            }
+        }
+        else
+        {
+            setReplayBuffer(state);
+        }
 
         OBSRemoteController controller = MotherConnection.getRemoteController();
 
@@ -57,10 +79,8 @@ public class SetVolume extends NormalAction {
         }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
+    private void setVolume(state)
+    {
 
     }
-    
 }

@@ -42,15 +42,16 @@ public class SetReplayBuffer extends NormalAction
         replayStatusActionProperty.setListValue(states);
         replayStatusActionProperty.setDisplayName("Replay Buffer State");
 
-        
-        addClientProperties(replayStatusActionProperty);
+        Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
+
+        addClientProperties(replayStatusActionProperty, autoConnectProperty);
     }
 
     @Override
     public void onActionClicked() throws MinorException
     {
-        OBSRemoteController controller = MotherConnection.getRemoteController();
-
         String state = states.get(getClientProperties().getSingleProperty("replay_status").getSelectedIndex());
 
         if (MotherConnection.getRemoteController() == null)
