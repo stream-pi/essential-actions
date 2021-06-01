@@ -1,7 +1,6 @@
 .idea/
 target/
-
-*.iml
+OBSSuite-SetVolumeAction.iml
 .classpath
 .factorypath
 .project

@@ -12,7 +12,7 @@ public class MotherConnection
 {
     private static OBSRemoteController obsRemoteController = null;
 
-    public static final Version VERSION = new Version(2,0,0);
+    public static final Version VERSION = new Version(2,0,1);
 
     private static String url = null;
     private static String pass = null;

@@ -5,14 +5,16 @@ import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import mother.motherconnection.MotherConnection;
 import net.twasi.obsremotejava.OBSRemoteController;
 
-public class SetVolume extends NormalAction {
-
-    public SetVolume() {
+public class SetVolume extends NormalAction
+{
+    public SetVolume()
+    {
         setName("Set Volume");
         setCategory("OBS");
         setVisibilityInServerSettingsPane(false);
@@ -21,46 +23,55 @@ public class SetVolume extends NormalAction {
     }
 
     @Override
-    public void initProperties() throws Exception {
-
+    public void initProperties() throws MinorException
+    {
         Property sourceProperty = new Property("source", Type.STRING);
         sourceProperty.setDisplayName("Source");
 
-        Property setVolumeProperty = new Property("volume", Type.DOUBLE);
-        setVolumeProperty.setDisplayName("Volume");
+        Property volumeProperty = new Property("volume", Type.DOUBLE);
+        volumeProperty.setDisplayName("Volume");
+
+        Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
         
-        addClientProperties(sourceProperty, setVolumeProperty);
+        addClientProperties(sourceProperty, volumeProperty, autoConnectProperty);
     }
 
     @Override
-    public void initAction() throws Exception {
-        // TODO Auto-generated method stub
-    }
+    public void onActionClicked() throws MinorException
+    {
+        String source = getClientProperties().getSingleProperty("source").getStringValue();
+        double volume = getClientProperties().getSingleProperty("volume").getDoubleValue();
 
-    @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
-
-        OBSRemoteController controller = MotherConnection.getRemoteController();
-
-        if (controller == null)
+        if (MotherConnection.getRemoteController() == null)
         {
-            new StreamPiAlert("Is OBS Connected?",
-                    "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                            .show();
-        } 
-        else 
+            boolean autoConnect = getClientProperties().getSingleProperty(
+                    "auto_connect"
+            ).getBoolValue();
+
+            if(autoConnect)
+            {
+                MotherConnection.connect(()->setVolume(source, volume));
+            }
+            else
+            {
+                MotherConnection.showOBSNotRunningError();
+            }
+        }
+        else
         {
-            String source = getClientProperties().getSingleProperty("source").getStringValue();
-            double volume = getClientProperties().getSingleProperty("volume").getDoubleValue();
-            controller.setVolume(source, volume, MotherConnection.getDefaultCallBack("Failed to Set Volume","Failed to do that"));
+            setVolume(source, volume);
         }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
-
+    private void setVolume(String source, double volume)
+    {
+        MotherConnection.getRemoteController().setVolume(source, volume, setVolumeResponse -> {
+            if(setVolumeResponse.getError().equals("error"))
+            {
+                new StreamPiAlert("OBS",setVolumeResponse.getStatus(), StreamPiAlertType.ERROR).show();
+            }
+        });
     }
-    
 }

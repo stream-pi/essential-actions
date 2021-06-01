@@ -7,10 +7,13 @@ import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import mother.motherconnection.MotherConnection;
 import net.twasi.obsremotejava.OBSRemoteController;
+import net.twasi.obsremotejava.callbacks.Callback;
+import net.twasi.obsremotejava.requests.StartReplayBuffer.StartReplayBufferResponse;
 
 public class SetReplayBuffer extends NormalAction
 {
@@ -29,57 +32,72 @@ public class SetReplayBuffer extends NormalAction
         states.add("Save");
     }
 
-    private ArrayList<String> states;
+    private final ArrayList<String> states;
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties() throws MinorException
+    {
 
         Property replayStatusActionProperty = new Property("replay_status", Type.LIST);
         replayStatusActionProperty.setListValue(states);
         replayStatusActionProperty.setDisplayName("Replay Buffer State");
 
-        
-        addClientProperties(replayStatusActionProperty);
+        Property autoConnectProperty = new Property("auto_connect", Type.BOOLEAN);
+        autoConnectProperty.setDefaultValueBoolean(true);
+        autoConnectProperty.setDisplayName("Auto Connect if not connected");
+
+        addClientProperties(replayStatusActionProperty, autoConnectProperty);
     }
 
     @Override
-    public void initAction() throws Exception {
-        // TODO Auto-generated method stub
-    }
+    public void onActionClicked() throws MinorException
+    {
+        String state = states.get(getClientProperties().getSingleProperty("replay_status").getSelectedIndex());
 
-    @Override
-    public void onActionClicked() throws Exception {
-        // TODO Auto-generated method stub
+        if (MotherConnection.getRemoteController() == null)
+        {
+            boolean autoConnect = getClientProperties().getSingleProperty(
+                    "auto_connect"
+            ).getBoolValue();
 
-        OBSRemoteController controller = MotherConnection.getRemoteController();
-
-        if (controller == null) {
-            new StreamPiAlert("Is OBS Connected?",
-                    "It seems there is no connection to OBS, please connect it in Settings", StreamPiAlertType.WARNING)
-                            .show();
-        } else {
-            
-            String state = states.get(getClientProperties().getSingleProperty("replay_status").getSelectedIndex());
-
-            if(state.equals("Start"))
+            if(autoConnect)
             {
-                controller.startReplayBuffer(MotherConnection.getDefaultCallBack("Failed to Start Replay Buffer","Failed to do that"));
+                MotherConnection.connect(()->setReplayBuffer(state));
             }
-            else if(state.equals("Stop"))
+            else
             {
-                controller.stopReplayBuffer(MotherConnection.getDefaultCallBack("Failed to Stop Replay Buffer","Failed to do that"));
+                MotherConnection.showOBSNotRunningError();
             }
-            else if(state.equals("Save"))
-            {
-                controller.saveReplayBuffer(MotherConnection.getDefaultCallBack("Failed to Save Replay Buffer","Failed to do that"));
-            }
+        }
+        else
+        {
+            setReplayBuffer(state);
         }
     }
 
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
-
+    private void errorThrow(String status, String error)
+    {
+        if(status.equals("error"))
+        {
+            new StreamPiAlert("OBS", error, StreamPiAlertType.ERROR).show();
+        }
     }
-    
+
+    private void setReplayBuffer(String state)
+    {
+        OBSRemoteController controller = MotherConnection.getRemoteController();
+
+        switch (state)
+        {
+            case "Start":
+                controller.startReplayBuffer(startReplayBufferResponse -> errorThrow(startReplayBufferResponse.getStatus(), startReplayBufferResponse.getError()));
+                break;
+            case "Stop":
+                controller.stopReplayBuffer(stopReplayBufferResponse -> errorThrow(stopReplayBufferResponse.getStatus(), stopReplayBufferResponse.getError()));
+                break;
+            case "Save":
+                controller.saveReplayBuffer(saveReplayBufferResponse -> errorThrow(saveReplayBufferResponse.getStatus(), saveReplayBufferResponse.getError()));
+                break;
+        }
+    }
 }
