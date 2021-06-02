@@ -29,7 +29,7 @@ public class SetColorAction extends NormalAction
     }
 
     @Override
-    public void initAction() throws Exception
+    public void initAction() throws MinorException
     {
         Property channelName = new Property(channelNameKey, Type.STRING);
         channelName.setDisplayName("Channel Name");
