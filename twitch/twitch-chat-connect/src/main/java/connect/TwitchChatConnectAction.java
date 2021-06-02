@@ -34,6 +34,12 @@ public class TwitchChatConnectAction extends NormalAction
     }
 
     @Override
+    public void onActionClicked() throws MinorException
+    {
+
+    }
+
+    @Override
     public void initProperties() throws MinorException
     {
         Property twitchNicknameProp = new Property(NICKNAME_KEY, Type.STRING);
@@ -87,15 +93,5 @@ public class TwitchChatConnectAction extends NormalAction
                         .show();
             }
         });
-    }
-
-    @Override
-    public void onActionClicked() throws Exception
-    {
-    }
-
-    @Override
-    public void onShutDown() throws Exception
-    {
     }
 }
