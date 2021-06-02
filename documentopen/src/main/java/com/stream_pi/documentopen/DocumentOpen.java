@@ -55,13 +55,13 @@ public class DocumentOpen extends NormalAction
     public String path = null;
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         Property documentloc = getClientProperties().getSingleProperty("documentopen");
 
         if (documentloc.getStringValue().isBlank())
         {
-            new StreamPiAlert("Document Open Action", "No file specified", StreamPiAlertType.ERROR).show();
+            throw new MinorException("No file specified");
             return;
         }
 

@@ -65,7 +65,7 @@ public class VideoPlayer extends NormalAction
     }
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         Property propertyobj = getClientProperties().getSingleProperty("video_url");
 

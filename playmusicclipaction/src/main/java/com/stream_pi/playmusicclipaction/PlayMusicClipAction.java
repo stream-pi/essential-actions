@@ -49,7 +49,7 @@ public class PlayMusicClipAction extends NormalAction {
 
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         
         Property audioFileLocationProperty1 = getClientProperties().getSingleProperty("audio_location");

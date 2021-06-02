@@ -54,13 +54,13 @@ public class ExecuteApplication extends NormalAction
     }
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         Property applicationProp = getClientProperties().getSingleProperty("app_location");
 
         if (applicationProp.getStringValue().isBlank())
         {
-            new StreamPiAlert("Execute Application Action", "No file specified", StreamPiAlertType.ERROR).show();
+            throw new MinorException("No file specified");
             return;
         }
 
