@@ -5,6 +5,7 @@ import com.gikk.twirk.TwirkBuilder;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
@@ -28,7 +29,7 @@ public class RaidChannelAction extends NormalAction
     }
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties() throws MinorException
     {
         Property channel = new Property(channelKey, Type.STRING);
         channel.setDisplayName("Channel");
@@ -44,13 +45,7 @@ public class RaidChannelAction extends NormalAction
     }
 
     @Override
-    public void initAction() throws Exception
-    {
-
-    }
-
-    @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         final TwitchChatCredentials.ChatCredentials credentials = TwitchChatCredentials.getCredentials();
         credentials.ensureCredentialsInitialized();
@@ -65,21 +60,19 @@ public class RaidChannelAction extends NormalAction
             twirk.channelMessage(String.format("/raid %s", channelToRaid));
         } catch (Exception ex)
         {
-            throw new StreamPiException(
-                    "Failed to raid channel",
-                    String.format("Could not raid channel '%s', please try again.", channelToRaid));
+            throw new MinorException(String.format("Could not raid channel '%s', please try again.", channelToRaid));
         }
     }
 
     @Override
-    public void onShutDown() throws Exception
+    public void onShutDown() throws MinorException
     {
         if (twirk != null) {
             try
             {
                 twirk.disconnect();
             } catch (Exception ex) {
-                throw new StreamPiException("Twitch connection error", "Please try again.");
+                throw new MinorException("Twitch connection error - Please try again.");
             }
         }
     }
