@@ -8,7 +8,6 @@ import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.ToggleAction;
 import com.stream_pi.util.exception.MinorException;
-import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
 
@@ -46,7 +45,7 @@ public class SlowModeAction extends ToggleAction
     }
 
     @Override
-    public void onToggleOn() throws Exception
+    public void onToggleOn() throws MinorException
     {
         try
         {
@@ -56,12 +55,12 @@ public class SlowModeAction extends ToggleAction
         } catch (Exception ex)
         {
             setCurrentStatus(false);
-            throw new StreamPiException("Failed to enable slow mode.", "Please try again.");
+            throw new MinorException("Failed to enable slow mode.", "Please try again.");
         }
     }
 
     @Override
-    public void onToggleOff() throws Exception
+    public void onToggleOff() throws MinorException
     {
         try
         {
@@ -70,7 +69,7 @@ public class SlowModeAction extends ToggleAction
         } catch (Exception ex)
         {
             setCurrentStatus(true);
-            throw new StreamPiException("Failed to disable slow mode.", "Please try again.");
+            throw new MinorException("Failed to disable slow mode.", "Please try again.");
         }
     }
 
@@ -108,13 +107,13 @@ public class SlowModeAction extends ToggleAction
             twirk.connect();
         } catch (Exception ex)
         {
-            throw new StreamPiException("Failed to connect to Twitch",
+            throw new MinorException("Failed to connect to Twitch",
                     String.format("Could not connect to '%s' channel.", channel));
         }
     }
 
     @Override
-    public void onShutDown() throws Exception
+    public void onShutDown() throws MinorException
     {
         if (twirk != null)
         {
@@ -123,7 +122,7 @@ public class SlowModeAction extends ToggleAction
                 twirk.disconnect();
             } catch (Exception ex)
             {
-                throw new StreamPiException("Twitch connection error", "Please try again.");
+                throw new MinorException("Twitch connection error", "Please try again.");
             }
         }
     }
