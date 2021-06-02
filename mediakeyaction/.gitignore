@@ -1,5 +1,5 @@
 .idea/
-MediaKeyAction.iml
+*.iml
 target/
 
 

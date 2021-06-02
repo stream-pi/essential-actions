@@ -7,6 +7,7 @@ import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 
 import javafx.application.Platform;
@@ -14,7 +15,8 @@ import javafx.scene.media.AudioClip;
 
 import java.io.File;
 
-public class PlayAudioClipAction extends NormalAction {
+public class PlayAudioClipAction extends NormalAction
+{
 
     public PlayAudioClipAction()
     {
@@ -23,11 +25,11 @@ public class PlayAudioClipAction extends NormalAction {
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-volume-up");
         setHelpLink("https://github.com/Stream-Pi/EssentialActions");
-        setVersion(new Version(2,0,0));
+        setVersion(new Version(2,0,1));
     }
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties() throws MinorException
     {
         Property audioFileLocationProperty = new Property("audio_location", Type.STRING);
         audioFileLocationProperty.setControlType(ControlType.FILE_PATH);
@@ -49,7 +51,7 @@ public class PlayAudioClipAction extends NormalAction {
     public String path = null;
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         Property audioFileLocationProperty = getClientProperties().getSingleProperty("audio_location");
 
@@ -101,9 +103,9 @@ public class PlayAudioClipAction extends NormalAction {
         if(mediaPlayer != null)
         {
             if(mediaPlayer.isPlaying())
+            {
                 Platform.runLater(mediaPlayer::stop);
+            }
         }
     }
-
-
 }

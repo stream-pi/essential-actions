@@ -80,43 +80,43 @@ text_block() {
 
 twitch_chat() {
   pushd . || exit
-  cd twitch/twitch-chat-connect && ../mvn clean install -Dmaven.test.skip package
+  cd twitch/twitch-chat-connect && mvn clean install -Dmaven.test.skip package
   mv target/twitch-chat-connect-*.jar ../../$FOLD/twitch-chat-connect.jar
 
-  cd ../send-channel-msg && ../mvn clean -Dmaven.test.skip package
+  cd ../send-channel-msg && mvn clean -Dmaven.test.skip package
   mv target/twitch-send-channel-msg-*.jar ../../$FOLD/twitch-send-channel-msg.jar
 
-  cd ../clear-chat && ../mvn clean -Dmaven.test.skip package
+  cd ../clear-chat && mvn clean -Dmaven.test.skip package
   mv target/twitch-clear-chat-*.jar ../../$FOLD/twitch-clear-chat.jar
 
-  cd ../set-color && ../mvn clean -Dmaven.test.skip package
+  cd ../set-color && mvn clean -Dmaven.test.skip package
   mv target/twitch-set-color-*.jar ../../$FOLD/twitch-set-color.jar
 
-  cd ../whisper && ../mvn clean -Dmaven.test.skip package
+  cd ../whisper && mvn clean -Dmaven.test.skip package
   mv target/twitch-whisper-*.jar ../../$FOLD/twitch-whisper.jar
 
-  cd ../unraid && ../mvn clean -Dmaven.test.skip package
+  cd ../unraid && mvn clean -Dmaven.test.skip package
   mv target/twitch-unraid-*.jar ../../$FOLD/twitch-unraid.jar
 
-  cd ../unhost && ../mvn clean -Dmaven.test.skip package
+  cd ../unhost && mvn clean -Dmaven.test.skip package
   mv target/twitch-unhost-*.jar ../../$FOLD/twitch-unhost.jar
 
-  cd ../add-stream-marker && ../mvn clean -Dmaven.test.skip package
+  cd ../add-stream-marker && mvn clean -Dmaven.test.skip package
   mv target/twitch-add-stream-marker-*.jar ../../$FOLD/twitch-add-stream-marker.jar
 
-  cd ../host-channel && ../mvn clean -Dmaven.test.skip package
+  cd ../host-channel && mvn clean -Dmaven.test.skip package
   mv target/twitch-host-channel-*.jar ../../$FOLD/twitch-host-channel.jar
 
-  cd ../raid-channel && ../mvn clean -Dmaven.test.skip package
+  cd ../raid-channel && mvn clean -Dmaven.test.skip package
   mv target/twitch-raid-channel-*.jar ../../$FOLD/twitch-raid-channel.jar
 
-  cd ../start-commercial && ../mvn clean -Dmaven.test.skip package
+  cd ../start-commercial && mvn clean -Dmaven.test.skip package
   mv target/twitch-start-commercial-*.jar ../../$FOLD/twitch-start-commercial.jar
 
-  cd ../subs-only && ../mvn clean -Dmaven.test.skip package
+  cd ../subs-only && mvn clean -Dmaven.test.skip package
   mv target/twitch-subs-only-*.jar ../../$FOLD/twitch-subs-only.jar
 
-  cd ../slow-mode && ../mvn clean -Dmaven.test.skip package
+  cd ../slow-mode && mvn clean -Dmaven.test.skip package
   mv target/twitch-slow-mode-*.jar ../../$FOLD/twitch-slow-mode.jar
 
   popd || exit

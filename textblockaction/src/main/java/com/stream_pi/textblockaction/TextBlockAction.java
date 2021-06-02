@@ -3,13 +3,14 @@ package com.stream_pi.textblockaction;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 import static java.awt.event.KeyEvent.*;
 
 import java.awt.*;
 
-public class TextBlockAction extends NormalAction {
-
+public class TextBlockAction extends NormalAction
+{
     public TextBlockAction()
     {
         setName("Text Block");
@@ -17,11 +18,12 @@ public class TextBlockAction extends NormalAction {
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-keyboard");
         setHelpLink("https://github.com/stream-pi/essentialactions");
-        setVersion(new Version(1,0,0));
+        setVersion(new Version(1,0,1));
     }
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties() throws MinorException
+    {
         Property textBlockProperty = new Property("text_block", Type.STRING);
         textBlockProperty.setDisplayName("Text");
         textBlockProperty.setDefaultValueStr("Stream-Pi FTW");
@@ -34,19 +36,28 @@ public class TextBlockAction extends NormalAction {
     private Robot robot;
 
     @Override
-    public void initAction() throws Exception {
-        robot = new Robot();
+    public void initAction() throws MinorException
+    {
+        try
+        {
+            robot = new Robot();
+        }
+        catch (AWTException e)
+        {
+            e.printStackTrace();
+            throw new MinorException("Unable to start AWT Robot");
+        }
     }
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         Property textBlockProperty = getClientProperties().getSingleProperty("text_block");
 
         type(textBlockProperty.getStringValue());
     }
 
-    public void type(String toType) throws Exception
+    public void type(String toType)
     {
         release(VK_CAPS_LOCK);
         release(VK_SHIFT);
@@ -66,7 +77,7 @@ public class TextBlockAction extends NormalAction {
     }
 
     private boolean isShiftOn = false;
-    public void pressAndReleaseKey(char c) throws Exception
+    public void pressAndReleaseKey(char c)
     {
         if(Character.isUpperCase(c))
         {
@@ -188,12 +199,6 @@ public class TextBlockAction extends NormalAction {
     private void release(int keyCode)
     {
         robot.keyRelease(keyCode);
-    }
-
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
-
     }
 }
 

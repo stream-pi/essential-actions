@@ -5,7 +5,7 @@ import com.gikk.twirk.TwirkBuilder;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
-import com.stream_pi.util.exception.StreamPiException;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
 
@@ -18,7 +18,7 @@ public class SetColorAction extends NormalAction
     private Twirk twirk;
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties()
     {
         setName("Set Color");
         setCategory("Twitch Chat");
@@ -29,7 +29,7 @@ public class SetColorAction extends NormalAction
     }
 
     @Override
-    public void initAction() throws Exception
+    public void initAction() throws MinorException
     {
         Property channelName = new Property(channelNameKey, Type.STRING);
         channelName.setDisplayName("Channel Name");
@@ -45,7 +45,7 @@ public class SetColorAction extends NormalAction
     }
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         final TwitchChatCredentials.ChatCredentials credentials = TwitchChatCredentials.getCredentials();
         credentials.ensureCredentialsInitialized();
@@ -60,7 +60,7 @@ public class SetColorAction extends NormalAction
             twirk.channelMessage(String.format("/color %s", color));
         } catch (Exception ex)
         {
-            throw new StreamPiException(
+            throw new MinorException(
                     "Failed to change username color",
                     String.format("Could not change username color to '%s' for '%s' channel, please try again.",
                             color, channel)
@@ -69,14 +69,14 @@ public class SetColorAction extends NormalAction
     }
 
     @Override
-    public void onShutDown() throws Exception
+    public void onShutDown() throws MinorException
     {
         if (twirk != null) {
             try
             {
                 twirk.disconnect();
             } catch (Exception ex) {
-                throw new StreamPiException("Twitch connection error", "Please try again.");
+                throw new MinorException("Twitch connection error", "Please try again.");
             }
         }
     }

@@ -7,6 +7,7 @@ import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
 import com.stream_pi.util.alert.StreamPiAlertListener;
 import com.stream_pi.util.alert.StreamPiAlertType;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.uihelper.HBoxInputBox;
 import com.stream_pi.util.version.Version;
 import javafx.application.Platform;
@@ -18,12 +19,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import twitter4j.Twitter;
+import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class TwitterAction extends NormalAction {
+
+public class TwitterAction extends NormalAction
+{
 
     Button loginAsNewUserButton, logoutButton;
 
@@ -34,7 +38,7 @@ public class TwitterAction extends NormalAction {
         setAuthor("rnayabed");
         setServerButtonGraphic("fab-twitter");
         setHelpLink("https://github.com/stream-pi/essentialactions");
-        setVersion(new Version(1,0,1));
+        setVersion(new Version(1,0,2));
 
 
         loginAsNewUserButton = new Button("Login as new user");
@@ -98,7 +102,7 @@ public class TwitterAction extends NormalAction {
     }
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties() throws MinorException
     {
         Property oAuthConsumerKey = new Property("consumer_key", Type.STRING);
         oAuthConsumerKey.setDisplayName("API Key");
@@ -234,9 +238,8 @@ public class TwitterAction extends NormalAction {
     TwitterFactory tf;
 
     @Override
-    public void initAction() throws Exception {
-        //System.setProperty("twitter4j.http.useSSL", "true");
-
+    public void initAction() throws MinorException
+    {
         setNewTwitterConfig(
                 getServerProperties().getSingleProperty("consumer_key").getStringValue(),
                 getServerProperties().getSingleProperty("consumer_key_secret").getStringValue(),
@@ -259,20 +262,25 @@ public class TwitterAction extends NormalAction {
     }
 
     @Override
-    public void onActionClicked() throws Exception {
-        Twitter twitter = tf.getInstance();
-        twitter.updateStatus(getClientProperties().getSingleProperty("tweet").getStringValue());
-    }
-
-    /*public String addRandomBlank(String value)
+    public void onActionClicked() throws MinorException
     {
-        return value+("⠀".repeat(new Random().nextInt(100)));
-    }*/
-
-    @Override
-    public void onShutDown() throws Exception {
-        // TODO Auto-generated method stub
-
+        Twitter twitter = tf.getInstance();
+        try
+        {
+            twitter.updateStatus(
+                    getClientProperties().getSingleProperty("tweet").getStringValue()
+            );
+        } catch (TwitterException e)
+        {
+            e.printStackTrace();
+            throw new MinorException("Unable to update Twitter : "+e.getMessage());
+        }
     }
-    
+
+    /*
+    TOP SECRET - If you found this then congrats :D (you probably know why)
+    public String getRandomBlanks()
+    {
+        return "⠀".repeat(new Random().nextInt(100));
+    }*/
 }
