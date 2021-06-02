@@ -5,6 +5,7 @@ import com.gikk.twirk.TwirkBuilder;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
+import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.exception.StreamPiException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
@@ -17,7 +18,7 @@ public class ClearChatAction extends NormalAction
     private Twirk twirk;
 
     @Override
-    public void initProperties() throws Exception
+    public void initProperties() throws MinorException
     {
         setName("Clear Chat");
         setCategory("Twitch Chat");
@@ -28,7 +29,7 @@ public class ClearChatAction extends NormalAction
     }
 
     @Override
-    public void initAction() throws Exception
+    public void initAction() throws MinorException
     {
         Property channelName = new Property(channelNameKey, Type.STRING);
         channelName.setDisplayName("Channel Name");
@@ -39,7 +40,7 @@ public class ClearChatAction extends NormalAction
     }
 
     @Override
-    public void onActionClicked() throws Exception
+    public void onActionClicked() throws MinorException
     {
         final TwitchChatCredentials.ChatCredentials credentials = TwitchChatCredentials.getCredentials();
         credentials.ensureCredentialsInitialized();
@@ -53,15 +54,14 @@ public class ClearChatAction extends NormalAction
             twirk.channelMessage("/clear");
         } catch (Exception ex)
         {
-            throw new StreamPiException(
-                    "Failed to clear channel chat",
-                    String.format("Could not clear chat for '%s' channel, please try again.", channel)
+            throw new MinorException(
+                   String.format("Could not clear chat for '%s' channel, please try again.", channel)
             );
         }
     }
 
     @Override
-    public void onShutDown() throws Exception
+    public void onShutDown() throws MinorException
     {
         if (twirk != null)
         {
@@ -70,7 +70,7 @@ public class ClearChatAction extends NormalAction
                 twirk.disconnect();
             } catch (Exception ex)
             {
-                throw new StreamPiException("Twitch Connection error", "Please try again.");
+                throw new MinorException("Twitch Connection error - Please try again.");
             }
         }
     }
