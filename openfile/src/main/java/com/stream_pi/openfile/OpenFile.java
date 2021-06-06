@@ -1,4 +1,4 @@
-package com.stream_pi.documentopen;
+package com.stream_pi.openfile;
 
 import com.stream_pi.action_api.actionproperty.property.ControlType;
 import com.stream_pi.action_api.actionproperty.property.FileExtensionFilter;
@@ -13,32 +13,32 @@ import com.stream_pi.util.version.Version;
 import java.io.File;
 import java.awt.*;
 import java.net.URI;
+import java.io.IOException;
 
-public class DocumentOpen extends NormalAction
+public class OpenFile extends NormalAction
 {
 
-    public DocumentOpen()
+    public OpenFile()
     {
-        setName("Document Open");
+        setName("Open Files");
         setAuthor("quimodotcom");
         setHelpLink("https://github.com/stream-pi/essentialactions");
         setVersion(new Version(1,0,0));
-
+        setServerButtonGraphic("fas-folder-open");
         setCategory("Essentials");
 
     }
 
     @Override
-    public void initProperties() throws Exception {
+    public void initProperties() throws MinorException {
         //Called First
 
-        Property property1 = new Property("documentopen", Type.STRING);
-        property1.setDefaultValueStr("Document.pdf");
+        Property property1 = new Property("openfile", Type.STRING);
+        property1.setDefaultValueStr("*.*");
         property1.setControlType(ControlType.FILE_PATH);
         property1.setDisplayName("Document File Location");
         property1.setExtensionFilters(
-                new FileExtensionFilter("pdf","*.pdf"),
-                new FileExtensionFilter("docx", "*.docx")
+                new FileExtensionFilter("File","*.*")
         );
 
         addClientProperties(
@@ -57,17 +57,25 @@ public class DocumentOpen extends NormalAction
     @Override
     public void onActionClicked() throws MinorException
     {
-        Property documentloc = getClientProperties().getSingleProperty("documentopen");
+        try {
+            showfile();
+          }
+          catch(IOException e) {
+            e.printStackTrace();
+          }
+    }
+    public void showfile() throws MinorException, IOException
+    {
+        Property fileloc = getClientProperties().getSingleProperty("openfile");
 
-        if (documentloc.getStringValue().isBlank())
+        if (fileloc.getStringValue().isBlank())
         {
             throw new MinorException("No file specified");
-            return;
         }
 
-        File file = new File(documentloc.getStringValue());
+        File file = new File(fileloc.getStringValue());
 
-        //Open PDF file
         Desktop.getDesktop().open(file);
     }
+
 }

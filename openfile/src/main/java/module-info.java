@@ -1,4 +1,4 @@
-module com.stream_pi.documentopen
+module com.stream_pi.openfile
 {
     requires com.stream_pi.action_api;
     requires org.kordamp.ikonli.javafx;
