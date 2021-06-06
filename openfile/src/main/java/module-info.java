@@ -5,5 +5,5 @@ module com.stream_pi.documentopen
 
     requires java.desktop;
     
-    provides com.stream_pi.action_api.externalplugin.ExternalPlugin with com.stream_pi.documentopen.DocumentOpen;
+    provides com.stream_pi.action_api.externalplugin.ExternalPlugin with com.stream_pi.openfile.OpenFile;
 }
