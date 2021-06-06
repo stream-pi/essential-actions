@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.stream-pi</groupId>
-    <artifactId>playaudioclipaction</artifactId>
-    <version>2.0.1</version>
+    <artifactId>gitclone</artifactId>
+    <version>1.0.0</version>
 
     <build>
         <plugins>
@@ -38,9 +38,8 @@
 
     <properties>
         <ActionAPIVersion>1.0.0-SNAPSHOT</ActionAPIVersion>
-        <UtilVersion>1.0.0-SNAPSHOT</UtilVersion>
 
-        <JavaFXVersion>16</JavaFXVersion>
+        <JavaFXVersion>16-ea+6</JavaFXVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
@@ -48,11 +47,32 @@
     </properties>
 
     <dependencies>
+
         <dependency>
-            <groupId>com.stream-pi</groupId>
-            <artifactId>util</artifactId>
-            <version>${UtilVersion}</version>
+          <groupId>org.eclipse.jgit</groupId>
+          <artifactId>org.eclipse.jgit</artifactId>
+          <version>5.9.0.202009080501-r</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${JavaFXVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${JavaFXVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${JavaFXVersion}</version>
+        </dependency>
+
+
 
         <dependency>
             <groupId>com.stream-pi</groupId>
@@ -60,10 +80,16 @@
             <version>${ActionAPIVersion}</version>
         </dependency>
 
+
+
+
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-media</artifactId>
-            <version>${JavaFXVersion}</version>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-material-pack</artifactId>
+            <version>11.5.0</version>
         </dependency>
+
+
     </dependencies>
+
 </project>
