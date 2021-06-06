@@ -1,6 +1,6 @@
 @echo off
 
-SET FOLD=PreBuiltPlugins
+SET FOLD=BuiltPlugins
 SET DEPS=Dependencies
 SET quit=true
 rmdir /q /s %FOLD%

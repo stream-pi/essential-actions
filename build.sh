@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FOLD=PreBuiltPlugins
+FOLD=BuiltPlugins
 DEPS=Dependencies
 
 hotkey() {
