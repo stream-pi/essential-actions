@@ -1,6 +1,12 @@
-*.iml
-.DS_Store
-.idea/
+**/*.iml
+**/.idea/
+**/.DS_Store
+**/target/
 
-target/
+
+**/.settings/
+**/.project
+**/.factorypath
+**/.classpath
+
 BuiltPlugins/

@@ -1,6 +1,6 @@
 # OBS Suite
 
-![version](https://img.shields.io/badge/Version-2.0.0-green)
+![version](https://img.shields.io/badge/Version-2.0.1-green)
 
 Written by : [Debayan Sutradhar (rnayabed)](https://github.com/rnayabed)
 
@@ -11,16 +11,16 @@ Written by : [Debayan Sutradhar (rnayabed)](https://github.com/rnayabed)
 
 ## Features 
 
-* Set Streaming ON/OFF
-* Set Recording ON/OFF
+* Toggle Streaming
+* Toggle Recording
 * Set Profile
 * Set Scene
-* Set Mute status
+* Toggle Mute
 * Set Preview Scene
 * Set Replay Buffer
-* Set Studio Mode
+* Toggle Studio Mode
 * Set Volume
 
 ## Note
 
-This plugin is tested and is supposed to work ONLY on OBS Studio, and not other OBS alternatives like SL OBS.
+This plugin is supposed to work ONLY on OBS Studio, and not other OBS alternatives like SL OBS.
