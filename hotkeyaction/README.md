@@ -1,10 +1,10 @@
 # Hotkey Action plugin
 
-![version](https://img.shields.io/badge/Version-2.0.0-green)
+![version](https://img.shields.io/badge/Version-2.0.1-green)
 
 This plugin allows map and execute keyboard shortcuts
 
-## KeyBoard Mapping Reference to Hotkeyaction
+## Keyboard Mapping Reference to Hotkey Action
 
 The following table shows the relation between our keyboard and what we have to type on the plugin field to fire the hotkeys we want:
 

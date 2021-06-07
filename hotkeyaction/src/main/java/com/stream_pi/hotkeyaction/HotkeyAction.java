@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 import static javafx.scene.input.KeyCode.*;
 
-public class HotkeyAction extends NormalAction {
-
+public class HotkeyAction extends NormalAction
+{
     public HotkeyAction()
     {
         setName("Hotkey");

@@ -198,3 +198,19 @@ call mvn clean -Dmaven.test.skip package
 move target\websiteaction-*.jar ..\%FOLD%\websiteaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
+
+:gitclone
+pushd %CD%
+cd gitclone
+call mvn clean -Dmaven.test.skip package
+move target\gitclone-*.jar ..\%FOLD%\gitclone.jar
+popd
+if "%quit%" == "true" (EXIT /B 0)
+
+:openfile
+pushd %CD%
+cd openfile
+call mvn clean -Dmaven.test.skip package
+move target\openfile-*.jar ..\%FOLD%\openfile.jar
+popd
+if "%quit%" == "true" (EXIT /B 0)

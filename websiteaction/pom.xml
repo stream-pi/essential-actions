@@ -48,12 +48,6 @@
     <dependencies>
         <dependency>
             <groupId>com.stream-pi</groupId>
-            <artifactId>util</artifactId>
-            <version>${UtilVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.stream-pi</groupId>
             <artifactId>action-api</artifactId>
             <version>${ActionAPIVersion}</version>
         </dependency>
