@@ -1,9 +1,6 @@
 package com.stream_pi.openfile;
 
-import com.stream_pi.action_api.actionproperty.property.ControlType;
-import com.stream_pi.action_api.actionproperty.property.FileExtensionFilter;
-import com.stream_pi.action_api.actionproperty.property.Property;
-import com.stream_pi.action_api.actionproperty.property.Type;
+import com.stream_pi.action_api.actionproperty.property.*;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.alert.StreamPiAlert;
@@ -17,7 +14,6 @@ import java.io.IOException;
 
 public class OpenFile extends NormalAction
 {
-
     public OpenFile()
     {
         setName("Open Files");
@@ -26,56 +22,46 @@ public class OpenFile extends NormalAction
         setVersion(new Version(1,0,0));
         setServerButtonGraphic("fas-folder-open");
         setCategory("Essentials");
-
     }
 
     @Override
-    public void initProperties() throws MinorException {
-        //Called First
-
-        Property property1 = new Property("openfile", Type.STRING);
-        property1.setDefaultValueStr("*.*");
-        property1.setControlType(ControlType.FILE_PATH);
-        property1.setDisplayName("Document File Location");
-        property1.setExtensionFilters(
+    public void initProperties() throws MinorException
+    {
+        Property fileLocationProperty = new StringProperty("file_location");
+        fileLocationProperty.setControlType(ControlType.FILE_PATH);
+        fileLocationProperty.setDisplayName("Document File Location");
+        fileLocationProperty.setExtensionFilters(
                 new FileExtensionFilter("File","*.*")
         );
 
-        addClientProperties(
-                property1
-        );
+        addClientProperties(fileLocationProperty);
     }
-
-
-    @Override
-    public void initAction()  {
-
-    }
-
-    public String path = null;
 
     @Override
     public void onActionClicked() throws MinorException
     {
-        try {
-            showfile();
-          }
-          catch(IOException e) {
-            e.printStackTrace();
-          }
+        showFile();
     }
-    public void showfile() throws MinorException, IOException
-    {
-        Property fileloc = getClientProperties().getSingleProperty("openfile");
 
-        if (fileloc.getStringValue().isBlank())
+    public void showFile() throws MinorException
+    {
+        Property fileLocation = getClientProperties().getSingleProperty("file_location");
+
+        if (fileLocation.getStringValue().isBlank())
         {
             throw new MinorException("No file specified");
         }
 
-        File file = new File(fileloc.getStringValue());
+        File file = new File(fileLocation.getStringValue());
 
-        Desktop.getDesktop().open(file);
+        try
+        {
+            Desktop.getDesktop().open(file);
+        }
+        catch (IOException e)
+        {
+            throw new MinorException("Unable to open file : "+fileLocation.getStringValue()+"\n" +
+                    "Reason:\n"+e.getMessage());
+        }
     }
-
 }

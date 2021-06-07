@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.stream-pi</groupId>
-    <artifactId>OpenFile</artifactId>
+    <artifactId>openfile</artifactId>
     <version>1.0.0</version>
 
     <build>
@@ -39,51 +39,16 @@
     <properties>
         <ActionAPIVersion>1.0.0-SNAPSHOT</ActionAPIVersion>
 
-        <JavaFXVersion>16-ea+6</JavaFXVersion>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${JavaFXVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${JavaFXVersion}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>${JavaFXVersion}</version>
-        </dependency>
-
-
-
         <dependency>
             <groupId>com.stream-pi</groupId>
             <artifactId>action-api</artifactId>
             <version>${ActionAPIVersion}</version>
         </dependency>
-
-
-
-
-        <dependency>
-            <groupId>org.kordamp.ikonli</groupId>
-            <artifactId>ikonli-material-pack</artifactId>
-            <version>11.5.0</version>
-        </dependency>
-
-
     </dependencies>
-
 </project>
