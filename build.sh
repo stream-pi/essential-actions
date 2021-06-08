@@ -143,6 +143,13 @@ openfileaction() {
   popd || exit
 }
 
+runexecutableaction() {
+  pushd . || exit
+  cd runexecutableaction && mvn clean -Dmaven.test.skip package
+  mv target/runexecutableaction-*.jar ../$FOLD/runexecutableaction.jar
+  popd || exit
+}
+
 mkdir -p $FOLD
 rm -rf "${FOLD:?}/"*
 cp $DEPS/* $FOLD/
@@ -175,6 +182,12 @@ twitteraction)
 websiteaction)
   websiteaction
   ;;
+openfileaction)
+  openfileaction
+  ;;
+runexecutableaction)
+  runexecutableaction
+  ;;
 *)
   # build all actions as default
   hotkeyaction
@@ -187,5 +200,6 @@ websiteaction)
   twitteraction
   websiteaction
   openfileaction
+  runexecutableaction
   ;;
 esac

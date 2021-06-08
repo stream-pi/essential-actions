@@ -27,7 +27,7 @@ public class HotkeyAction extends NormalAction
     }
 
     @Override
-    public void initProperties()
+    public void initProperties() throws MinorException
     {
         Property keyCombination = new Property("key_comb", Type.STRING);
         keyCombination.setDisplayName("Key combination (Separate using comma)");

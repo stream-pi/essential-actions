@@ -30,3 +30,6 @@ website:
 
 openfile:
 	./build.sh openfileaction
+
+runexecutable:
+	./build.sh runexecutableaction

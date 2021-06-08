@@ -22,7 +22,7 @@ public class RunCommandAction extends NormalAction
     }
 
     @Override
-    public void initProperties()
+    public void initProperties() throws MinorException
     {
         Property commandProperty = new Property("command", Type.STRING);
         commandProperty.setDisplayName("Command");

@@ -18,6 +18,7 @@ if "%1%"=="twitch-talk" (goto twitch)
 if "%1%"=="twitter" (goto twitteraction)
 if "%1%"=="website" (goto websiteaction)
 if "%1%"=="openfile" (goto openfileaction)
+if "%1%"=="runexecutable" (goto runexecutableaction)
 
 if NOT "%1%"=="" (
     echo Invalid argument %1%
@@ -25,17 +26,6 @@ if NOT "%1%"=="" (
 )
 
 set quit=false
-
-goto hotkeyaction
-goto mediakeyaction
-goto obssuite
-goto playaudioclipaction
-goto runcommandaction
-goto textblockaction
-goto twitch
-goto twitteraction
-goto websiteaction
-goto openfileaction
 
 :hotkeyaction
 pushd %CD%
@@ -206,5 +196,13 @@ pushd %CD%
 cd openfileaction
 call mvn clean -Dmaven.test.skip package
 move target\openfileaction-*.jar ..\%FOLD%\openfileaction.jar
+popd
+if "%quit%" == "true" (EXIT /B 0)
+
+:runexecutableaction
+pushd %CD%
+cd runexecutableaction
+call mvn clean -Dmaven.test.skip package
+move target\runexecutableaction-*.jar ..\%FOLD%\runexecutableaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
