@@ -16,7 +16,7 @@ public class OpenFileAction extends NormalAction
 {
     public OpenFileAction()
     {
-        setName("Open Files");
+        setName("Open File");
         setAuthor("quimodotcom");
         setHelpLink("https://github.com/stream-pi/essentialactions");
         setVersion(new Version(1,0,0));
@@ -29,7 +29,7 @@ public class OpenFileAction extends NormalAction
     {
         Property fileLocationProperty = new StringProperty("file_location");
         fileLocationProperty.setControlType(ControlType.FILE_PATH);
-        fileLocationProperty.setDisplayName("Document File Location");
+        fileLocationProperty.setDisplayName("File Location");
         fileLocationProperty.setExtensionFilters(
                 new FileExtensionFilter("File","*.*")
         );
