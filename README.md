@@ -1,6 +1,6 @@
 # Stream-Pi Essential Actions
 
-Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [Stream-Pi Action API](https://github.com/stream-pi/action-api).
+Set of trusted, essential actions and integrations for Stream-Pi using the [Stream-Pi Action API](https://github.com/stream-pi/action-api). These actions are prebundled with public Stream-Pi releases.
 
 ## Prerequisites
 
@@ -16,6 +16,7 @@ Set of trusted, pre-bundled actions and integrations for Stream-Pi using the [St
 - Run Command
 - Text Block
 - Twitch Chat
+- Open File
 - Twitter
 - Website
 

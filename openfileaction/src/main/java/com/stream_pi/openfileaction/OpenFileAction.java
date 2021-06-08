@@ -1,4 +1,4 @@
-package com.stream_pi.openfile;
+package com.stream_pi.openfileaction;
 
 import com.stream_pi.action_api.actionproperty.property.*;
 import com.stream_pi.action_api.externalplugin.NormalAction;
@@ -12,9 +12,9 @@ import java.awt.*;
 import java.net.URI;
 import java.io.IOException;
 
-public class OpenFile extends NormalAction
+public class OpenFileAction extends NormalAction
 {
-    public OpenFile()
+    public OpenFileAction()
     {
         setName("Open Files");
         setAuthor("quimodotcom");

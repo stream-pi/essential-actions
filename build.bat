@@ -8,15 +8,16 @@ mkdir %FOLD%
 
 copy %DEPS%\* %FOLD%\
 
-if "%1%"=="Hotkey" (goto Hotkey)
-if "%1%"=="MediaKey" (goto MediaKey)
-if "%1%"=="ObsSuite" (goto ObsSuite)
-if "%1%"=="PlayAudioClip" (goto PlayAudioClip)
-if "%1%"=="RunCommand" (goto RunCommand)
-if "%1%"=="TextBlock" (goto TextBlock)
-if "%1%"=="TwitchChat" (goto TwitchChat)
-if "%1%"=="Twitter" (goto Twitter)
-if "%1%"=="Website" (goto Website)
+if "%1%"=="hotkeyaction" (goto hotkeyaction)
+if "%1%"=="mediakeyaction" (goto mediakeyaction)
+if "%1%"=="obssuite" (goto obssuite)
+if "%1%"=="playaudioclipaction" (goto playaudioclipaction)
+if "%1%"=="runcommandaction" (goto runcommandaction)
+if "%1%"=="textblockaction" (goto textblockaction)
+if "%1%"=="twitch" (goto twitch)
+if "%1%"=="twitteraction" (goto twitteraction)
+if "%1%"=="websiteaction" (goto websiteaction)
+if "%1%"=="openfileaction" (goto openfileaction)
 
 if NOT "%1%"=="" (
     echo Invalid argument %1%
@@ -25,17 +26,18 @@ if NOT "%1%"=="" (
 
 set quit=false
 
-goto Hotkey
-goto MediaKey
-goto ObsSuite
-goto PlayAudioClip
-goto RunCommand
-goto TextBlock
-goto TwitchChat
-goto Twitter
-goto Website
+goto hotkeyaction
+goto mediakeyaction
+goto obssuite
+goto playaudioclipaction
+goto runcommandaction
+goto textblockaction
+goto twitch
+goto twitteraction
+goto websiteaction
+goto openfileaction
 
-:Hotkey
+:hotkeyaction
 pushd %CD%
 cd hotkeyaction
 call mvn clean -Dmaven.test.skip package
@@ -43,7 +45,7 @@ move target\hotkeyaction-*.jar ..\%FOLD%\hotkeyaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
-:MediaKey
+:mediakeyaction
 pushd %CD%
 cd mediakeyaction
 call mvn clean -Dmaven.test.skip package
@@ -51,7 +53,7 @@ move target\mediakeyaction-*.jar ..\%FOLD%\mediakeyaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
-:ObsSuite
+:obssuite
 pushd %CD%
 cd obssuite\mother
 CALL mvn clean install -Dmaven.test.skip package
@@ -103,7 +105,7 @@ move target\obssuite_setvolumeaction-*.jar ..\..\%FOLD%\obssuite_setvolumeaction
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
-:PlayAudioClip
+:playaudioclipaction
 pushd %CD%
 cd playaudioclipaction
 call mvn clean -Dmaven.test.skip package
@@ -111,7 +113,7 @@ move target\playaudioclipaction-*.jar ..\%FOLD%\playaudioclipaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
-:RunCommand
+:runcommandaction
 pushd %CD%
 cd runcommandaction
 call mvn clean -Dmaven.test.skip package
@@ -119,7 +121,7 @@ move target\runcommandaction-*.jar ..\%FOLD%\runcommandaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
-:TextBlock
+:textblockaction
 pushd %CD%
 cd textblockaction
 call mvn clean -Dmaven.test.skip package
@@ -127,7 +129,7 @@ move target\textblockaction-*.jar ..\%FOLD%\textblockaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
-:TwitchChat
+:twitch
 pushd %CD%
 cd twitch\twitch-chat-connect
 CALL mvn clean install -Dmaven.test.skip package
@@ -183,7 +185,7 @@ move target\twitch-slow-mode-*.jar ..\..\%FOLD%\twitch-slow-mode.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
-:Twitter
+:twitteraction
 pushd %CD%
 cd twitteraction
 call mvn clean -Dmaven.test.skip package
@@ -191,7 +193,7 @@ move target\twitteraction-*.jar ..\%FOLD%\twitteraction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
-:Website
+:websiteaction
 pushd %CD%
 cd websiteaction
 call mvn clean -Dmaven.test.skip package
@@ -199,17 +201,9 @@ move target\websiteaction-*.jar ..\%FOLD%\websiteaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
-:gitclone
+:openfileaction
 pushd %CD%
-cd gitclone
-call mvn clean -Dmaven.test.skip package
-move target\gitclone-*.jar ..\%FOLD%\gitclone.jar
-popd
-if "%quit%" == "true" (EXIT /B 0)
-
-:openfile
-pushd %CD%
-cd openfile
+cd openfileaction
 call mvn clean -Dmaven.test.skip package
 move target\openfile-*.jar ..\%FOLD%\openfile.jar
 popd
