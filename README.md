@@ -40,5 +40,5 @@ Action Name           | Build Script Argument   |
  Open File            | `openfile`              | 
  Twitter              | `twitter`               | 
  Website              | `hotkey`                | 
-
+ Run Executable       | `runexecutable`         | 
  
