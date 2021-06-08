@@ -8,16 +8,16 @@ mkdir %FOLD%
 
 copy %DEPS%\* %FOLD%\
 
-if "%1%"=="hotkeyaction" (goto hotkeyaction)
-if "%1%"=="mediakeyaction" (goto mediakeyaction)
-if "%1%"=="obssuite" (goto obssuite)
-if "%1%"=="playaudioclipaction" (goto playaudioclipaction)
-if "%1%"=="runcommandaction" (goto runcommandaction)
-if "%1%"=="textblockaction" (goto textblockaction)
-if "%1%"=="twitch" (goto twitch)
-if "%1%"=="twitteraction" (goto twitteraction)
-if "%1%"=="websiteaction" (goto websiteaction)
-if "%1%"=="openfileaction" (goto openfileaction)
+if "%1%"=="hotkey" (goto hotkeyaction)
+if "%1%"=="mediakey" (goto mediakeyaction)
+if "%1%"=="obs" (goto obssuite)
+if "%1%"=="playaudioclip" (goto playaudioclipaction)
+if "%1%"=="runcommand" (goto runcommandaction)
+if "%1%"=="textblock" (goto textblockaction)
+if "%1%"=="twitch-talk" (goto twitch)
+if "%1%"=="twitter" (goto twitteraction)
+if "%1%"=="website" (goto websiteaction)
+if "%1%"=="openfile" (goto openfileaction)
 
 if NOT "%1%"=="" (
     echo Invalid argument %1%
@@ -205,6 +205,6 @@ if "%quit%" == "true" (EXIT /B 0)
 pushd %CD%
 cd openfileaction
 call mvn clean -Dmaven.test.skip package
-move target\openfile-*.jar ..\%FOLD%\openfile.jar
+move target\openfileaction-*.jar ..\%FOLD%\openfileaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)

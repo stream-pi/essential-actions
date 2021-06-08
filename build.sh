@@ -3,82 +3,82 @@
 FOLD=BuiltPlugins
 DEPS=Dependencies
 
-hotkey() {
+hotkeyaction() {
   pushd . || exit
   cd hotkeyaction && mvn clean -Dmaven.test.skip package
   mv target/hotkeyaction-*.jar ../$FOLD/hotkeyaction.jar
   popd || exit
 }
 
-media_key() {
+mediakeyaction() {
   pushd . || exit
   cd mediakeyaction && mvn clean -Dmaven.test.skip package
   mv target/mediakeyaction-*.jar ../$FOLD/mediakeyaction.jar
   popd || exit
 }
 
-obs_suite() {
+obssuite() {
   pushd . || exit
-  cd obssuite/mother && ../mvn clean install -Dmaven.test.skip package
+  cd obssuite/mother && mvn clean install -Dmaven.test.skip package
   mv target/obssuite_motheraction-*.jar ../../$FOLD/obssuite_motheraction.jar
 
-  cd ../setcurrentprofile && ../mvn clean -Dmaven.test.skip package
+  cd ../setcurrentprofile && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setcurrentprofileaction-*.jar ../../$FOLD/obssuite_setcurrentprofileaction.jar
 
-  cd ../setcurrentscene && ../mvn clean -Dmaven.test.skip package
+  cd ../setcurrentscene && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setcurrentsceneaction-*.jar ../../$FOLD/obssuite_setcurrentsceneaction.jar
 
-  cd ../setcurrenttransition && ../mvn clean -Dmaven.test.skip package
+  cd ../setcurrenttransition && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setcurrenttransitionaction-*.jar ../../$FOLD/obssuite_setcurrenttransitionaction.jar
 
-  cd ../setmute && ../mvn clean -Dmaven.test.skip package
+  cd ../setmute && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setmuteaction-*.jar ../../$FOLD/obssuite_setmuteaction.jar
 
-  cd ../setcurrentprofile && ../mvn clean -Dmaven.test.skip package
+  cd ../setcurrentprofile && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setcurrentprofileaction-*.jar ../../$FOLD/obssuite_setcurrentprofileaction.jar
 
-  cd ../setpreviewscene && ../mvn clean -Dmaven.test.skip package
+  cd ../setpreviewscene && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setpreviewsceneaction-*.jar ../../$FOLD/obssuite_setpreviewsceneaction.jar
 
-  cd ../setrecording && ../mvn clean -Dmaven.test.skip package
+  cd ../setrecording && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setrecordingaction-*.jar ../../$FOLD/obssuite_setrecordingaction.jar
 
-  cd ../setreplaybuffer && ../mvn clean -Dmaven.test.skip package
+  cd ../setreplaybuffer && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setreplaybufferaction-*.jar ../../$FOLD/obssuite_setreplaybufferaction.jar
 
-  cd ../setstreaming && ../mvn clean -Dmaven.test.skip package
+  cd ../setstreaming && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setstreamingaction-*.jar ../../$FOLD/obssuite_setstreamingaction.jar
 
-  cd ../setstudiomode && ../mvn clean -Dmaven.test.skip package
+  cd ../setstudiomode && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setstudiomodeaction-*.jar ../../$FOLD/obssuite_setstudiomodeaction.jar
 
-  cd ../setvolume && ../mvn clean -Dmaven.test.skip package
+  cd ../setvolume && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setvolumeaction-*.jar ../../$FOLD/obssuite_setvolumeaction.jar
   popd || exit
 }
 
-play_audio_clip() {
+playaudioclipaction() {
   pushd . || exit
   cd playaudioclipaction && mvn clean -Dmaven.test.skip package
   mv target/playaudioclipaction-*.jar ../$FOLD/playaudioclipaction.jar
   popd || exit
 }
 
-run_command() {
+runcommandaction() {
   pushd . || exit
   cd runcommandaction && mvn clean -Dmaven.test.skip package
   mv target/runcommandaction-*.jar ../$FOLD/runcommandaction.jar
   popd || exit
 }
 
-text_block() {
+textblockaction() {
   pushd . || exit
   cd textblockaction && mvn clean -Dmaven.test.skip package
   mv target/textblockaction-*.jar ../$FOLD/textblockaction.jar
   popd || exit
 }
 
-twitch_chat() {
+twitch() {
   pushd . || exit
   cd twitch/twitch-chat-connect && mvn clean install -Dmaven.test.skip package
   mv target/twitch-chat-connect-*.jar ../../$FOLD/twitch-chat-connect.jar
@@ -122,17 +122,24 @@ twitch_chat() {
   popd || exit
 }
 
-twitter() {
+twitteraction() {
   pushd . || exit
   cd twitteraction && mvn clean -Dmaven.test.skip package
   mv target/twitteraction-*.jar ../$FOLD/twitteraction.jar
   popd || exit
 }
 
-website() {
+websiteaction() {
   pushd . || exit
   cd websiteaction && mvn clean -Dmaven.test.skip package
   mv target/websiteaction-*.jar ../$FOLD/websiteaction.jar
+  popd || exit
+}
+
+openfileaction() {
+  pushd . || exit
+  cd openfileaction && mvn clean -Dmaven.test.skip package
+  mv target/openfileaction-*.jar ../$FOLD/openfileaction.jar
   popd || exit
 }
 
@@ -141,43 +148,44 @@ rm -rf "${FOLD:?}/"*
 cp $DEPS/* $FOLD/
 
 case "$1" in
-hotkey)
-  hotkey
+hotkeyaction)
+  hotkeyaction
   ;;
-media_key)
-  media_key
+mediakeyaction)
+  mediakeyaction
   ;;
-obs_suite)
-  obs_suite
+obssuite)
+  obssuite
   ;;
-play_audio_clip)
-  play_audio_clip
+playaudioclipaction)
+  playaudioclipaction
   ;;
-run_command)
-  run_command
+runcommandaction)
+  runcommandaction
   ;;
-text_block)
-  text_block
+textblockaction)
+  textblockaction
   ;;
-twitch_chat)
-  twitch_chat
+twitch)
+  twitch
   ;;
-twitter)
-  twitter
+twitteraction)
+  twitteraction
   ;;
-website)
-  website
+websiteaction)
+  websiteaction
   ;;
 *)
   # build all actions as default
-  hotkey
-  media_key
-  obs_suite
-  play_audio_clip
-  run_command
-  text_block
-  twitch_chat
-  twitter
-  website
+  hotkeyaction
+  mediakeyaction
+  obssuite
+  playaudioclipaction
+  runcommandaction
+  textblockaction
+  twitch
+  twitteraction
+  websiteaction
+  openfileaction
   ;;
 esac
