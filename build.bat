@@ -1,6 +1,5 @@
 @echo off
 
-echo test
 SET FOLD=BuiltPlugins
 SET DEPS=Dependencies
 SET quit=true
