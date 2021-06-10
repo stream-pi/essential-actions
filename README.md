@@ -33,8 +33,8 @@ Action Name           | Build Script Argument   |
  Hotkey               | `hotkey`                | 
  Play Audio Clip      | `playaudioclip`         | 
  Media Key            | `mediakey`              | 
- OBS Suite            | `obs-suite`             | 
- Run Command          | `runcommand`            |  
+ OBS Suite            | `obs-suite`             |
+ Run Command          | `runcommand`            |
  Text Block           | `textblock`             | 
  Twitch               | `twitch-talk`           | 
  Open File            | `openfile`              | 

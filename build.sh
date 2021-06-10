@@ -31,8 +31,8 @@ obssuite() {
   cd ../setcurrenttransition && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setcurrenttransitionaction-*.jar ../../$FOLD/obssuite_setcurrenttransitionaction.jar
 
-  cd ../setmute && mvn clean -Dmaven.test.skip package
-  mv target/obssuite_setmuteaction-*.jar ../../$FOLD/obssuite_setmuteaction.jar
+  cd ../togglemute && mvn clean -Dmaven.test.skip package
+  mv target/obssuite_togglemuteaction-*.jar ../../$FOLD/obssuite_togglemuteaction.jar
 
   cd ../setcurrentprofile && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setcurrentprofileaction-*.jar ../../$FOLD/obssuite_setcurrentprofileaction.jar
@@ -40,17 +40,17 @@ obssuite() {
   cd ../setpreviewscene && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setpreviewsceneaction-*.jar ../../$FOLD/obssuite_setpreviewsceneaction.jar
 
-  cd ../setrecording && mvn clean -Dmaven.test.skip package
-  mv target/obssuite_setrecordingaction-*.jar ../../$FOLD/obssuite_setrecordingaction.jar
+  cd ../togglerecording && mvn clean -Dmaven.test.skip package
+  mv target/obssuite_togglerecordingaction-*.jar ../../$FOLD/obssuite_togglerecordingaction.jar
 
   cd ../setreplaybuffer && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setreplaybufferaction-*.jar ../../$FOLD/obssuite_setreplaybufferaction.jar
 
-  cd ../setstreaming && mvn clean -Dmaven.test.skip package
-  mv target/obssuite_setstreamingaction-*.jar ../../$FOLD/obssuite_setstreamingaction.jar
+  cd ../togglestreaming && mvn clean -Dmaven.test.skip package
+  mv target/obssuite_togglestreamingaction-*.jar ../../$FOLD/obssuite_togglestreamingaction.jar
 
-  cd ../setstudiomode && mvn clean -Dmaven.test.skip package
-  mv target/obssuite_setstudiomodeaction-*.jar ../../$FOLD/obssuite_setstudiomodeaction.jar
+  cd ../togglestudiomode && mvn clean -Dmaven.test.skip package
+  mv target/obssuite_togglestudiomodeaction-*.jar ../../$FOLD/obssuite_togglestudiomodeaction.jar
 
   cd ../setvolume && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setvolumeaction-*.jar ../../$FOLD/obssuite_setvolumeaction.jar

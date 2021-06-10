@@ -10,7 +10,7 @@ copy %DEPS%\* %FOLD%\
 
 if "%1%"=="hotkey" (goto hotkeyaction)
 if "%1%"=="mediakey" (goto mediakeyaction)
-if "%1%"=="obs" (goto obssuite)
+if "%1%"=="obs-suite" (goto obssuite)
 if "%1%"=="playaudioclip" (goto playaudioclipaction)
 if "%1%"=="runcommand" (goto runcommandaction)
 if "%1%"=="textblock" (goto textblockaction)
