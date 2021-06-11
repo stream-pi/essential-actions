@@ -1,7 +1,9 @@
 package setreplaybuffer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import com.stream_pi.action_api.actionproperty.property.ListValue;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
@@ -27,12 +29,14 @@ public class SetReplayBuffer extends NormalAction
         setVersion(MotherConnection.VERSION);
 
         states = new ArrayList<>();
-        states.add("Start");
-        states.add("Stop");
-        states.add("Save");
+        states.addAll(Arrays.asList(
+                new ListValue("Start"),
+                new ListValue("Stop"),
+                new ListValue("Save")
+        ));
     }
 
-    private final ArrayList<String> states;
+    private final ArrayList<ListValue> states;
 
     @Override
     public void initProperties() throws MinorException
@@ -52,7 +56,7 @@ public class SetReplayBuffer extends NormalAction
     @Override
     public void onActionClicked() throws MinorException
     {
-        String state = states.get(getClientProperties().getSingleProperty("replay_status").getSelectedIndex());
+        String state = states.get(getClientProperties().getSingleProperty("replay_status").getSelectedIndex()).getName().toString();
 
         if (MotherConnection.getRemoteController() == null)
         {

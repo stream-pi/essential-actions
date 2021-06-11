@@ -2,6 +2,7 @@ package startcommercial;
 
 import com.gikk.twirk.Twirk;
 import com.gikk.twirk.TwirkBuilder;
+import com.stream_pi.action_api.actionproperty.property.ListValue;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
@@ -9,6 +10,8 @@ import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
 import connect.chat.TwitchChatCredentials;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StartCommercialAction extends NormalAction
@@ -27,6 +30,18 @@ public class StartCommercialAction extends NormalAction
         setAuthor("j4ckofalltrades");
         setVersion(new Version(1, 0, 0));
         setHelpLink("https://github.com/stream-pi/essentialactions#twitch-chat-integration");
+
+
+        durations = new ArrayList<>();
+        durations.addAll(Arrays.asList(
+                new ListValue("30"),
+                new ListValue("60"),
+                new ListValue("90"),
+                new ListValue("120"),
+                new ListValue("150"),
+                new ListValue("180")
+        ));
+
     }
 
     @Override
@@ -39,16 +54,12 @@ public class StartCommercialAction extends NormalAction
 
         Property duration = new Property(durationKey, Type.LIST);
         duration.setDisplayName("Duration");
-        duration.setListValue(List.of(
-                String.valueOf(30),
-                String.valueOf(60),
-                String.valueOf(90),
-                String.valueOf(120),
-                String.valueOf(150),
-                String.valueOf(180)));
+        duration.setListValue(durations);
 
         addClientProperties(channelName, duration);
     }
+
+    private final ArrayList<ListValue> durations;
 
     @Override
     public void onActionClicked() throws MinorException
@@ -57,7 +68,7 @@ public class StartCommercialAction extends NormalAction
         credentials.ensureCredentialsInitialized();
 
         final String channel = getClientProperties().getSingleProperty(channelNameKey).getStringValue();
-        final String duration = getClientProperties().getSingleProperty(durationKey).getStringValue();
+        final String duration = durations.get(getClientProperties().getSingleProperty(durationKey).getSelectedIndex()).getName().toString();
 
         try
         {
