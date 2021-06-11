@@ -2,6 +2,7 @@ package setcolor;
 
 import com.gikk.twirk.Twirk;
 import com.gikk.twirk.TwirkBuilder;
+import com.stream_pi.action_api.actionproperty.property.ListProperty;
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
@@ -36,10 +37,9 @@ public class SetColorAction extends NormalAction
         channelName.setDefaultValueStr("channel_name");
         channelName.setCanBeBlank(false);
 
-        Property usernameColor = new Property(usernameColorKey, Type.STRING);
+        ListProperty usernameColor = new ListProperty(usernameColorKey);
         usernameColor.setDisplayName("Color");
-        usernameColor.setDefaultValueStr("color");
-        usernameColor.setCanBeBlank(false);
+
 
         addClientProperties(channelName, usernameColor);
     }
