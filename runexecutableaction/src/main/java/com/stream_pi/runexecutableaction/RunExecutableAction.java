@@ -17,7 +17,7 @@ public class RunExecutableAction extends NormalAction
         setName("Run Executable");
         setCategory("Essentials");
         setAuthor("rnayabed");
-        setServerButtonGraphic("far-file-code");
+        setServerButtonGraphic("fas-terminal");
         setHelpLink("https://github.com/stream-pi/essentialactions");
         setVersion(new Version(1,0,0));
     }
