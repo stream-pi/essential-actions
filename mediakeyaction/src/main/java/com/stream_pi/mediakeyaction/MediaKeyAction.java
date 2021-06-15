@@ -112,7 +112,7 @@ public class MediaKeyAction extends NormalAction
         pr.waitFor();
     }
 
-    private void linuxHandler(int state)
+    private void linuxHandler(int state) throws MinorException
     {
         try
         {
@@ -144,13 +144,13 @@ public class MediaKeyAction extends NormalAction
         {
             e.printStackTrace();
 
-            throw new UnsupportedOperationException(
+            throw new MinorException(
                     "It looks like 'xdotool' is not installed in this computer. Please install it and try again."
             );
         }
     }
 
-    private void windowsHandler(int state)
+    private void windowsHandler(int state) throws MinorException
     {
         try
         {
@@ -179,12 +179,13 @@ public class MediaKeyAction extends NormalAction
                     runCommand(exe + " 0xB2");
                     break;
             }
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
 
-            throw new UnsupportedOperationException(
-                    "Internal Error occurred. Check logs, stacktrace. Report to us."
+            throw new MinorException(
+                    "Internal Error occurred. Probably mismatched architecture. Check logs, stacktrace. Report to us."
             );
         }
     }
