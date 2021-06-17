@@ -30,7 +30,7 @@ public class UnhostAction extends NormalAction
     public void initProperties() throws MinorException
     {
         Property channel = new Property(channelNameKey, Type.STRING);
-        channel.setDisplayName("Channel");
+        channel.setDisplayName("Host Channel");
         channel.setDefaultValueStr("channel_name");
         channel.setCanBeBlank(false);
 

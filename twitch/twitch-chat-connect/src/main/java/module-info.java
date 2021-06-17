@@ -3,7 +3,7 @@ module com.stream_pi.twitchchatconnectaction {
     requires com.stream_pi.action_api;
     requires com.stream_pi.util;
 
-    requires Java.Twirk;
+    requires twitch.api.java;
 
     exports connect.chat;
 

@@ -172,6 +172,10 @@ move target\twitch-subs-only-*.jar ..\..\%FOLD%\twitch-subs-only.jar
 cd ..\slow-mode
 CALL mvn clean -Dmaven.test.skip package
 move target\twitch-slow-mode-*.jar ..\..\%FOLD%\twitch-slow-mode.jar
+
+cd ..\emote-only
+CALL mvn clean -Dmaven.test.skip package
+move target\twitch-emote-only-*.jar ..\..\%FOLD%\twitch-emote-only.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 

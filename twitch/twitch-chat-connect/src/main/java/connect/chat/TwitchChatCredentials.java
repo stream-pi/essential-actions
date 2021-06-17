@@ -1,7 +1,6 @@
 package connect.chat;
 
 import com.stream_pi.util.exception.MinorException;
-import com.stream_pi.util.exception.StreamPiException;
 
 public final class TwitchChatCredentials
 {
@@ -31,10 +30,11 @@ public final class TwitchChatCredentials
             final String twitchChatOauthToken = oauthToken;
             boolean isTokenInitialized = twitchChatOauthToken != null && !twitchChatOauthToken.isEmpty();
 
-            if (!isNicknameInitialized && !isTokenInitialized) {
+            if (!isNicknameInitialized && !isTokenInitialized)
+            {
                 throw new MinorException(
-                        "Twitch Chat config uninitialized\n"+
-                        "Please check that the Twitch Chat plugin configuration is correct.");
+                        "Twitch Chat config uninitialized\n" +
+                                "Please check that the Twitch Chat plugin configuration is correct.");
             }
         }
 

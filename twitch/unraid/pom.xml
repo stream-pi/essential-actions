@@ -14,7 +14,7 @@
     <streamPiActionApiVersion>1.0.0-SNAPSHOT</streamPiActionApiVersion>
     <streamPiUtilVersion>1.0.0-SNAPSHOT</streamPiUtilVersion>
     <streamPiTwitchChatConnectVersion>1.0.0</streamPiTwitchChatConnectVersion>
-    <javaTwirkVersion>0.6.3</javaTwirkVersion>
+    <twitchApiVersion>0.7.1</twitchApiVersion>
   </properties>
 
   <repositories>
@@ -66,9 +66,9 @@
     </dependency>
 
     <dependency>
-      <groupId>com.github.gikkman</groupId>
-      <artifactId>Java-Twirk</artifactId>
-      <version>${javaTwirkVersion}</version>
+      <groupId>com.github.j4ckofalltrades</groupId>
+      <artifactId>twitch-api-java</artifactId>
+      <version>${twitchApiVersion}</version>
     </dependency>
 
     <dependency>
