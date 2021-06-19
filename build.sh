@@ -119,6 +119,9 @@ twitch() {
   cd ../slow-mode && mvn clean -Dmaven.test.skip package
   mv target/twitch-slow-mode-*.jar ../../$FOLD/twitch-slow-mode.jar
 
+  cd ../emote-only && mvn clean -Dmaven.test.skip package
+  mv target/twitch-emote-only-*.jar ../../$FOLD/twitch-emote-only.jar
+
   popd || exit
 }
 

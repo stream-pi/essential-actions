@@ -12,7 +12,7 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <streamPiActionApiVersion>1.0.0-SNAPSHOT</streamPiActionApiVersion>
-    <javaTwirkVersion>0.6.3</javaTwirkVersion>
+    <twitchApiVersion>0.7.1</twitchApiVersion>
   </properties>
 
   <repositories>
@@ -56,9 +56,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.gikkman</groupId>
-      <artifactId>Java-Twirk</artifactId>
-      <version>${javaTwirkVersion}</version>
+      <groupId>com.github.j4ckofalltrades</groupId>
+      <artifactId>twitch-api-java</artifactId>
+      <version>${twitchApiVersion}</version>
     </dependency>
 
     <dependency>
@@ -68,10 +68,4 @@
     </dependency>
   </dependencies>
 
-<pluginRepositories>
-        <pluginRepository>
-            <id>sonatype-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </pluginRepository>
-  </pluginRepositories>
 </project>
