@@ -38,7 +38,6 @@
 
     <properties>
         <ActionAPIVersion>1.0.0-SNAPSHOT</ActionAPIVersion>
-        <UtilVersion>1.0.0-SNAPSHOT</UtilVersion>
         <OBSSuiteMotherVersion>2.0.1</OBSSuiteMotherVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -47,12 +46,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>com.stream-pi</groupId>
-            <artifactId>util</artifactId>
-            <version>${UtilVersion}</version>
-        </dependency>
-
         <dependency>
             <groupId>com.stream-pi</groupId>
             <artifactId>action-api</artifactId>
@@ -65,4 +58,11 @@
             <version>${OBSSuiteMotherVersion}</version>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 </project>

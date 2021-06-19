@@ -38,7 +38,6 @@
 
     <properties>
         <ActionAPIVersion>1.0.0-SNAPSHOT</ActionAPIVersion>
-        <UtilVersion>1.0.0-SNAPSHOT</UtilVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
@@ -52,4 +51,11 @@
             <version>${ActionAPIVersion}</version>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 </project>

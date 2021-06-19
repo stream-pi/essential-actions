@@ -12,7 +12,6 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <streamPiActionApiVersion>1.0.0-SNAPSHOT</streamPiActionApiVersion>
-    <streamPiUtilVersion>1.0.0-SNAPSHOT</streamPiUtilVersion>
     <javaTwirkVersion>0.6.3</javaTwirkVersion>
   </properties>
 
@@ -20,6 +19,10 @@
     <repository>
         <id>jitpack.io</id>
         <url>https://jitpack.io</url>
+    </repository>
+    <repository>
+      <id>sonatype-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
     </repository>
   </repositories>
 
@@ -60,15 +63,15 @@
 
     <dependency>
       <groupId>com.stream-pi</groupId>
-      <artifactId>util</artifactId>
-      <version>${streamPiUtilVersion}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>com.stream-pi</groupId>
       <artifactId>action-api</artifactId>
       <version>${streamPiActionApiVersion}</version>
     </dependency>
   </dependencies>
 
+<pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+  </pluginRepositories>
 </project>
