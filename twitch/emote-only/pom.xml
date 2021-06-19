@@ -12,7 +12,6 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <streamPiActionApiVersion>1.0.0-SNAPSHOT</streamPiActionApiVersion>
-    <streamPiUtilVersion>1.0.0-SNAPSHOT</streamPiUtilVersion>
     <streamPiTwitchChatConnectVersion>1.0.0</streamPiTwitchChatConnectVersion>
     <twitchApiVersion>0.7.1</twitchApiVersion>
   </properties>
@@ -21,6 +20,10 @@
     <repository>
       <id>jitpack.io</id>
       <url>https://jitpack.io</url>
+    </repository>
+    <repository>
+      <id>sonatype-snapshots</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
     </repository>
   </repositories>
 
@@ -53,12 +56,6 @@
   </build>
 
   <dependencies>
-    <dependency>
-      <groupId>com.stream-pi</groupId>
-      <artifactId>util</artifactId>
-      <version>${streamPiUtilVersion}</version>
-    </dependency>
-
     <dependency>
       <groupId>com.stream-pi</groupId>
       <artifactId>action-api</artifactId>
