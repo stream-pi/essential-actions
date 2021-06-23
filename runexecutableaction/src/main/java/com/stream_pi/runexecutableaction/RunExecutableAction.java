@@ -63,26 +63,43 @@ public class RunExecutableAction extends NormalAction
 
         try
         {
-            ProcessBuilder processBuilder = new ProcessBuilder();
-            processBuilder.directory(executableFile.getParentFile());
 
-            String command = executableLocation;
-
-            if(getServerConnection().getPlatform()==Platform.WINDOWS)
+            if(getServerConnection().getPlatform() == Platform.WINDOWS)
             {
+                String command = "powershell -Command \"cd "+executableFile.getParentFile().toString()+"; Start-Process '"+executableLocation+"' ";
+
                 boolean runAsAdmin = getClientProperties().getSingleProperty("run_as_admin").getBoolValue();
                 if(runAsAdmin)
                 {
-                    command = "powershell -Command \"Start-Process '"+executableLocation+"' -Verb runAs\"";
+                    command +="-Verb runAs\"";
                 }
+                else
+                {
+                    command +="\"";
+                }
+
+                getLogger().info("Running command : "+command);
+
+                runCommand(command);
+            }
+            else
+            {
+                ProcessBuilder processBuilder = new ProcessBuilder();
+                processBuilder.directory(executableFile.getParentFile());
+                processBuilder.command(executableLocation);
+                processBuilder.start();
             }
 
-            processBuilder.command(command);
-            processBuilder.start();
         }
         catch (IOException e)
         {
             throw new MinorException(e.getMessage());
         }
+    }
+
+    private void runCommand(String command) throws IOException
+    {
+        Runtime rt = Runtime.getRuntime();
+        rt.exec(command);
     }
 }
