@@ -3,6 +3,7 @@ package com.stream_pi.runexecutableaction;
 import com.stream_pi.action_api.actionproperty.property.*;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.exception.MinorException;
+import com.stream_pi.util.platform.Platform;
 import com.stream_pi.util.version.Version;
 
 import java.io.File;
@@ -33,6 +34,13 @@ public class RunExecutableAction extends NormalAction
         );
 
         addClientProperties(executablePathProperty);
+
+        if(getServerConnection().getPlatform() == Platform.WINDOWS)
+        {
+            BooleanProperty runAsAdminProperty = new BooleanProperty("run_as_admin");
+            runAsAdminProperty.setDisplayName("Run as Administrator");
+            addClientProperties(runAsAdminProperty);
+        }
     }
 
     @Override
@@ -57,7 +65,19 @@ public class RunExecutableAction extends NormalAction
         {
             ProcessBuilder processBuilder = new ProcessBuilder();
             processBuilder.directory(executableFile.getParentFile());
-            processBuilder.command(executableLocation);
+
+            String command = executableLocation;
+
+            if(getServerConnection().getPlatform()==Platform.WINDOWS)
+            {
+                boolean runAsAdmin = getClientProperties().getSingleProperty("run_as_admin").getBoolValue();
+                if(runAsAdmin)
+                {
+                    command = "powershell -Command \"Start-Process '"+executableLocation+"' -Verb runAs\"";
+                }
+            }
+
+            processBuilder.command(command);
             processBuilder.start();
         }
         catch (IOException e)
