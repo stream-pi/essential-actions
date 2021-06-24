@@ -28,11 +28,8 @@ You should then be able to use the pre-bundled Twitch chat actions.
 - Add stream marker
 - Toggle slow mode
 - Toggle subs-only mode
-
-### TODO
-
 - Toggle followers-only mode
 
 ## Running locally
 
-Copy the `Java-Twirk` from the `Dependencies` directory and the `twitch-xxx-action` jar files from the `PreBuiltPlugins` directory to your Stream-Pi server plugins' directory.
+Copy the `twitch-api-java` from the `Dependencies` directory and the `twitch-xxx-action` jar files from the `PreBuiltPlugins` directory to your Stream-Pi server plugins' directory.

@@ -129,6 +129,9 @@ twitch() {
   cd ../emote-only && mvn clean -Dmaven.test.skip package
   mv target/twitch-emote-only-*.jar ../../$FOLD/twitch-emote-only.jar
 
+  cd ../followers-only && mvn clean -Dmaven.test.skip package
+  mv target/twitch-followers-only-*.jar ../../$FOLD/twitch-followers-only.jar
+
   popd || exit
 }
 
