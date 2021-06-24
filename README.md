@@ -10,6 +10,8 @@ Set of trusted, essential actions and integrations for Stream-Pi using the [Stre
 ## Actions Help Guide
 
 - [Hotkey](hotkeyaction/README.md)
+- [Media Keys](mediakeyaction/README.md)
+- [OBS](obssuite/README.md)
 - [Run Command](runcommandaction/README.md)
 - [Twitch Chat](twitch/README.md)
 
@@ -20,7 +22,7 @@ Plugins directory (`$HOME/Stream-Pi/Server/Plugins` by default), especially if y
 
 ### Linux/Mac
 
-Build all actions by executing `make build-all` from the command line or specific actions i.e. `make twitch`.
+Build all actions by executing `make build-all` from the command line or specific actions i.e. `make twitch-talk`.
 
 ### Windows
 
