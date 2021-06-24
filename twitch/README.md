@@ -28,9 +28,6 @@ You should then be able to use the pre-bundled Twitch chat actions.
 - Add stream marker
 - Toggle slow mode
 - Toggle subs-only mode
-
-### TODO
-
 - Toggle followers-only mode
 
 ## Running locally
