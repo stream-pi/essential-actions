@@ -1,4 +1,4 @@
-package togglevisibility;
+package togglesourcevisibility;
 
 import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
@@ -8,9 +8,9 @@ import com.stream_pi.util.alert.StreamPiAlertType;
 import com.stream_pi.util.exception.MinorException;
 import mother.motherconnection.MotherConnection;
 
-public class ToggleVisibility extends ToggleAction
+public class ToggleSourceVisibility extends ToggleAction
 {
-    public ToggleVisibility()
+    public ToggleSourceVisibility()
     {
         setName("Toggle Source Visibility");
         setCategory("OBS");

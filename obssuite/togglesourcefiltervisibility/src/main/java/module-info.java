@@ -1,4 +1,4 @@
-import togglevisibility.ToggleVisibility;
+import togglesourcefiltervisibility.ToggleSourceFilterVisibility;
 
 module com.stream_pi.obssuite.togglesourcefiltervisibility
 {
@@ -8,5 +8,5 @@ module com.stream_pi.obssuite.togglesourcefiltervisibility
     requires obs.websocket.java;
     requires com.stream_pi.obssuite.motheraction;
 
-    provides com.stream_pi.action_api.externalplugin.ExternalPlugin with ToggleVisibility;
+    provides com.stream_pi.action_api.externalplugin.ExternalPlugin with ToggleSourceFilterVisibility;
 }
