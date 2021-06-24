@@ -89,6 +89,14 @@ cd ..\togglestudiomode
 CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_togglestudiomodeaction-*.jar ..\..\%FOLD%\obssuite_togglestudiomodeaction.jar
 
+cd ..\togglesourcevisibility
+CALL mvn clean -Dmaven.test.skip package
+move target\obssuite_togglesourcevisibility-*.jar ..\..\%FOLD%\obssuite_togglesourcevisibility.jar
+
+cd ..\togglesourcefiltervisibility
+CALL mvn clean -Dmaven.test.skip package
+move target\obssuite_togglesourcefiltervisibility-*.jar ..\..\%FOLD%\obssuite_togglesourcefiltervisibility.jar
+
 cd ..\setvolume
 CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setvolumeaction-*.jar ..\..\%FOLD%\obssuite_setvolumeaction.jar

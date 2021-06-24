@@ -54,6 +54,13 @@ obssuite() {
 
   cd ../setvolume && mvn clean -Dmaven.test.skip package
   mv target/obssuite_setvolumeaction-*.jar ../../$FOLD/obssuite_setvolumeaction.jar
+
+  cd ../togglesourcevisibility && mvn clean -Dmaven.test.skip package
+  mv target/obssuite_togglesourcevisibility-*.jar ../../$FOLD/obssuite_togglesourcevisibility.jar
+
+  cd ../togglesourcefiltervisibility && mvn clean -Dmaven.test.skip package
+  mv target/obssuite_togglesourcefiltervisibility-*.jar ../../$FOLD/obssuite_togglesourcefiltervisibility.jar
+
   popd || exit
 }
 
