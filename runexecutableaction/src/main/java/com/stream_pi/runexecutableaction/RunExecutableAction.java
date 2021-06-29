@@ -8,6 +8,7 @@ import com.stream_pi.util.version.Version;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class RunExecutableAction extends NormalAction
@@ -33,7 +34,10 @@ public class RunExecutableAction extends NormalAction
                 new FileExtensionFilter("Executable", "*.*")
         );
 
-        addClientProperties(executablePathProperty);
+        StringProperty argumentsProperty = new StringProperty("executable_arguments");
+        argumentsProperty.setDisplayName("Arguments");
+
+        addClientProperties(executablePathProperty, argumentsProperty);
 
         if(getServerConnection().getPlatform() == Platform.WINDOWS)
         {
@@ -47,6 +51,7 @@ public class RunExecutableAction extends NormalAction
     public void onActionClicked() throws MinorException
     {
         String executableLocation = getClientProperties().getSingleProperty("executable_location").getStringValue();
+        String arguments = getClientProperties().getSingleProperty("executable_arguments").getStringValue();
 
         if(executableLocation.isBlank())
         {
@@ -66,7 +71,11 @@ public class RunExecutableAction extends NormalAction
 
             if(getServerConnection().getPlatform() == Platform.WINDOWS)
             {
-                String command = "powershell -Command \"cd "+executableFile.getParentFile().toString()+"; Start-Process '"+executableLocation+"' ";
+                String command = "powershell -Command \"cd "+executableFile.getParentFile().toString()+
+                        "; Start-Process -FilePath '"+executableLocation+"' -ArgumentList '"+arguments+"' ";
+
+
+                getLogger().info("Full command : "+ command);
 
                 boolean runAsAdmin = getClientProperties().getSingleProperty("run_as_admin").getBoolValue();
                 if(runAsAdmin)
@@ -86,7 +95,12 @@ public class RunExecutableAction extends NormalAction
             {
                 ProcessBuilder processBuilder = new ProcessBuilder();
                 processBuilder.directory(executableFile.getParentFile());
-                processBuilder.command(executableLocation);
+                String[] args = arguments.split(" ");
+                String[] finalArray = new String[args.length + 1];
+                finalArray[0] = executableLocation;
+                System.arraycopy(args, 0, finalArray, 1, args.length);
+                getLogger().info("Full array : "+ Arrays.toString(finalArray));
+                processBuilder.command(finalArray);
                 processBuilder.start();
             }
 
