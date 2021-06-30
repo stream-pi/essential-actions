@@ -4,6 +4,7 @@ import com.stream_pi.util.exception.MinorException;
 
 public final class TwitchChatCredentials
 {
+    public static final String HELP_LINK = "https://github.com/stream-pi/essential-actions/blob/master/twitch/README.md";
 
     private static ChatCredentials credentials;
 

@@ -26,7 +26,7 @@ public class TwitchChatConnectAction extends NormalAction
         setVisibilityInPluginsPane(false);
         setAuthor("j4ckofalltrades");
         setVersion(new Version(1, 0, 0));
-        setHelpLink("https://github.com/stream-pi/essentialactions#twitch-chat-integration");
+        setHelpLink(TwitchChatCredentials.HELP_LINK);
 
         clearCredentialsBtn = new Button("Clear Twitch chat credentials");
         onClearCredentials();
