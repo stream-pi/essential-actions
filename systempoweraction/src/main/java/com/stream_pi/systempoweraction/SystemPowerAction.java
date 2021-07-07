@@ -83,7 +83,14 @@ public class SystemPowerAction extends NormalAction
         try{
             switch (getPlatform()) {
             case MAC:
-                Runtime.getRuntime().exec("osascript -e 'tell application \"System Events\"' -e \"shut down\" -e 'end tell'");
+                    Process p = Runtime.getRuntime().exec
+                         ("/bin/bash");
+                     String command = "osascript -e 'tell application \"System Events\"' "
+                             + " -e \"shut down\" -e 'end tell'";
+                     OutputStream stdin = p.getOutputStream();
+                     stdin.write( command.getBytes() );
+                     stdin.flush();
+                     stdin.close();
                 break;
             case WINDOWS:
                 shutdownCommand = "shutdown.exe -s -t 0";
@@ -115,7 +122,14 @@ public class SystemPowerAction extends NormalAction
         try{
             switch (getPlatform()) {
                 case MAC:
-                    Runtime.getRuntime().exec("osascript -e 'tell application \"System Events\"' -e \"sleep\" -e 'end tell'");
+                    Process p = Runtime.getRuntime().exec
+                         ("/bin/bash");
+                     String command = "osascript -e 'tell application \"System Events\"' "
+                             + " -e \"sleep\" -e 'end tell'";
+                     OutputStream stdin = p.getOutputStream();
+                     stdin.write( command.getBytes() );
+                     stdin.flush();
+                     stdin.close();
                     break;
                 case WINDOWS:
                     try{
@@ -148,7 +162,14 @@ public class SystemPowerAction extends NormalAction
         try{
             switch (getPlatform()) {
                 case MAC:
-                    Runtime.getRuntime().exec("osascript -e 'tell application \"System Events\"' -e \"restart\" -e 'end tell'");
+                    Process p = Runtime.getRuntime().exec
+                         ("/bin/bash");
+                     String command = "osascript -e 'tell application \"System Events\"' "
+                             + " -e \"restart\" -e 'end tell'";
+                     OutputStream stdin = p.getOutputStream();
+                     stdin.write( command.getBytes() );
+                     stdin.flush();
+                     stdin.close();
                     break;
                 case WINDOWS:
                     Runtime.getRuntime().exec("shutdown -r");
