@@ -43,12 +43,15 @@ public class SystemPowerAction extends NormalAction
         
         Property customLinuxSleep = new Property("linuxsl", Type.STRING);
         customLinuxSleep.setDisplayName("Custom Linux Sleep Command");
+        customLinuxSleep.setCanBeBlank(true);
         
         Property customLinuxRestart = new Property("linuxre", Type.STRING);
         customLinuxRestart.setDisplayName("Custom Linux Restart Command");
+        customLinuxRestart.setCanBeBlank(true);
 
         Property customLinuxShutdown = new Property("linuxsh", Type.STRING);
         customLinuxShutdown.setDisplayName("Custom Linux Shutdown Command");
+        customLinuxShutdown.setCanBeBlank(true);
         
         addClientProperties(status);
         addServerProperties(customLinuxSleep, customLinuxRestart, customLinuxShutdown);
