@@ -47,71 +47,54 @@ public class SystemPowerAction extends NormalAction
     @Override
     public void onActionClicked() throws MinorException
     {
-        Platform plat = getPlatform();
         String state = states.get(getClientProperties().getSingleProperty("state").getSelectedIndex()).getName().toString();
         switch (state)
         {
             case "Shutdown":
-                Shutdown(plat);
+                shutdown();
                 break;
             
             case "Restart":
-                Restart(plat);
+                restart();
                 break;
                 
             case "Sleep":
-                Sleep(plat);
+                sleep();
                 break;     
         }
     }
     
-    public void Shutdown(Platform plat) throws MinorException
+    public void shutdown() throws MinorException
     {
-        String shutdownCommand = new String();
+        String shutdownCommand = "";
         try{
-            if (null != plat) switch (plat) {
+            switch (getPlatform()) {
             case MAC:
-                Process p = Runtime.getRuntime().exec
-                        ("/bin/bash");
-                    String command = "osascript -e 'tell application \"System Events\"' "
-                            + " -e \"shut down\" -e 'end tell'";
-                    OutputStream stdin = p.getOutputStream();
-                    stdin.write( command.getBytes() );
-                    stdin.flush();
-                    stdin.close();
+                Runtime.getRuntime().exec("osascript -e 'tell application \"System Events\"' -e \"shut down\" -e 'end tell'");
                 break;
             case WINDOWS:
                 shutdownCommand = "shutdown.exe -s -t 0";
+                Runtime.getRuntime().exec(shutdownCommand);
                 break;
             case LINUX:
                 shutdownCommand = "shutdown -h now";
+                Runtime.getRuntime().exec(shutdownCommand);
             case UNKNOWN:
                 throw new RuntimeException("Unsupported operating system.");
             default:
                 break;
                 }
-            Runtime.getRuntime().exec(shutdownCommand);
             } catch (IOException e){
                     throw new MinorException(e.getMessage());
             }
     }
     
-    public void Sleep(Platform plat) throws MinorException
+    public void sleep() throws MinorException
     {
         try{
-            if(null == plat){
-                throw new MinorException("This action does not support " + System.getProperty("os.name"));
-            }
-            else switch (plat) {
+            switch (getPlatform()) {
                 case MAC:
-                    Process p = Runtime.getRuntime().exec
-                        ("/bin/bash");
-                    String command = "osascript -e 'tell application \"System Events\"' "
-                            + " -e \"sleep\" -e 'end tell'";
-                    OutputStream stdin = p.getOutputStream();
-                    stdin.write( command.getBytes() );
-                    stdin.flush();
-                    stdin.close();
+                    Runtime.getRuntime().exec("osascript -e 'tell application \"System Events\"' -e \"sleep\" -e 'end tell'");
                     break;
                 case WINDOWS:
                     try{
@@ -131,27 +114,18 @@ public class SystemPowerAction extends NormalAction
         }
     }
     
-    public void Restart(Platform plat) throws MinorException
+    public void restart() throws MinorException
     {
         try{
-            if(null == plat){
-                throw new MinorException("This action does not support " + System.getProperty("os.name"));
-            }
-            else switch (plat) {
-                case LINUX:
+            switch (getPlatform()) {
                 case MAC:
-                    Process p = Runtime.getRuntime().exec
-                        ("/bin/bash");
-                    String command = "osascript -e 'tell application \"System Events\"' "
-                            + " -e \"restart\" -e 'end tell'";
-                    OutputStream stdin = p.getOutputStream();
-                    stdin.write( command.getBytes() );
-                    stdin.flush();
-                    stdin.close();
+                    Runtime.getRuntime().exec("osascript -e 'tell application \"System Events\"' -e \"restart\" -e 'end tell'");
                     break;
                 case WINDOWS:
                     Runtime.getRuntime().exec("shutdown -r");
                     break;
+                case LINUX:
+                    Runtime.getRuntime().exec("shutdown -r now");
                 default:
                     throw new MinorException("This action does not support " + System.getProperty("os.name"));
             }
