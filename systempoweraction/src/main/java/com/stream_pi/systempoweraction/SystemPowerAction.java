@@ -40,8 +40,18 @@ public class SystemPowerAction extends NormalAction
         Property status = new Property("state", Type.LIST);
         status.setListValue(states);
         status.setDisplayName("Power State");
+        
+        Property customLinuxSleep = new Property("linuxsl", Type.STRING);
+        customLinuxSleep.setDisplayName("Custom Linux Sleep Command");
+        
+        Property customLinuxRestart = new Property("linuxre", Type.STRING);
+        customLinuxRestart.setDisplayName("Custom Linux Restart Command");
 
+        Property customLinuxShutdown = new Property("linuxsh", Type.STRING);
+        customLinuxShutdown.setDisplayName("Custom Linux Shutdown Command");
+        
         addClientProperties(status);
+        addServerProperties(customLinuxSleep, customLinuxRestart, customLinuxShutdown);
     }
     
     @Override
@@ -77,8 +87,16 @@ public class SystemPowerAction extends NormalAction
                 Runtime.getRuntime().exec(shutdownCommand);
                 break;
             case LINUX:
-                shutdownCommand = "shutdown -h now";
-                Runtime.getRuntime().exec(shutdownCommand);
+                String shutdown = getClientProperties().getSingleProperty("linuxsh").getStringValue();
+                if(shutdown != "")
+                {
+                    shutdownCommand = "shutdown -h now";
+                    Runtime.getRuntime().exec(shutdownCommand); 
+                }
+                else
+                {
+                    Runtime.getRuntime().exec(shutdown);
+                }
             case UNKNOWN:
                 throw new RuntimeException("Unsupported operating system.");
             default:
@@ -103,7 +121,15 @@ public class SystemPowerAction extends NormalAction
                         throw new MinorException(e.getMessage());
                     }   break;
                 case LINUX:
-                    Runtime.getRuntime().exec("systemctl suspend");
+                    String sleep = getClientProperties().getSingleProperty("linuxsl").getStringValue();
+                    if(sleep != "")
+                    {
+                        Runtime.getRuntime().exec("systemctl suspend");
+                    }
+                    else
+                    {
+                        Runtime.getRuntime().exec(sleep);
+                    }
                     break;
                 default:
                     throw new MinorException("This action does not support " + System.getProperty("os.name"));
@@ -125,7 +151,16 @@ public class SystemPowerAction extends NormalAction
                     Runtime.getRuntime().exec("shutdown -r");
                     break;
                 case LINUX:
-                    Runtime.getRuntime().exec("shutdown -r now");
+                    String restart = getClientProperties().getSingleProperty("linuxre").getStringValue();
+                    if(restart != "")
+                    {
+                        Runtime.getRuntime().exec("shutdown -r now");
+                    }
+                    else
+                    {
+                        Runtime.getRuntime().exec(restart);
+                    }
+                    break;
                 default:
                     throw new MinorException("This action does not support " + System.getProperty("os.name"));
             }
