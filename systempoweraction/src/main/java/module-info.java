@@ -1,4 +1,4 @@
-module com.stream_pi.ssystempoweraction
+module com.stream_pi.systempoweraction
 {
     requires com.stream_pi.action_api;
     requires org.kordamp.ikonli.javafx;
