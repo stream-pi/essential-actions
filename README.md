@@ -41,6 +41,6 @@ Action Name           | Build Script Argument   |
  Twitch               | `twitch-talk`           | 
  Open File            | `openfile`              | 
  Twitter              | `twitter`               | 
- Website              | `hotkey`                | 
+ Website              | `website`                | 
  Run Executable       | `runexecutable`         | 
  
