@@ -126,7 +126,7 @@ SCROLL LOCK           | <kbd>Scroll<br/>Lock</kbd>  |
 PRINT SCREEN          | <kbd>Print<br/>Screen</kbd> | 
 PAUSE                 | <kbd>Pause</kbd>        | 
 NUM LOCK              | <kbd>Num<br/>Lock</kbd>     | 
-CONTROL               | <kbd>Ctrl</kbd>      | 
+CONTROL, CTRL               | <kbd>Ctrl</kbd>      | 
 CAPS LOCK             | <kbd>Caps Lock</kbd>    | 
 NUM UP                | <kbd>8<br/>🠕</kbd>             | 
 UP                    | <kbd>🠕</kbd>           | 
