@@ -44,23 +44,38 @@ public class SystemPowerAction extends NormalAction
         Property customLinuxSleep = new Property("linuxsl", Type.STRING);
         customLinuxSleep.setDisplayName("Custom Linux Sleep Command");
         customLinuxSleep.setCanBeBlank(true);
+        customLinuxShutdown.setDefaultValueStr("systemctl suspend");
         
         Property customLinuxRestart = new Property("linuxre", Type.STRING);
         customLinuxRestart.setDisplayName("Custom Linux Restart Command");
         customLinuxRestart.setCanBeBlank(true);
+        customLinuxShutdown.setDefaultValueStr("shutdown -r now");
 
         Property customLinuxShutdown = new Property("linuxsh", Type.STRING);
         customLinuxShutdown.setDisplayName("Custom Linux Shutdown Command");
         customLinuxShutdown.setCanBeBlank(true);
+        customLinuxShutdown.setDefaultValueStr("shutdown -h now");
+        
+        Property customWindowsRestart = new Property("Windowsre", Type.STRING);
+        customWindowsRestart.setDisplayName("Custom Windows Restart Command");
+        customWindowsRestart.setCanBeBlank(true);
+
+        Property customWindowsShutdown = new Property("Windowssh", Type.STRING);
+        customWindowsShutdown.setDisplayName("Custom Windows Shutdown Command");
+        customWindowsShutdown.setCanBeBlank(true);
+
+        Property customWindowsSleep = new Property("Windowssl", Type.STRING);
+        customWindowsShutdown.setDisplayName("Custom Windows Sleep Command");
+        customWindowsShutdown.setCanBeBlank(true);
         
         addClientProperties(status);
-        addServerProperties(customLinuxSleep, customLinuxRestart, customLinuxShutdown);
+        addServerProperties(customLinuxSleep, customLinuxRestart, customLinuxShutdown, customMacOSSleep, customMacOSRestart, customMacOSShutdown, customWindowsSleep, customWindowsRestart, customWindowsShutdown);
     }
     
     @Override
     public void onActionClicked() throws MinorException
     {
-        String state = states.get(getClientProperties().getSingleProperty("state").getSelectedIndex()).getName().toString();
+        String state = states.get(getServerProperties().getSingleProperty("state").getSelectedIndex()).getName().toString();
         switch (state)
         {
             case "Shutdown":
@@ -83,22 +98,30 @@ public class SystemPowerAction extends NormalAction
         try{
             switch (getPlatform()) {
             case MAC:
-                    Process p = Runtime.getRuntime().exec
-                         ("/bin/bash");
-                     String command = "osascript -e 'tell application \"System Events\"' "
-                             + " -e \"shut down\" -e 'end tell'";
-                     OutputStream stdin = p.getOutputStream();
-                     stdin.write( command.getBytes() );
-                     stdin.flush();
-                     stdin.close();
+                Process p = Runtime.getRuntime().exec
+                ("/bin/bash");
+                String command = "osascript -e 'tell application \"System Events\"' "
+                + " -e \"shut down\" -e 'end tell'";
+                OutputStream stdin = p.getOutputStream();
+                stdin.write( command.getBytes() );
+                stdin.flush();
+                stdin.close();
                 break;
             case WINDOWS:
-                shutdownCommand = "shutdown.exe -s -t 0";
-                Runtime.getRuntime().exec(shutdownCommand);
+                String wishutdown = getServerProperties().getSingleProperty("Windowssh").getStringValue();
+                if(wishutdown != "")
+                {
+                    shutdownCommand = "shutdown.exe -s -t 0";
+                    Runtime.getRuntime().exec(shutdownCommand);
+                }
+                else
+                {
+                    Runtime.getRuntime().exec(mashutdown);
+                }
                 break;
             case LINUX:
-                String shutdown = getClientProperties().getSingleProperty("linuxsh").getStringValue();
-                if(shutdown != "")
+                String lishutdown = getServerProperties().getSingleProperty("linuxsh").getStringValue();
+                if(lishutdown != "")
                 {
                     shutdownCommand = "shutdown -h now";
                     Runtime.getRuntime().exec(shutdownCommand); 
@@ -123,22 +146,31 @@ public class SystemPowerAction extends NormalAction
             switch (getPlatform()) {
                 case MAC:
                     Process p = Runtime.getRuntime().exec
-                         ("/bin/bash");
-                     String command = "osascript -e 'tell application \"System Events\"' "
-                             + " -e \"sleep\" -e 'end tell'";
-                     OutputStream stdin = p.getOutputStream();
-                     stdin.write( command.getBytes() );
-                     stdin.flush();
-                     stdin.close();
-                    break;
+                    ("/bin/bash");
+                    String command = "osascript -e 'tell application \"System Events\"' "
+                    + " -e \"sleep\" -e 'end tell'";
+                    OutputStream stdin = p.getOutputStream();
+                    stdin.write( command.getBytes() );
+                    stdin.flush();
+                    stdin.close();
+                break;
                 case WINDOWS:
-                    try{
-                        Runtime.getRuntime().exec("Rundll32.exe powrprof.dll,SetSuspendState Sleep");
-                    } catch (IOException e){
-                        throw new MinorException(e.getMessage());
-                    }   break;
+                    String wisleep= getServerProperties().getSingleProperty("Windowssl").getStringValue();
+                    if(wisleep != "")
+                    {
+                        try{
+                            Runtime.getRuntime().exec("Rundll32.exe powrprof.dll,SetSuspendState Sleep");
+                        } catch (IOException e){
+                            throw new MinorException(e.getMessage());
+                        }
+                    }
+                    else
+                    {
+                        Runtime.getRuntime().exec(wisleep);
+                    }
+                    break;
                 case LINUX:
-                    String sleep = getClientProperties().getSingleProperty("linuxsl").getStringValue();
+                    String sleep = getServerProperties().getSingleProperty("linuxsl").getStringValue();
                     if(sleep != "")
                     {
                         Runtime.getRuntime().exec("systemctl suspend");
@@ -163,19 +195,29 @@ public class SystemPowerAction extends NormalAction
             switch (getPlatform()) {
                 case MAC:
                     Process p = Runtime.getRuntime().exec
-                         ("/bin/bash");
-                     String command = "osascript -e 'tell application \"System Events\"' "
-                             + " -e \"restart\" -e 'end tell'";
-                     OutputStream stdin = p.getOutputStream();
-                     stdin.write( command.getBytes() );
-                     stdin.flush();
-                     stdin.close();
+                    ("/bin/bash");
+                    String command = "osascript -e 'tell application \"System Events\"' "
+                    + " -e \"restart\" -e 'end tell'";
+                    OutputStream stdin = p.getOutputStream();
+                    stdin.write( command.getBytes() );
+                    stdin.flush();
+                    stdin.close();
                     break;
+
                 case WINDOWS:
-                    Runtime.getRuntime().exec("shutdown -r");
+                    String wirestart= getServerProperties().getSingleProperty("Windowsre").getStringValue();
+                    if(wirestart != "")
+                    {
+                        Runtime.getRuntime().exec("shutdown -r");
+                    }
+                    else
+                    {
+                        Runtime.getRuntime().exec(wirestart);
+                    }
                     break;
+
                 case LINUX:
-                    String restart = getClientProperties().getSingleProperty("linuxre").getStringValue();
+                    String restart = getServerProperties().getSingleProperty("linuxre").getStringValue();
                     if(restart != "")
                     {
                         Runtime.getRuntime().exec("shutdown -r now");
