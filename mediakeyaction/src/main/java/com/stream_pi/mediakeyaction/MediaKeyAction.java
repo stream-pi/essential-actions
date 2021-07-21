@@ -93,7 +93,8 @@ public class MediaKeyAction extends NormalAction
         switch (getServerConnection().getPlatform())
         {
             case LINUX:
-                linuxHandler(state);
+            case MAC:
+                linuxAndMacHandler(state);
                 break;
 
             case WINDOWS:
@@ -112,7 +113,7 @@ public class MediaKeyAction extends NormalAction
         pr.waitFor();
     }
 
-    private void linuxHandler(int state) throws MinorException
+    private void linuxAndMacHandler(int state) throws MinorException
     {
         try
         {
