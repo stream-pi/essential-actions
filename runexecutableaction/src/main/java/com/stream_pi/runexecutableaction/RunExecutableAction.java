@@ -72,8 +72,12 @@ public class RunExecutableAction extends NormalAction
             if(getServerConnection().getPlatform() == Platform.WINDOWS)
             {
                 String command = "powershell -Command \"cd '"+executableFile.getParentFile().toString()+
-                        "'; Start-Process '"+executableLocation+"' -ArgumentList '"+arguments+"' ";
+                        "'; Start-Process '"+executableLocation+"'";
 
+                if(!arguments.isBlank())
+                {
+                    command+= " -ArgumentList '"+arguments+"' ";
+                }
 
                 getLogger().info("Full command : "+ command);
 

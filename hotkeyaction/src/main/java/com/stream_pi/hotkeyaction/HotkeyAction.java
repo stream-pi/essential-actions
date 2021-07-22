@@ -23,7 +23,7 @@ public class HotkeyAction extends NormalAction
         setAuthor("rnayabed");
         setServerButtonGraphic("far-keyboard");
         setHelpLink("https://github.com/stream-pi/essentialactions/blob/master/hotkeyaction/README.md");
-        setVersion(new Version(2,0,1));
+        setVersion(new Version(2,1,0));
     }
 
     @Override
@@ -278,7 +278,9 @@ public class HotkeyAction extends NormalAction
 
             case "NUM LOCK": return NUM_LOCK;
 
-            case "CONTROL": return CONTROL;
+            case "CONTROL":
+            case "CTRL":
+                return CONTROL;
 
             case "CAPS LOCK": return CAPS;
                 
