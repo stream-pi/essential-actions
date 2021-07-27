@@ -44,12 +44,12 @@ public class SystemPowerAction extends NormalAction
         Property customLinuxSleep = new Property("linuxsl", Type.STRING);
         customLinuxSleep.setDisplayName("Custom Linux Sleep Command");
         customLinuxSleep.setCanBeBlank(true);
-        customLinuxShutdown.setDefaultValueStr("systemctl suspend");
+        customLinuxSleep.setDefaultValueStr("systemctl suspend");
         
         Property customLinuxRestart = new Property("linuxre", Type.STRING);
         customLinuxRestart.setDisplayName("Custom Linux Restart Command");
         customLinuxRestart.setCanBeBlank(true);
-        customLinuxShutdown.setDefaultValueStr("shutdown -r now");
+        customLinuxRestart.setDefaultValueStr("shutdown -r now");
 
         Property customLinuxShutdown = new Property("linuxsh", Type.STRING);
         customLinuxShutdown.setDisplayName("Custom Linux Shutdown Command");
@@ -69,7 +69,7 @@ public class SystemPowerAction extends NormalAction
         customWindowsShutdown.setCanBeBlank(true);
         
         addClientProperties(status);
-        addServerProperties(customLinuxSleep, customLinuxRestart, customLinuxShutdown, customMacOSSleep, customMacOSRestart, customMacOSShutdown, customWindowsSleep, customWindowsRestart, customWindowsShutdown);
+        addServerProperties(customLinuxSleep, customLinuxRestart, customLinuxShutdown,customWindowsSleep, customWindowsRestart, customWindowsShutdown);
     }
     
     @Override
@@ -116,7 +116,7 @@ public class SystemPowerAction extends NormalAction
                 }
                 else
                 {
-                    Runtime.getRuntime().exec(mashutdown);
+                    Runtime.getRuntime().exec(wishutdown);
                 }
                 break;
             case LINUX:
@@ -128,7 +128,7 @@ public class SystemPowerAction extends NormalAction
                 }
                 else
                 {
-                    Runtime.getRuntime().exec(shutdown);
+                    Runtime.getRuntime().exec(lishutdown);
                 }
             case UNKNOWN:
                 throw new RuntimeException("Unsupported operating system.");
