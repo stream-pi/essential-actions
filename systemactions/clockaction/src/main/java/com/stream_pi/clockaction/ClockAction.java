@@ -37,7 +37,7 @@ public class ClockAction extends NormalAction
                 str = Calendar.getInstance().getTime().toString().split(" ");
                 this.setDisplayText(str[3]);
                 this.saveClientAction();
-                TimeUnit.SECONDS.sleep(1);
+                TimeUnit.SECONDS.sleep(60);
             }
             } catch (Exception ex){
                 throw new MinorException(ex.getMessage());
