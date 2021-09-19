@@ -129,60 +129,49 @@ if "%quit%" == "true" (EXIT /B 0)
 
 :twitch
 pushd %CD%
-cd twitch\twitch-chat-connect
-CALL mvn clean install -Dmaven.test.skip package
+cd twitch-chat-action
+CALL mvn clean -Dmaven.test.skip package
+
+cd twitch-chat-connect
 move target\twitch-chat-connect-*.jar ..\..\%FOLD%\twitch-chat-connect.jar
 
 cd ..\send-channel-msg
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-send-channel-msg-*.jar ..\..\%FOLD%\twitch-send-channel-msg.jar
 
 cd ..\clear-chat
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-clear-chat-*.jar ..\..\%FOLD%\twitch-clear-chat.jar
 
 cd ..\set-color
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-set-color-*.jar ..\..\%FOLD%\twitch-set-color.jar
 
 cd ..\whisper
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-whisper-*.jar ..\..\%FOLD%\twitch-whisper.jar
 
 cd ..\unraid
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-unraid-*.jar ..\..\%FOLD%\twitch-unraid.jar
 
 cd ..\unhost
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-unhost-*.jar ..\..\%FOLD%\twitch-unhost.jar
 
 cd ..\add-stream-marker
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-add-stream-marker-*.jar ..\..\%FOLD%\twitch-add-stream-marker.jar
 
 cd ..\host-channel
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-host-channel-*.jar ..\..\%FOLD%\twitch-host-channel.jar
 
 cd ..\raid-channel
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-raid-channel-*.jar ..\..\%FOLD%\twitch-raid-channel.jar
 
 cd ..\start-commercial
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-start-commercial-*.jar ..\..\%FOLD%\twitch-start-commercial.jar
 
 cd ..\subs-only
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-subs-only-*.jar ..\..\%FOLD%\twitch-subs-only.jar
 
 cd ..\slow-mode
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-slow-mode-*.jar ..\..\%FOLD%\twitch-slow-mode.jar
 
 cd ..\emote-only
-CALL mvn clean -Dmaven.test.skip package
 move target\twitch-emote-only-*.jar ..\..\%FOLD%\twitch-emote-only.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)

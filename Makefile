@@ -19,7 +19,7 @@ runcommand:
 textblock:
 	./build.sh textblockaction
 
-twitch-talk:
+twitch-chat:
 	./build.sh twitch
 
 twitter:

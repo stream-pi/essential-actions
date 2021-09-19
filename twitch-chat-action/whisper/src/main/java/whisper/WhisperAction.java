@@ -62,7 +62,7 @@ public class WhisperAction extends NormalAction
             throw new MinorException(
                     "Failed to send message to user",
                     String.format("Could not send message '%s' to user '%s', please try again.",
-                            username, message)
+                            message, username)
             );
         }
     }

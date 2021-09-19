@@ -13,7 +13,7 @@ Set of trusted, essential actions and integrations for Stream-Pi using the [Stre
 - [Media Keys](mediakeyaction/README.md)
 - [OBS](obssuite/README.md)
 - [Run Command](runcommandaction/README.md)
-- [Twitch Chat](twitch/README.md)
+- [Twitch Chat](twitch-chat/README.md)
 
 ## Quick Start
 
@@ -38,9 +38,9 @@ Action Name           | Build Script Argument   |
  OBS Suite            | `obs-suite`             |
  Run Command          | `runcommand`            |
  Text Block           | `textblock`             | 
- Twitch               | `twitch-talk`           | 
+ Twitch               | `twitch_chat`           | 
  Open File            | `openfile`              | 
  Twitter              | `twitter`               | 
- Website              | `website`                | 
+ Website              | `website`               | 
  Run Executable       | `runexecutable`         | 
  
