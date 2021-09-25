@@ -87,49 +87,51 @@ textblockaction() {
 
 twitch() {
   pushd . || exit
-  cd twitch/twitch-chat-connect && mvn clean install -Dmaven.test.skip package
+  cd twitch-chat-action && mvn clean -Dmaven.test.skip package
+
+  cd twitch-chat-connect || exit
   mv target/twitch-chat-connect-*.jar ../../$FOLD/twitch-chat-connect.jar
 
-  cd ../send-channel-msg && mvn clean -Dmaven.test.skip package
+  cd ../send-channel-msg || exit
   mv target/twitch-send-channel-msg-*.jar ../../$FOLD/twitch-send-channel-msg.jar
 
-  cd ../clear-chat && mvn clean -Dmaven.test.skip package
+  cd ../clear-chat || exit
   mv target/twitch-clear-chat-*.jar ../../$FOLD/twitch-clear-chat.jar
 
-  cd ../set-color && mvn clean -Dmaven.test.skip package
+  cd ../set-color || exit
   mv target/twitch-set-color-*.jar ../../$FOLD/twitch-set-color.jar
 
-  cd ../whisper && mvn clean -Dmaven.test.skip package
+  cd ../whisper || exit
   mv target/twitch-whisper-*.jar ../../$FOLD/twitch-whisper.jar
 
-  cd ../unraid && mvn clean -Dmaven.test.skip package
+  cd ../unraid || exit
   mv target/twitch-unraid-*.jar ../../$FOLD/twitch-unraid.jar
 
-  cd ../unhost && mvn clean -Dmaven.test.skip package
+  cd ../unhost || exit
   mv target/twitch-unhost-*.jar ../../$FOLD/twitch-unhost.jar
 
-  cd ../add-stream-marker && mvn clean -Dmaven.test.skip package
+  cd ../add-stream-marker || exit
   mv target/twitch-add-stream-marker-*.jar ../../$FOLD/twitch-add-stream-marker.jar
 
-  cd ../host-channel && mvn clean -Dmaven.test.skip package
+  cd ../host-channel || exit
   mv target/twitch-host-channel-*.jar ../../$FOLD/twitch-host-channel.jar
 
-  cd ../raid-channel && mvn clean -Dmaven.test.skip package
+  cd ../raid-channel || exit
   mv target/twitch-raid-channel-*.jar ../../$FOLD/twitch-raid-channel.jar
 
-  cd ../start-commercial && mvn clean -Dmaven.test.skip package
+  cd ../start-commercial || exit
   mv target/twitch-start-commercial-*.jar ../../$FOLD/twitch-start-commercial.jar
 
-  cd ../subs-only && mvn clean -Dmaven.test.skip package
+  cd ../subs-only || exit
   mv target/twitch-subs-only-*.jar ../../$FOLD/twitch-subs-only.jar
 
-  cd ../slow-mode && mvn clean -Dmaven.test.skip package
+  cd ../slow-mode || exit
   mv target/twitch-slow-mode-*.jar ../../$FOLD/twitch-slow-mode.jar
 
-  cd ../emote-only && mvn clean -Dmaven.test.skip package
+  cd ../emote-only || exit
   mv target/twitch-emote-only-*.jar ../../$FOLD/twitch-emote-only.jar
 
-  cd ../followers-only && mvn clean -Dmaven.test.skip package
+  cd ../followers-only || exit
   mv target/twitch-followers-only-*.jar ../../$FOLD/twitch-followers-only.jar
 
   popd || exit
