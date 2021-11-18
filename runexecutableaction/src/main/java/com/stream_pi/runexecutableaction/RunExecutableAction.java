@@ -39,7 +39,7 @@ public class RunExecutableAction extends NormalAction
 
         addClientProperties(executablePathProperty, argumentsProperty);
 
-        if(getServerConnection().getPlatform() == Platform.WINDOWS)
+        if(getPlatform() == Platform.WINDOWS)
         {
             BooleanProperty runAsAdminProperty = new BooleanProperty("run_as_admin");
             runAsAdminProperty.setDisplayName("Run as Administrator");
@@ -69,7 +69,7 @@ public class RunExecutableAction extends NormalAction
         try
         {
 
-            if(getServerConnection().getPlatform() == Platform.WINDOWS)
+            if(getPlatform() == Platform.WINDOWS)
             {
                 String command = "powershell -Command \"cd '"+executableFile.getParentFile().toString()+
                         "'; Start-Process '"+executableLocation+"'";

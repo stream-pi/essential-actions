@@ -5,6 +5,7 @@ import com.stream_pi.action_api.actionproperty.property.Property;
 import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.alert.StreamPiAlert;
+import com.stream_pi.util.alert.StreamPiAlertButton;
 import com.stream_pi.util.alert.StreamPiAlertListener;
 import com.stream_pi.util.alert.StreamPiAlertType;
 import com.stream_pi.util.exception.MinorException;
@@ -158,8 +159,8 @@ public class TwitterAction extends NormalAction
     public void getAuthToken() throws Exception {
         RequestToken requestToken = tf.getInstance().getOAuthRequestToken();
 
-        String cancel = "Cancel";
-        String login = "Log In";
+        StreamPiAlertButton cancel = new StreamPiAlertButton("Cancel");
+        StreamPiAlertButton login = new StreamPiAlertButton("Log In");
 
 
 
@@ -185,42 +186,38 @@ public class TwitterAction extends NormalAction
 
                 alert.show();
 
-                alert.setOnClicked(new StreamPiAlertListener(){
-
+                alert.setOnClicked(new StreamPiAlertListener()
+                {
                     @Override
-                    public void onClick(String buttonClicked) {
-                        // TODO Auto-generated method stub
-
+                    public void onClick(StreamPiAlertButton buttonClicked)
+                    {
                         try
                         {
                             if(buttonClicked.equals(login))
-                        {
-                            AccessToken accessToken = tf.getInstance().getOAuthAccessToken(requestToken, pinTextField.getText());
+                            {
+                                AccessToken accessToken = tf.getInstance().getOAuthAccessToken(requestToken, pinTextField.getText());
 
-                            getServerProperties().getSingleProperty("access_token").setStringValue(accessToken.getToken());
-                            getServerProperties().getSingleProperty("access_token_secret").setStringValue(accessToken.getTokenSecret());
+                                getServerProperties().getSingleProperty("access_token").setStringValue(accessToken.getToken());
+                                getServerProperties().getSingleProperty("access_token_secret").setStringValue(accessToken.getTokenSecret());
         
-                            saveServerProperties();
+                                saveServerProperties();
         
-                            initAction();
+                                initAction();
 
-                            new StreamPiAlert("Success", "Login Successful!", StreamPiAlertType.INFORMATION).show();
-                        }
-                        else
-                        {
-                            initAction();
-                        }
+                                new StreamPiAlert("Success", "Login Successful!", StreamPiAlertType.INFORMATION).show();
+                            }
+                            else
+                            {
+                                initAction();
+                            }
                         }
                         catch (Exception e)
                         {
                             new StreamPiAlert(e.getMessage(), StreamPiAlertType.ERROR).show();
                             e.printStackTrace();
                         }
-
                     }
-                    
                 });
-
             }
             catch (Exception e)
             {
