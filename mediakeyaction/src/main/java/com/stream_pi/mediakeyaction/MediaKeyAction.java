@@ -49,7 +49,7 @@ public class MediaKeyAction extends NormalAction
     {
         try
         {
-            if (getServerConnection().getPlatform() == Platform.WINDOWS)
+            if (getPlatform() == Platform.WINDOWS)
             {
                 extractKeyEXEToTmpDirectory();
             }
@@ -90,7 +90,7 @@ public class MediaKeyAction extends NormalAction
     {
         int state = getClientProperties().getSingleProperty("media_key_type").getSelectedIndex();
 
-        switch (getServerConnection().getPlatform())
+        switch (getPlatform())
         {
             case LINUX:
             case MAC:
