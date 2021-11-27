@@ -19,46 +19,48 @@ mediakeyaction() {
 
 obssuite() {
   pushd . || exit
-  cd obssuite/mother && mvn clean install -Dmaven.test.skip package
+  cd obssuite && mvn clean -Dmaven.test.skip package
+
+  cd mother || exit
   mv target/obssuite_motheraction-*.jar ../../$FOLD/obssuite_motheraction.jar
 
-  cd ../setcurrentprofile && mvn clean -Dmaven.test.skip package
+  cd ../setcurrentprofile || exit
   mv target/obssuite_setcurrentprofileaction-*.jar ../../$FOLD/obssuite_setcurrentprofileaction.jar
 
-  cd ../setcurrentscene && mvn clean -Dmaven.test.skip package
+  cd ../setcurrentscene || exit
   mv target/obssuite_setcurrentsceneaction-*.jar ../../$FOLD/obssuite_setcurrentsceneaction.jar
 
-  cd ../setcurrenttransition && mvn clean -Dmaven.test.skip package
+  cd ../setcurrenttransition || exit
   mv target/obssuite_setcurrenttransitionaction-*.jar ../../$FOLD/obssuite_setcurrenttransitionaction.jar
 
-  cd ../togglemute && mvn clean -Dmaven.test.skip package
+  cd ../togglemute || exit
   mv target/obssuite_togglemuteaction-*.jar ../../$FOLD/obssuite_togglemuteaction.jar
 
-  cd ../setcurrentprofile && mvn clean -Dmaven.test.skip package
+  cd ../setcurrentprofile || exit
   mv target/obssuite_setcurrentprofileaction-*.jar ../../$FOLD/obssuite_setcurrentprofileaction.jar
 
-  cd ../setpreviewscene && mvn clean -Dmaven.test.skip package
+  cd ../setpreviewscene || exit
   mv target/obssuite_setpreviewsceneaction-*.jar ../../$FOLD/obssuite_setpreviewsceneaction.jar
 
-  cd ../togglerecording && mvn clean -Dmaven.test.skip package
+  cd ../togglerecording || exit
   mv target/obssuite_togglerecordingaction-*.jar ../../$FOLD/obssuite_togglerecordingaction.jar
 
-  cd ../setreplaybuffer && mvn clean -Dmaven.test.skip package
+  cd ../setreplaybuffer || exit
   mv target/obssuite_setreplaybufferaction-*.jar ../../$FOLD/obssuite_setreplaybufferaction.jar
 
-  cd ../togglestreaming && mvn clean -Dmaven.test.skip package
+  cd ../togglestreaming || exit
   mv target/obssuite_togglestreamingaction-*.jar ../../$FOLD/obssuite_togglestreamingaction.jar
 
-  cd ../togglestudiomode && mvn clean -Dmaven.test.skip package
+  cd ../togglestudiomode || exit
   mv target/obssuite_togglestudiomodeaction-*.jar ../../$FOLD/obssuite_togglestudiomodeaction.jar
 
-  cd ../setvolume && mvn clean -Dmaven.test.skip package
+  cd ../setvolume || exit
   mv target/obssuite_setvolumeaction-*.jar ../../$FOLD/obssuite_setvolumeaction.jar
 
-  cd ../togglesourcevisibility && mvn clean -Dmaven.test.skip package
+  cd ../togglesourcevisibility || exit
   mv target/obssuite_togglesourcevisibility-*.jar ../../$FOLD/obssuite_togglesourcevisibility.jar
 
-  cd ../togglesourcefiltervisibility && mvn clean -Dmaven.test.skip package
+  cd ../togglesourcefiltervisibility || exit
   mv target/obssuite_togglesourcefiltervisibility-*.jar ../../$FOLD/obssuite_togglesourcefiltervisibility.jar
 
   popd || exit

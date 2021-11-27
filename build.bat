@@ -45,60 +45,49 @@ if "%quit%" == "true" (EXIT /B 0)
 
 :obssuite
 pushd %CD%
-cd obssuite\mother
-CALL mvn clean install -Dmaven.test.skip package
+cd obssuite\
+CALL mvn clean -Dmaven.test.skip package
+
+cd mother
 move target\obssuite_motheraction-*.jar ..\..\%FOLD%\obssuite_motheraction.jar
 
 cd ..\setcurrentprofile
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setcurrentprofileaction-*.jar ..\..\%FOLD%\obssuite_setcurrentprofileaction.jar
 
 cd ..\setcurrentscene
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setcurrentsceneaction-*.jar ..\..\%FOLD%\obssuite_setcurrentsceneaction.jar
 
 cd ..\setcurrenttransition
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setcurrenttransitionaction-*.jar ..\..\%FOLD%\obssuite_setcurrenttransitionaction.jar
 
 cd ..\togglemute
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_togglemuteaction-*.jar ..\..\%FOLD%\obssuite_togglemuteaction.jar
 
 cd ..\setcurrentprofile
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setcurrentprofileaction-*.jar ..\..\%FOLD%\obssuite_setcurrentprofileaction.jar
 
 cd ..\setpreviewscene
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setpreviewsceneaction-*.jar ..\..\%FOLD%\obssuite_setpreviewsceneaction.jar
 
 cd ..\togglerecording
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_togglerecordingaction-*.jar ..\..\%FOLD%\obssuite_togglerecordingaction.jar
 
 cd ..\setreplaybuffer
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setreplaybufferaction-*.jar ..\..\%FOLD%\obssuite_setreplaybufferaction.jar
 
 cd ..\togglestreaming
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_togglestreamingaction-*.jar ..\..\%FOLD%\obssuite_togglestreamingaction.jar
 
 cd ..\togglestudiomode
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_togglestudiomodeaction-*.jar ..\..\%FOLD%\obssuite_togglestudiomodeaction.jar
 
 cd ..\togglesourcevisibility
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_togglesourcevisibility-*.jar ..\..\%FOLD%\obssuite_togglesourcevisibility.jar
 
 cd ..\togglesourcefiltervisibility
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_togglesourcefiltervisibility-*.jar ..\..\%FOLD%\obssuite_togglesourcefiltervisibility.jar
 
 cd ..\setvolume
-CALL mvn clean -Dmaven.test.skip package
 move target\obssuite_setvolumeaction-*.jar ..\..\%FOLD%\obssuite_setvolumeaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)

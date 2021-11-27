@@ -13,7 +13,7 @@ Set of trusted, essential actions and integrations for Stream-Pi using the [Stre
 - [Media Keys](mediakeyaction/README.md)
 - [OBS](obssuite/README.md)
 - [Run Command](runcommandaction/README.md)
-- [Twitch Chat](twitch-chat/README.md)
+- [Twitch Chat](twitch-chat-action/README.md)
 
 ## Quick Start
 

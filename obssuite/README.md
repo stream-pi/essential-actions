@@ -2,8 +2,6 @@
 
 ![version](https://img.shields.io/badge/Version-2.0.1-green)
 
-Written by : [Debayan Sutradhar (rnayabed)](https://github.com/rnayabed)
-
 ## Prerequisites 
 
 * [OBS Studio](https://obsproject.com/)

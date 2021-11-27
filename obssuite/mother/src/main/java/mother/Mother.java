@@ -17,7 +17,7 @@ public class Mother extends NormalAction
         setCategory("OBS");
         setVisibilityInPluginsPane(false);
         setAuthor("rnayabed");
-        setHelpLink("https://github.com/Stream-Pi/EssentialActions");
+        setHelpLink("https://github.com/stream-pi/essential-actions/blob/master/obssuite/README.md");
         setVersion(MotherConnection.VERSION);
 
         connectDisconnectButton = new Button("Connect");
