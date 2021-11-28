@@ -46,7 +46,27 @@ public class WebsiteAction extends NormalAction
 
         try
         {
-            Desktop.getDesktop().browse(new URI(urlToOpen));
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE))
+            {
+                Desktop.getDesktop().browse(new URI(urlToOpen));
+            }
+            else
+            {
+                Runtime runtime = Runtime.getRuntime();
+                String osName = System.getProperty("os.name").toLowerCase();
+                if (osName.contains("mac"))
+                {
+                    runtime.exec("open " + urlToOpen);
+                }
+                else if (osName.contains("nix") || osName.contains("nux"))
+                {
+                    runtime.exec("xdg-open " + urlToOpen);
+                }
+                else
+                {
+                    throw new MinorException("Unable to open URL '"+urlToOpen+"'. Check if its correct.");
+                }
+            }
         }
         catch (Exception e)
         {
