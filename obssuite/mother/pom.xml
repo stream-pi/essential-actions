@@ -40,8 +40,8 @@
         <ActionAPIVersion>1.0.0-SNAPSHOT</ActionAPIVersion>
         <OBSWebsocketJavaVersion>1.2.0</OBSWebsocketJavaVersion>
 
-        <JettyWebsocketClientVersion>9.4.39.v20210325</JettyWebsocketClientVersion>
-        <GsonVersion>2.8.6</GsonVersion>
+        <JettyWebsocketClientVersion>9.4.44.v20210927</JettyWebsocketClientVersion>
+        <GsonVersion>2.8.9</GsonVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
