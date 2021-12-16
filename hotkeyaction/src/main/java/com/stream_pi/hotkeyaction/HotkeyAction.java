@@ -1,7 +1,7 @@
 package com.stream_pi.hotkeyaction;
 
-import com.stream_pi.action_api.actionproperty.property.Property;
-import com.stream_pi.action_api.actionproperty.property.Type;
+import com.stream_pi.action_api.actionproperty.property.IntegerProperty;
+import com.stream_pi.action_api.actionproperty.property.StringProperty;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
@@ -23,79 +23,75 @@ public class HotkeyAction extends NormalAction
         setAuthor("rnayabed");
         setServerButtonGraphic("far-keyboard");
         setHelpLink("https://github.com/stream-pi/essentialactions/blob/master/hotkeyaction/README.md");
-        setVersion(new Version(2,1,0));
+        setVersion(new Version(3,0,0));
     }
 
     @Override
     public void initProperties() throws MinorException
     {
-        Property keyCombination = new Property("key_comb", Type.STRING);
-        keyCombination.setDisplayName("Key combination (Separate using comma)");
+        StringProperty keyCombinationProperty = new StringProperty("key_comb");
+        keyCombinationProperty.setDisplayName("Key combination (Separate using comma)");
 
-        addClientProperties(keyCombination);
+        IntegerProperty keyDelayProperty = new IntegerProperty("key_delay");
+        keyDelayProperty.setDefaultValue(50);
+        keyDelayProperty.setDisplayName("Key press delay (Millisecond)");
+
+        addClientProperties(keyCombinationProperty, keyDelayProperty);
     }
 
-
-    private Robot robot;
+    private static Robot robot = null;
 
     @Override
     public void initAction()
     {
-        Platform.runLater(()->robot = new Robot());
+        if (robot == null)
+        {
+            Platform.runLater(()->robot = new Robot());
+        }
     }
 
     @Override
     public void onActionClicked() throws MinorException
     {
-        Property keyCombination = getClientProperties().getSingleProperty("key_comb");
+        String keyCombination = getClientProperties().getSingleProperty("key_comb").getStringValue();
+        int keyDelay = getClientProperties().getSingleProperty("key_delay").getIntValue();
 
-        if(keyCombination.getStringValue().isBlank())
+
+        if(keyCombination.isBlank())
         {
             throw new MinorException("No key specified");
         }
 
-        try
-        {
-            press(keyCombination.getStringValue()
-                    .toUpperCase()
-                    .replace("?","SHIFT,/")
-                    .replace("|","SHIFT,\\")
-                    .split(",")
-            );
-        }
-        catch (InterruptedException e)
-        {
-            e.printStackTrace();
-            throw new MinorException("Interrupted while press called. \n"+e.getMessage());
-        }
-    }
-
-    public void press(String[] characters) throws InterruptedException
-    {
+        String[] chars = keyCombination
+                .toUpperCase()
+                .replace("?","SHIFT,/")
+                .replace("|","SHIFT,\\")
+                .split(",");
 
         ArrayList<KeyCode> pressedChars = new ArrayList<>();
 
-        try{
-            for (String s : characters) {
-                KeyCode vkValue = getKeyCodeValue(s.trim());
-                press(vkValue);
-                Thread.sleep(50);
-                pressedChars.add(vkValue);
-            }
-        }
-        finally
-        {
-            releaseCharacters(pressedChars);
-        }
-    }
+        Platform.runLater(()->{
+            try
+            {
+                for (String s : chars)
+                {
+                    KeyCode vkValue = getKeyCodeValue(s.trim());
+                    robot.keyPress(vkValue);
+                    Thread.sleep(keyDelay);
+                    pressedChars.add(vkValue);
+                }
 
-    private void releaseCharacters(ArrayList<KeyCode> chars) throws InterruptedException
-    {
-        for(KeyCode c : chars)
-        {
-            release(c);
-            Thread.sleep(50);
-        }
+                for(KeyCode c : pressedChars)
+                {
+                    robot.keyRelease(c);
+                }
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+                throwMinorException("Interrupted while press called. \n"+e.getMessage());
+            }
+        });
     }
 
     public KeyCode getKeyCodeValue(String character) throws IllegalArgumentException
@@ -305,17 +301,6 @@ public class HotkeyAction extends NormalAction
             default:
                 throw new IllegalArgumentException("Cannot press character " + character);
         }
-    }
-
-    
-    private void press(KeyCode keyCode)
-    {
-        Platform.runLater(()->robot.keyPress(keyCode));
-    }
-
-    private void release(KeyCode keyCode)
-    {
-        Platform.runLater(()->robot.keyRelease(keyCode));
     }
 }
 

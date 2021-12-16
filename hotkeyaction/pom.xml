@@ -6,7 +6,7 @@
 
     <groupId>com.stream-pi</groupId>
     <artifactId>hotkeyaction</artifactId>
-    <version>2.1.0</version>
+    <version>3.0.0</version>
 
     <build>
         <plugins>
