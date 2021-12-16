@@ -5,9 +5,9 @@ import com.stream_pi.action_api.actionproperty.property.Type;
 import com.stream_pi.action_api.externalplugin.NormalAction;
 import com.stream_pi.util.exception.MinorException;
 import com.stream_pi.util.version.Version;
-import static java.awt.event.KeyEvent.*;
-
-import java.awt.*;
+import javafx.application.Platform;
+import javafx.scene.input.KeyCode;
+import javafx.scene.robot.Robot;
 
 public class TextBlockAction extends NormalAction
 {
@@ -18,7 +18,7 @@ public class TextBlockAction extends NormalAction
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-keyboard");
         setHelpLink("https://github.com/stream-pi/essentialactions");
-        setVersion(new Version(1,0,1));
+        setVersion(new Version(2,0,0));
     }
 
     @Override
@@ -32,48 +32,43 @@ public class TextBlockAction extends NormalAction
         addClientProperties(textBlockProperty);
     }
 
-
-    private Robot robot;
+    private static Robot robot;
 
     @Override
-    public void initAction() throws MinorException
+    public void initAction()
     {
-        try
+        if (robot == null)
         {
-            robot = new Robot();
-        }
-        catch (AWTException e)
-        {
-            e.printStackTrace();
-            throw new MinorException("Unable to start AWT Robot");
+            Platform.runLater(()->robot = new Robot());
         }
     }
 
     @Override
     public void onActionClicked() throws MinorException
     {
-        Property textBlockProperty = getClientProperties().getSingleProperty("text_block");
+        String textBlock = getClientProperties().getSingleProperty("text_block").getStringValue();
 
-        type(textBlockProperty.getStringValue());
-    }
-
-    public void type(String toType)
-    {
-        release(VK_CAPS_LOCK);
-        release(VK_SHIFT);
-
-        for (int i = 0;i<toType.length();i ++)
+        System.out.println(textBlock);
+        Platform.runLater(()->
         {
-            char c = toType.charAt(i);
-        
-            pressAndReleaseKey(c);
-        }
 
-        if(isShiftOn)
-        {
-            isShiftOn = false;
-            release(VK_SHIFT);
-        }
+            robot.keyRelease(KeyCode.CAPS);
+            robot.keyRelease(KeyCode.SHIFT);
+
+            for (int i = 0;i<textBlock.length();i ++)
+            {
+                char c = textBlock.charAt(i);
+
+                pressAndReleaseKey(c);
+            }
+
+            if(isShiftOn)
+            {
+                isShiftOn = false;
+                robot.keyRelease(KeyCode.SHIFT);
+            }
+        });
+
     }
 
     private boolean isShiftOn = false;
@@ -84,7 +79,7 @@ public class TextBlockAction extends NormalAction
             if(!isShiftOn)
             {
                 isShiftOn = true;
-                press(VK_SHIFT);
+                robot.keyPress(KeyCode.SHIFT);
             }
         }
         else
@@ -92,113 +87,104 @@ public class TextBlockAction extends NormalAction
             if(isShiftOn)
             {
                 isShiftOn = false;
-                release(VK_SHIFT);
+                robot.keyRelease(KeyCode.SHIFT);
             }
         }
 
 
-        switch (Character.toLowerCase(c)) {
-            case 'a': pressAndRelease(VK_A); break;
-            case 'b': pressAndRelease(VK_B); break; 
-            case 'c': pressAndRelease(VK_C); break; 
-            case 'd': pressAndRelease(VK_D); break; 
-            case 'e': pressAndRelease(VK_E); break;  
-            case 'f': pressAndRelease(VK_F); break; 
-            case 'g': pressAndRelease(VK_G); break; 
-            case 'h': pressAndRelease(VK_H); break; 
-            case 'i': pressAndRelease(VK_I); break; 
-            case 'j': pressAndRelease(VK_J); break; 
-            case 'k': pressAndRelease(VK_K); break; 
-            case 'l': pressAndRelease(VK_L); break;  
-            case 'm': pressAndRelease(VK_M); break; 
-            case 'n': pressAndRelease(VK_N); break; 
-            case 'o': pressAndRelease(VK_O); break; 
-            case 'p': pressAndRelease(VK_P); break; 
-            case 'q': pressAndRelease(VK_Q); break; 
-            case 'r': pressAndRelease(VK_R); break; 
-            case 's': pressAndRelease(VK_S); break; 
-            case 't': pressAndRelease(VK_T); break;  
-            case 'u': pressAndRelease(VK_U); break;  
-            case 'v': pressAndRelease(VK_V); break;  
-            case 'w': pressAndRelease(VK_W); break; 
-            case 'x': pressAndRelease(VK_X); break; 
-            case 'y': pressAndRelease(VK_Y); break; 
-            case 'z': pressAndRelease(VK_Z); break; 
-            case '0': pressAndRelease(VK_0); break; 
-            case '1': pressAndRelease(VK_1); break; 
-            case '2': pressAndRelease(VK_2); break;  
-            case '3': pressAndRelease(VK_3); break; 
-            case '4': pressAndRelease(VK_4); break; 
-            case '5': pressAndRelease(VK_5); break; 
-            case '6': pressAndRelease(VK_6); break; 
-            case '7': pressAndRelease(VK_7); break;  
-            case '8': pressAndRelease(VK_8); break; 
-            case '9': pressAndRelease(VK_9); break;  
-            case '-': pressAndRelease(VK_MINUS); break; 
-          
-            case '=': pressAndRelease(VK_EQUALS); break;  
-            case '`': pressAndRelease(VK_BACK_QUOTE); break;  
-          
-            case '[': pressAndRelease(VK_OPEN_BRACKET); break; 
-            case ']': pressAndRelease(VK_CLOSE_BRACKET); break; 
-            case '\\': pressAndRelease(VK_BACK_SLASH); break; 
-            case '{': pressAndRelease(VK_BRACELEFT); break; 
-            case '}': pressAndRelease(VK_BRACERIGHT); break; 
-            case '/': pressAndRelease(VK_SLASH); break; 
-            case ':': pressAndRelease(VK_SHIFT, VK_SEMICOLON); break; 
-            case ';': pressAndRelease(VK_SEMICOLON); break; 
-            case '\'': pressAndRelease(VK_QUOTE); break; 
-            case ',': pressAndRelease(VK_COMMA); break;  
-            case '<': pressAndRelease(VK_SHIFT, VK_COMMA); break;  
-            case '>': pressAndRelease(VK_SHIFT, VK_PERIOD); break;
-            case '.': pressAndRelease(VK_PERIOD); break; 
-            case ' ': pressAndRelease(VK_SPACE); break; 
+        switch (Character.toLowerCase(c))
+        {
+            case 'a': pressAndRelease(KeyCode.A); break;
+            case 'b': pressAndRelease(KeyCode.B); break;
+            case 'c': pressAndRelease(KeyCode.C); break;
+            case 'd': pressAndRelease(KeyCode.D); break;
+            case 'e': pressAndRelease(KeyCode.E); break;
+            case 'f': pressAndRelease(KeyCode.F); break;
+            case 'g': pressAndRelease(KeyCode.G); break;
+            case 'h': pressAndRelease(KeyCode.H); break;
+            case 'i': pressAndRelease(KeyCode.I); break;
+            case 'j': pressAndRelease(KeyCode.J); break;
+            case 'k': pressAndRelease(KeyCode.K); break;
+            case 'l': pressAndRelease(KeyCode.L); break;
+            case 'm': pressAndRelease(KeyCode.M); break;
+            case 'n': pressAndRelease(KeyCode.N); break;
+            case 'o': pressAndRelease(KeyCode.O); break;
+            case 'p': pressAndRelease(KeyCode.P); break;
+            case 'q': pressAndRelease(KeyCode.Q); break;
+            case 'r': pressAndRelease(KeyCode.R); break;
+            case 's': pressAndRelease(KeyCode.S); break;
+            case 't': pressAndRelease(KeyCode.T); break;
+            case 'u': pressAndRelease(KeyCode.U); break;
+            case 'v': pressAndRelease(KeyCode.V); break;
+            case 'w': pressAndRelease(KeyCode.W); break;
+            case 'x': pressAndRelease(KeyCode.X); break;
+            case 'y': pressAndRelease(KeyCode.Y); break;
+            case 'z': pressAndRelease(KeyCode.Z); break;
+            case '0': pressAndRelease(KeyCode.DIGIT0); break;
+            case '1': pressAndRelease(KeyCode.DIGIT1); break;
+            case '2': pressAndRelease(KeyCode.DIGIT2); break;
+            case '3': pressAndRelease(KeyCode.DIGIT3); break;
+            case '4': pressAndRelease(KeyCode.DIGIT4); break;
+            case '5': pressAndRelease(KeyCode.DIGIT5); break;
+            case '6': pressAndRelease(KeyCode.DIGIT6); break;
+            case '7': pressAndRelease(KeyCode.DIGIT7); break;
+            case '8': pressAndRelease(KeyCode.DIGIT8); break;
+            case '9': pressAndRelease(KeyCode.DIGIT9); break;
+            case '-': pressAndRelease(KeyCode.MINUS); break;
+
+            case '=': pressAndRelease(KeyCode.EQUALS); break;
+            case '`': pressAndRelease(KeyCode.BACK_QUOTE); break;
+
+            case '[': pressAndRelease(KeyCode.OPEN_BRACKET); break;
+            case ']': pressAndRelease(KeyCode.CLOSE_BRACKET); break;
+            case '\\': pressAndRelease(KeyCode.BACK_SLASH); break;
+
+            case '/': pressAndRelease(KeyCode.SLASH); break;
+            case ';': pressAndRelease(KeyCode.SEMICOLON); break;
+            case '\'': pressAndRelease(KeyCode.BACK_SLASH); break;
+            case ',': pressAndRelease(KeyCode.COMMA); break;
+            case '<': pressAndRelease(KeyCode.LESS); break;
+            case '>': pressAndRelease(KeyCode.GREATER); break;
+            case '.': pressAndRelease(KeyCode.PERIOD); break;
+            case ' ': pressAndRelease(KeyCode.SPACE); break;
 
 
-            case '~': pressAndRelease(VK_SHIFT, VK_BACK_QUOTE); break;
-            case '!': pressAndRelease(VK_SHIFT, VK_1); break;
-            case '@': pressAndRelease(VK_SHIFT, VK_2); break; 
-            case '#': pressAndRelease(VK_SHIFT, VK_3); break; 
-            case '$': pressAndRelease(VK_SHIFT, VK_4); break; 
-            case '%': pressAndRelease(VK_SHIFT, VK_5); break; 
-            case '^': pressAndRelease(VK_SHIFT, VK_6); break; 
-            case '&': pressAndRelease(VK_SHIFT, VK_7); break; 
-            case '*': pressAndRelease(VK_SHIFT, VK_8); break; 
-            case '(': pressAndRelease(VK_SHIFT, VK_9); break; 
-            case ')': pressAndRelease(VK_SHIFT, VK_0); break;
-            case '_': pressAndRelease(VK_SHIFT, VK_MINUS); break;  
-            case '+': pressAndRelease(VK_SHIFT, VK_EQUALS); break;  
+            case ':': pressAndRelease(KeyCode.COLON); break;
+            case '~': pressAndRelease(KeyCode.SHIFT, KeyCode.BACK_QUOTE); break;
+            case '!': pressAndRelease(KeyCode.SHIFT, KeyCode.DIGIT1); break;
+            case '@': pressAndRelease(KeyCode.SHIFT, KeyCode.DIGIT2); break;
+            case '#': pressAndRelease(KeyCode.SHIFT, KeyCode.DIGIT3); break;
+            case '$': pressAndRelease(KeyCode.SHIFT, KeyCode.DIGIT4); break;
+            case '%': pressAndRelease(KeyCode.SHIFT, KeyCode.DIGIT5); break;
+            case '^': pressAndRelease(KeyCode.SHIFT, KeyCode.DIGIT6); break;
+            case '&': pressAndRelease(KeyCode.SHIFT, KeyCode.DIGIT7); break;
+            case '*': pressAndRelease(KeyCode.SHIFT, KeyCode.DIGIT8); break;
+            case '(': pressAndRelease(KeyCode.SHIFT, KeyCode.DIGIT9); break;
+            case ')': pressAndRelease(KeyCode.SHIFT, KeyCode.DIGIT0); break;
+            case '_': pressAndRelease(KeyCode.SHIFT, KeyCode.MINUS); break;
+            case '+': pressAndRelease(KeyCode.SHIFT, KeyCode.EQUALS); break;
+            case '{': pressAndRelease(KeyCode.SHIFT, KeyCode.OPEN_BRACKET); break;
+            case '}': pressAndRelease(KeyCode.SHIFT, KeyCode.CLOSE_BRACKET); break;
 
-            case '|': pressAndRelease(VK_SHIFT, VK_BACK_SLASH); break; 
-            case '?': pressAndRelease(VK_SHIFT, VK_SLASH); break; 
+            case '|': pressAndRelease(KeyCode.SHIFT, KeyCode.BACK_SLASH); break;
+            case '?': pressAndRelease(KeyCode.SHIFT, KeyCode.SLASH); break;
 
             default:
                 throw new IllegalArgumentException("Cannot press character " + c);
         }
-        
     }
 
-    private void pressAndRelease(int... keyCodes)
+    private void pressAndRelease(KeyCode... keyCodes)
     {
-        for(int key : keyCodes)
+        for(KeyCode key : keyCodes)
         {
-            press(key);
+            robot.keyPress(key);
         }
 
-        for(int key : keyCodes)
+        for(KeyCode key : keyCodes)
         {
-            release(key);
+            robot.keyRelease(key);
         }
-    }
-    
-    private void press(int keyCode)
-    {
-        robot.keyPress(keyCode);
-    }
-
-    private void release(int keyCode)
-    {
-        robot.keyRelease(keyCode);
     }
 }
 

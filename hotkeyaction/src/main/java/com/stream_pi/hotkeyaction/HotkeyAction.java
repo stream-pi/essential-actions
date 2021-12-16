@@ -66,6 +66,7 @@ public class HotkeyAction extends NormalAction
                 .toUpperCase()
                 .replace("?","SHIFT,/")
                 .replace("|","SHIFT,\\")
+                .replace("%","SHIFT,5")
                 .split(",");
 
         ArrayList<KeyCode> pressedChars = new ArrayList<>();
@@ -131,7 +132,9 @@ public class HotkeyAction extends NormalAction
             case "2": return DIGIT2;
             case "3": return DIGIT3;
             case "4": return DIGIT4;
-            case "5": return DIGIT5;
+            case "5":
+            case "%":
+                return DIGIT5;
             case "6": return DIGIT6;
             case "7": return DIGIT7;
             case "8": return DIGIT8;
@@ -140,9 +143,9 @@ public class HotkeyAction extends NormalAction
             case "=": return EQUALS;
             case "!": return EXCLAMATION_MARK; 
             case "@": return AT; 
-            case "#": return NUMBER_SIGN; 
+            case "#": return NUMBER_SIGN;
             case "$": return DOLLAR;
-            case "^": return CIRCUMFLEX; 
+            case "^": return CIRCUMFLEX;
             case "&": return AMPERSAND; 
             case "*": return ASTERISK; 
             case "(": return LEFT_PARENTHESIS; 
@@ -162,6 +165,8 @@ public class HotkeyAction extends NormalAction
             case ">": return GREATER;
             case "/": return SLASH; 
             case "SPACE": return SPACE;
+
+            case "BACK SPACE": return BACK_SPACE;
 
             case "WIN":
             case "WINDOWS":

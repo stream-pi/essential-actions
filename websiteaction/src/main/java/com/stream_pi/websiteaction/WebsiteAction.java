@@ -18,13 +18,13 @@ public class WebsiteAction extends NormalAction
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-globe");
         setHelpLink("https://github.com/stream-pi/essentialactions");
-        setVersion(new Version(1,0,1));
+        setVersion(new Version(2,0,0));
     }
 
     @Override
     public void initProperties() throws MinorException
     {
-        Property websiteUrl = new Property("websiteURL", Type.STRING);
+        Property websiteUrl = new Property("url", Type.STRING);
         websiteUrl.setDisplayName("Website URL");
         websiteUrl.setDefaultValueStr("https://stream-pi.com/");
         websiteUrl.setCanBeBlank(false);
@@ -35,22 +35,8 @@ public class WebsiteAction extends NormalAction
     @Override
     public void onActionClicked() throws MinorException
     {
-        Property website = getClientProperties().getSingleProperty("websiteURL");
-
-        String urlToOpen = website.getStringValue();
-
-        if(!urlToOpen.startsWith("https://") && !urlToOpen.startsWith("http://"))
-        {
-            urlToOpen = "https://" + urlToOpen;
-        }
-
-        try
-        {
-            Desktop.getDesktop().browse(new URI(urlToOpen));
-        }
-        catch (Exception e)
-        {
-            throw new MinorException("Unable to open URL '"+urlToOpen+"'. Check if its correct.");
-        }
+        getHostServices().showDocument(
+                getClientProperties().getSingleProperty("url").getStringValue()
+        );
     }
 }

@@ -77,6 +77,7 @@ Hotkey mapping plugin | Keyboard Key |
  \>                   | <kbd>></kbd>            | 
  /                    | <kbd>/</kbd>            |  
 SPACE                 | <kbd>SPACE</kbd>          | 
+BACK SPACE            | <kbd>BACK SPACE</kbd>          | 
 WINDOWS, SUPER, COMMAND, WIN               | <kbd>⊞</kbd> <kbd>⌘</kbd>          |
 META                  | <kbd>META</kbd>         | 
 SHIFT                 | <kbd>SHIFT</kbd>        | 
