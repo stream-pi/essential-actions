@@ -10,6 +10,13 @@ hotkeyaction() {
   popd || exit
 }
 
+clockaction() {
+  pushd . || exit
+  cd clockaction && mvn clean -Dmaven.test.skip package
+  mv target/clockaction-*.jar ../$FOLD/clockaction.jar
+  popd || exit
+}
+
 mediakeyaction() {
   pushd . || exit
   cd mediakeyaction && mvn clean -Dmaven.test.skip package
@@ -174,6 +181,9 @@ cp $DEPS/* $FOLD/
 case "$1" in
 hotkeyaction)
   hotkeyaction
+  ;;
+clockaction)
+  clockaction
   ;;
 mediakeyaction)
   mediakeyaction

@@ -33,3 +33,6 @@ openfile:
 
 runexecutable:
 	./build.sh runexecutableaction
+
+clock:
+	./build.sh clockaction

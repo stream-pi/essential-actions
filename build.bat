@@ -19,6 +19,7 @@ if "%1%"=="twitter" (goto twitteraction)
 if "%1%"=="website" (goto websiteaction)
 if "%1%"=="openfile" (goto openfileaction)
 if "%1%"=="runexecutable" (goto runexecutableaction)
+if "%1%"=="clock" (goto clockaction)
 
 if NOT "%1%"=="" (
     echo Invalid argument %1%
@@ -194,5 +195,13 @@ pushd %CD%
 cd runexecutableaction
 call mvn clean -Dmaven.test.skip package
 move target\runexecutableaction-*.jar ..\%FOLD%\runexecutableaction.jar
+popd
+if "%quit%" == "true" (EXIT /B 0)
+
+:clockaction
+pushd %CD%
+cd clockaction
+call mvn clean -Dmaven.test.skip package
+move target\clockaction-*.jar ..\%FOLD%\clockaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
