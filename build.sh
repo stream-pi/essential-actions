@@ -10,10 +10,10 @@ hotkeyaction() {
   popd || exit
 }
 
-clockaction() {
+digitalclockaction() {
   pushd . || exit
-  cd clockaction && mvn clean -Dmaven.test.skip package
-  mv target/clockaction-*.jar ../$FOLD/clockaction.jar
+  cd digitalclockaction && mvn clean -Dmaven.test.skip package
+  mv target/digitalclockaction-*.jar ../$FOLD/digitalclockaction.jar
   popd || exit
 }
 
@@ -182,8 +182,8 @@ case "$1" in
 hotkeyaction)
   hotkeyaction
   ;;
-clockaction)
-  clockaction
+digitalclockaction)
+  digitalclockaction
   ;;
 mediakeyaction)
   mediakeyaction

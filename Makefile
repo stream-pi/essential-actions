@@ -34,5 +34,5 @@ openfile:
 runexecutable:
 	./build.sh runexecutableaction
 
-clock:
-	./build.sh clockaction
+digitalclock:
+	./build.sh digitalclockaction

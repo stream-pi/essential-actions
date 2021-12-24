@@ -19,7 +19,7 @@ if "%1%"=="twitter" (goto twitteraction)
 if "%1%"=="website" (goto websiteaction)
 if "%1%"=="openfile" (goto openfileaction)
 if "%1%"=="runexecutable" (goto runexecutableaction)
-if "%1%"=="clock" (goto clockaction)
+if "%1%"=="digitalclock" (goto digitalclockaction)
 
 if NOT "%1%"=="" (
     echo Invalid argument %1%
@@ -198,10 +198,10 @@ move target\runexecutableaction-*.jar ..\%FOLD%\runexecutableaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
-:clockaction
+:digitalclockaction
 pushd %CD%
-cd clockaction
+cd digitalclockaction
 call mvn clean -Dmaven.test.skip package
-move target\clockaction-*.jar ..\%FOLD%\clockaction.jar
+move target\digitalclockaction-*.jar ..\%FOLD%\digitalclockaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
