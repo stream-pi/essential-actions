@@ -1,6 +1,6 @@
 # Hotkey Action plugin
 
-![version](https://img.shields.io/badge/Version-2.0.1-green)
+![version](https://img.shields.io/badge/Version-3.0.0-green)
 
 This plugin allows map and execute keyboard shortcuts
 
