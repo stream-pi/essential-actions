@@ -1,10 +1,23 @@
-# Hotkey Action plugin
+# Hotkey Action
 
 ![version](https://img.shields.io/badge/Version-3.0.0-green)
 
-This plugin allows map and execute keyboard shortcuts
+This action allows you to execute hotkeys.
 
-## Keyboard Mapping Reference to Hotkey Action
+### Note for Linux users
+
+Some keys like `SHIFT` and `SUPER` do not work on Linux systems.
+[This is a known bug](https://bugs.openjdk.java.net/browse/JDK-8025986) 
+and is an issue with JavaFX `Robot` rather than this action.
+
+Since the issue itself looks abandoned, a better solution
+would be to use a different way of handling keys.
+
+A better solution would be to shift to `xdotool` on Linux, but
+it is not a perfect solution since it will not work on Wayland Systems.
+
+
+## List of supported keys
 
 The following table shows the relation between our keyboard and what we have to type on the plugin field to fire the hotkeys we want:
 
@@ -144,8 +157,4 @@ ESC, ESCAPE           | <kbd>ESC</kbd> |
 
 To create a new hotkey, just drag the hotkey feature to the desired button and in the field `Key combination (separate using comma)` just type your combination. 
 
-Example: in ubuntu 20.04 for opening terminal just type `CONTROL,ALT,T` 
-
-
-## Known issues: 
-- `WINDOWS` or `SUPER` or `META` key in Linux distros does not work.
+Example: `ALT,CTRL,T`
