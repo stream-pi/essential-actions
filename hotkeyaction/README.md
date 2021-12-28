@@ -4,9 +4,9 @@
 
 This action allows you to execute hotkeys.
 
-### Note for Linux users
+### Note for Linux and macOS users
 
-Some keys like `SHIFT` and `SUPER` do not work on Linux systems.
+Some keys like `SHIFT` and `SUPER` do not work on these systems.
 [This is a known bug](https://bugs.openjdk.java.net/browse/JDK-8025986) 
 and is an issue with JavaFX `Robot` rather than this action.
 
@@ -14,7 +14,7 @@ Since the issue itself looks abandoned, a better solution
 would be to use a different way of handling keys.
 
 A better solution would be to shift to `xdotool` on Linux, but
-it is not a perfect solution since it will not work on Wayland Systems.
+it is not a perfect solution since it will not work on Linux systems using Wayland.
 
 
 ## List of supported keys
