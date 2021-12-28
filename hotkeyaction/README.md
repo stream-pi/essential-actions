@@ -13,7 +13,7 @@ and is an issue with JavaFX `Robot` rather than this action.
 Since the issue itself looks abandoned, a better solution
 would be to use a different way of handling keys.
 
-A better solution would be to shift to `xdotool` on Linux, but
+A better solution would be to shift to `xdotool`, but
 it is not a perfect solution since it will not work on Linux systems using Wayland.
 
 
