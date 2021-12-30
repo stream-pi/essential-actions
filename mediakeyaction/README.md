@@ -1,8 +1,10 @@
 # Media Key Action
 
-Control playback with the following media keys:
+![version](https://img.shields.io/badge/Version-1.1.1-green)
 
-- Play / Pause toggle
+Controls playback with the following media keys:
+
+- Play / Pause
 - Stop
 - Mute
 - Play Previous Track
@@ -12,11 +14,11 @@ Control playback with the following media keys:
 
 ## Dependencies
 
-### Linux and MacOS
+### Linux and macOS
 
 This action needs [xdotool](https://github.com/jordansissel/xdotool) to be installed.
 
-On MacOS, this can be installed via homebrew
+On macOS, this can be installed via homebrew
 
 ```
 brew install xdotool
