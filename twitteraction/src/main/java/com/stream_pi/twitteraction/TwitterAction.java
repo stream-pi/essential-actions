@@ -55,7 +55,17 @@ public class TwitterAction extends NormalAction
             {
                 try
                 {
-                    loginAsNewUser();
+                    saveServerPropertiesProvidedByUser();
+
+                    if (getServerProperties().getSingleProperty("consumer_key").getStringValue().isBlank() ||
+                    getServerProperties().getSingleProperty("consumer_key_secret").getStringValue().isBlank())
+                    {
+                        throw new MinorException("Please provide a API Key & API Key Secret before proceeding!");
+                    }
+                    else
+                    {
+                        loginAsNewUser();
+                    }
                 }
                 catch (Exception e)
                 {
@@ -103,11 +113,9 @@ public class TwitterAction extends NormalAction
         oAuthConsumerKeySecret.setDisplayName("API Key Secret");
 
         Property oAuthAccessToken = new Property("access_token", Type.STRING);
-        oAuthAccessToken.setDisplayName("Access Token");
         oAuthAccessToken.setVisible(false);
 
         Property oAuthAccessTokenSecret = new Property("access_token_secret", Type.STRING);
-        oAuthAccessTokenSecret.setDisplayName("Access Token Secret");
         oAuthAccessTokenSecret.setVisible(false);
 
         addServerProperties(
@@ -246,6 +254,12 @@ public class TwitterAction extends NormalAction
                 getServerProperties().getSingleProperty("access_token").getStringValue(),
                 getServerProperties().getSingleProperty("access_token_secret").getStringValue()
         );
+    }
+
+    @Override
+    public void onServerPropertiesSavedByUser() throws MinorException
+    {
+        initAction();
     }
 
     public void setNewTwitterConfig(String consumerKey, String consumerKeySecret, String accessToken, String accessTokenSecret) throws MinorException
