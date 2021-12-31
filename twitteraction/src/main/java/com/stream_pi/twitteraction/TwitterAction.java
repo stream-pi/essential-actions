@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.User;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
@@ -32,6 +33,8 @@ public class TwitterAction extends NormalAction
 
     Button loginAsNewUserButton, logoutButton;
 
+    Label currentUser;
+
     public TwitterAction()
     {
         setName("Tweet");
@@ -39,8 +42,10 @@ public class TwitterAction extends NormalAction
         setAuthor("rnayabed");
         setServerButtonGraphic("fab-twitter");
         setHelpLink("https://github.com/stream-pi/essentialactions");
-        setVersion(new Version(1,0,2));
+        setVersion(new Version(2,0,0));
 
+
+        currentUser = new Label();
 
         loginAsNewUserButton = new Button("Login as new user");
 
@@ -48,22 +53,15 @@ public class TwitterAction extends NormalAction
             @Override
             protected Void call()
             {
-                try {
-                    Platform.runLater(()->{
-                        loginAsNewUserButton.setDisable(true);
-                        logoutButton.setDisable(true);
-                    });
-
+                try
+                {
                     loginAsNewUser();
-                } catch (Exception e) {
-                    Platform.runLater(()-> {
-
-                        Platform.runLater(()->{
-                            loginAsNewUserButton.setDisable(false);
-                            logoutButton.setDisable(false);
-                        });
-
+                }
+                catch (Exception e)
+                {
+                    Platform.runLater(()->{
                         new StreamPiAlert(e.getMessage(), StreamPiAlertType.ERROR).show();
+                        loginAsNewUserButton.setDisable(false);
                     });
                     e.printStackTrace();
                 }
@@ -77,28 +75,20 @@ public class TwitterAction extends NormalAction
             @Override
             protected Void call()
             {
-                try {
-                    Platform.runLater(()->{
-                        loginAsNewUserButton.setDisable(false);
-                        logoutButton.setDisable(false);
-                    });
-
+                try
+                {
                     logout();
-                } catch (Exception e) {
-                    Platform.runLater(()-> {
-                        Platform.runLater(()->{
-                            loginAsNewUserButton.setDisable(false);
-                            logoutButton.setDisable(false);
-                        });
-
-                        new StreamPiAlert(e.getMessage(), StreamPiAlertType.ERROR).show();
-                    });
+                }
+                catch (Exception e)
+                {
+                    Platform.runLater(()-> new StreamPiAlert(e.getMessage(), StreamPiAlertType.ERROR).show());
                     e.printStackTrace();
                 }
                 return null;
             }
         }).start());
 
+        setServerSettingsNodes(currentUser);
         setServerSettingsButtonBar(loginAsNewUserButton, logoutButton);
     }
 
@@ -143,20 +133,22 @@ public class TwitterAction extends NormalAction
     public void loginAsNewUser() throws Exception
     {
         logout();
-
+        Platform.runLater(()-> loginAsNewUserButton.setDisable(true));
         getAuthToken();
     }
 
     public void logout() throws Exception
     {
-        setNewTwitterConfig(
-                getServerProperties().getSingleProperty("consumer_key").getStringValue(),
-                getServerProperties().getSingleProperty("consumer_key_secret").getStringValue(),
-                null,null
-        );
+        getServerProperties().getSingleProperty("access_token").setStringValue(null);
+        getServerProperties().getSingleProperty("access_token_secret").setStringValue(null);
+
+        saveServerProperties();
+
+        initAction();
     }
 
-    public void getAuthToken() throws Exception {
+    public void getAuthToken() throws Exception
+    {
         RequestToken requestToken = tf.getInstance().getOAuthRequestToken();
 
         StreamPiAlertButton cancel = new StreamPiAlertButton("Cancel");
@@ -173,13 +165,19 @@ public class TwitterAction extends NormalAction
 
 
 
-
         Platform.runLater(()->{
             try
             {
                 StreamPiAlert alert =  new StreamPiAlert("Authorise App", StreamPiAlertType.INFORMATION, cancel, login);
 
-                VBox vBox = new VBox(new Label("Go the following Link below, authorise app and then enter the PIN Below"), authURLTextArea, textBox);
+                getHostServices().showDocument(requestToken.getAuthorizationURL());
+
+                Label l = new Label("If below link does not open automatically, go to the link, authorise app and then enter the PIN below");
+                l.setWrapText(true);
+
+                authURLTextArea.setPrefHeight(Double.NEGATIVE_INFINITY);
+
+                VBox vBox = new VBox(l, authURLTextArea, textBox);
                 vBox.setSpacing(5.0);
 
                 alert.setAlertContent(vBox);
@@ -195,16 +193,25 @@ public class TwitterAction extends NormalAction
                         {
                             if(buttonClicked.equals(login))
                             {
-                                AccessToken accessToken = tf.getInstance().getOAuthAccessToken(requestToken, pinTextField.getText());
+                                submitToExecutorService(()->{
 
-                                getServerProperties().getSingleProperty("access_token").setStringValue(accessToken.getToken());
-                                getServerProperties().getSingleProperty("access_token_secret").setStringValue(accessToken.getTokenSecret());
-        
-                                saveServerProperties();
-        
-                                initAction();
+                                    try {
+                                        AccessToken accessToken = tf.getInstance().getOAuthAccessToken(requestToken, pinTextField.getText());
 
-                                new StreamPiAlert("Success", "Login Successful!", StreamPiAlertType.INFORMATION).show();
+                                        getServerProperties().getSingleProperty("access_token").setStringValue(accessToken.getToken());
+                                        getServerProperties().getSingleProperty("access_token_secret").setStringValue(accessToken.getTokenSecret());
+
+                                        saveServerProperties();
+
+                                        initAction();
+
+                                        new StreamPiAlert("Success", "Login Successful!", StreamPiAlertType.INFORMATION).show();
+                                    }
+                                    catch (Exception e)
+                                    {
+                                        throwMinorException(e.getMessage());
+                                    }
+                                });
                             }
                             else
                             {
@@ -224,10 +231,6 @@ public class TwitterAction extends NormalAction
                 new StreamPiAlert(e.getMessage(), StreamPiAlertType.ERROR).show();
                 e.printStackTrace();
             }
-            finally
-            {
-                loginAsNewUserButton.setDisable(false);
-            }
         });
 
     }
@@ -245,17 +248,62 @@ public class TwitterAction extends NormalAction
         );
     }
 
-    public void setNewTwitterConfig(String consumerKey, String consumerKeySecret, String accessToken, String accessTokenSecret)
+    public void setNewTwitterConfig(String consumerKey, String consumerKeySecret, String accessToken, String accessTokenSecret) throws MinorException
     {
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-                .setOAuthConsumerKey(consumerKey)
-                .setOAuthConsumerSecret(consumerKeySecret)
-                .setOAuthAccessToken(accessToken)
-                .setOAuthAccessTokenSecret(accessTokenSecret);
+        try
+        {
+            Platform.runLater(()->{
+                logoutButton.setDisable(true);
+                loginAsNewUserButton.setDisable(true);
+            });
+
+            ConfigurationBuilder cb = new ConfigurationBuilder();
+            cb.setDebugEnabled(true)
+                    .setOAuthConsumerKey(consumerKey)
+                    .setOAuthConsumerSecret(consumerKeySecret)
+                    .setOAuthAccessToken(accessToken)
+                    .setOAuthAccessTokenSecret(accessTokenSecret);
 
 
-        tf = new TwitterFactory(cb.build());
+            tf = new TwitterFactory(cb.build());
+
+
+            submitToExecutorService(()->{
+                try
+                {
+                    if (accessTokenSecret == null || accessTokenSecret.isBlank())
+                    {
+                        Platform.runLater(()->{
+                            currentUser.setText(null);
+
+                            logoutButton.setDisable(true);
+                            loginAsNewUserButton.setDisable(false);
+                        });
+                    }
+                    else
+                    {
+                        Platform.runLater(()->{
+                            logoutButton.setDisable(false);
+                            loginAsNewUserButton.setDisable(true);
+
+                            currentUser.setText("Loading user details ...");
+                        });
+
+                        User user = tf.getInstance().showUser(tf.getInstance().getId());
+                        Platform.runLater(()->currentUser.setText("Logged in as "+user.getName()+" (@"+user.getScreenName()+")"));
+                    }
+                }
+                catch (TwitterException e)
+                {
+                    Platform.runLater(()-> currentUser.setText(null));
+                    throwMinorException(e.getMessage());
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            throw new MinorException(e.getMessage());
+        }
     }
 
     @Override

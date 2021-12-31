@@ -6,7 +6,7 @@
 
     <groupId>com.stream-pi</groupId>
     <artifactId>twitteraction</artifactId>
-    <version>1.0.2</version>
+    <version>2.0.0</version>
 
     <build>
         <plugins>
@@ -37,7 +37,7 @@
     </build>
 
     <properties>
-        <ActionAPIVersion>1.0.0-SNAPSHOT</ActionAPIVersion>
+        <ActionAPIVersion>2.0.0-SNAPSHOT</ActionAPIVersion>
 
         <Twitter4JVersion>4.0.7</Twitter4JVersion>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
