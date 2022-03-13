@@ -41,6 +41,7 @@ Action Name           | Build Script Argument   |
  Twitch               | `twitch_chat`           | 
  Open File            | `openfile`              | 
  Twitter              | `twitter`               | 
- Website              | `website`               | 
+ Website              | `website`               |
+ Webhook              | `webhook`               |
  Run Executable       | `runexecutable`         | 
  

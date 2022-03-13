@@ -160,6 +160,13 @@ websiteaction() {
   popd || exit
 }
 
+webhookaction() {
+  pushd . || exit
+  cd webhookaction && mvn clean -Dmaven.test.skip package
+  mv target/webhookaction-*.jar ../$FOLD/webhookaction.jar
+  popd || exit
+}
+
 openfileaction() {
   pushd . || exit
   cd openfileaction && mvn clean -Dmaven.test.skip package
@@ -209,6 +216,9 @@ twitteraction)
 websiteaction)
   websiteaction
   ;;
+webhookaction)
+  webhookaction
+  ;;
 openfileaction)
   openfileaction
   ;;
@@ -226,6 +236,7 @@ runexecutableaction)
   twitch
   twitteraction
   websiteaction
+  webhookaction
   openfileaction
   runexecutableaction
   ;;

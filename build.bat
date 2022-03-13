@@ -17,6 +17,7 @@ if "%1%"=="textblock" (goto textblockaction)
 if "%1%"=="twitch-talk" (goto twitch)
 if "%1%"=="twitter" (goto twitteraction)
 if "%1%"=="website" (goto websiteaction)
+if "%1%"=="webhook" (goto webhookaction)
 if "%1%"=="openfile" (goto openfileaction)
 if "%1%"=="runexecutable" (goto runexecutableaction)
 if "%1%"=="digitalclock" (goto digitalclockaction)
@@ -179,6 +180,14 @@ pushd %CD%
 cd websiteaction
 call mvn clean -Dmaven.test.skip package
 move target\websiteaction-*.jar ..\%FOLD%\websiteaction.jar
+popd
+if "%quit%" == "true" (EXIT /B 0)
+
+:webhookaction
+pushd %CD%
+cd webhookaction
+call mvn clean -Dmaven.test.skip package
+move target\webhookaction-*.jar ..\%FOLD%\webhookaction.jar
 popd
 if "%quit%" == "true" (EXIT /B 0)
 
