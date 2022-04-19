@@ -12,9 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class WebhookAction extends NormalAction
@@ -26,7 +24,7 @@ public class WebhookAction extends NormalAction
         setAuthor("rnayabed");
         setServerButtonGraphic("fas-cloud-upload-alt");
         setHelpLink("https://github.com/stream-pi/essentialactions");
-        setVersion(new Version(1,0,0));
+        setVersion(new Version(2,0,0));
     }
 
     @Override
@@ -42,6 +40,10 @@ public class WebhookAction extends NormalAction
                 new ListValue(RequestMethod.GET, RequestMethod.GET.getDisplayName())
         ));
 
+        BooleanProperty useInsecureConnection = new BooleanProperty("use_insecure_connection");
+        useInsecureConnection.setDisplayName("Use insecure connection");
+        useInsecureConnection.setDefaultValueBoolean(false);
+
         BooleanProperty ignoreErrorResponse = new BooleanProperty("ignore_error_response");
         ignoreErrorResponse.setDisplayName("Ignore error response");
 
@@ -56,7 +58,7 @@ public class WebhookAction extends NormalAction
         userAgent.setDefaultValue("Stream-Pi Webhook");
 
 
-        addClientProperties(url, requestMethod, ignoreErrorResponse, payload, contentType, userAgent);
+        addClientProperties(url, requestMethod, useInsecureConnection, ignoreErrorResponse, payload, contentType, userAgent);
     }
 
     @Override
@@ -68,6 +70,7 @@ public class WebhookAction extends NormalAction
             executeWebhook(
                     clientProperties.getSingleProperty("url").getStringValue(),
                     (RequestMethod) clientProperties.getSingleProperty("request_method").getSelectedListValue().getName(),
+                    clientProperties.getSingleProperty("use_insecure_connection").getBoolValue(),
                     clientProperties.getSingleProperty("ignore_error_response").getBoolValue(),
                     clientProperties.getSingleProperty("payload").getStringValue(),
                     clientProperties.getSingleProperty("content_type").getStringValue(),
@@ -99,39 +102,51 @@ public class WebhookAction extends NormalAction
 
     private void executeWebhook(String url,
                                 RequestMethod requestMethod,
+                                boolean useInsecureConnection,
                                 boolean ignoreErrorResponse,
                                 String payload,
                                 String contentType,
                                 String userAgent)
             throws IOException
     {
-        HttpsURLConnection connection = (HttpsURLConnection) new URL(url).openConnection();
-        connection.addRequestProperty("Content-Type", contentType);
-        connection.addRequestProperty("User-Agent", userAgent);
+        HttpURLConnection insecureConnection = null;
+        HttpsURLConnection secureConnection = null;
+
+        if (useInsecureConnection)
+        {
+            insecureConnection = (HttpURLConnection) new URL(url).openConnection();
+        }
+        else
+        {
+            secureConnection = (HttpsURLConnection) new URL(url).openConnection();
+        }
+
+        (useInsecureConnection ? insecureConnection : secureConnection).addRequestProperty("Content-Type", contentType);
+        (useInsecureConnection ? insecureConnection : secureConnection).addRequestProperty("User-Agent", userAgent);
 
 
         if(requestMethod == RequestMethod.GET)
         {
-            connection.setRequestMethod("GET");
-            connection.setDoOutput(false);
+            (useInsecureConnection ? insecureConnection : secureConnection).setRequestMethod("GET");
+            (useInsecureConnection ? insecureConnection : secureConnection).setDoOutput(false);
         }
         else
         {
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
+            (useInsecureConnection ? insecureConnection : secureConnection).setRequestMethod("POST");
+            (useInsecureConnection ? insecureConnection : secureConnection).setDoOutput(true);
         }
 
-        OutputStream stream = connection.getOutputStream();
+        OutputStream stream = (useInsecureConnection ? insecureConnection : secureConnection).getOutputStream();
         stream.write(payload.getBytes());
         stream.flush();
 
         stream.close();
 
-        int responseCode = connection.getResponseCode();
+        int responseCode = (useInsecureConnection ? insecureConnection : secureConnection).getResponseCode();
 
         if (responseCode >= 400 && !ignoreErrorResponse)
         {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getErrorStream()));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader((useInsecureConnection ? insecureConnection : secureConnection).getErrorStream()));
 
             String inputLine;
             StringBuilder response = new StringBuilder();
